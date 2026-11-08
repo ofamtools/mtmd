@@ -379,6 +379,11 @@ type Daemon struct {
 	// with the resurrect verb.
 	disableAutoRestore bool
 
+	// orphanSweepAt is when the cold log orphans were last swept; the sweep
+	// runs at most hourly. See scrollback_orphans.go.
+	orphanSweepMu sync.Mutex
+	orphanSweepAt time.Time
+
 	// foreground and logFile are the logging settings this daemon was started
 	// with. Run installs them; see logsink.go.
 	foreground bool
@@ -1549,6 +1554,9 @@ func (d *Daemon) Start() error {
 	if !d.disableAutoRestore {
 		d.restoreAllSessions()
 	}
+	// The restore has claimed the logs of the panes that came back; the rest
+	// that have outlived their grace period go, and a crash's get their clock.
+	d.sweepColdOrphans(time.Now())
 
 	// The Inbox comes back after the sessions do, since what it keeps is
 	// decided by which sessions and panes came back.
@@ -2414,6 +2422,7 @@ func (d *Daemon) cleanupOnce() bool {
 	waiting := len(d.pendingRequests) > 0
 	d.pendingRequestsMu.Unlock()
 	d.releaseReflowScratch()
+	d.sweepColdOrphansIfDue(now)
 	d.enforceColdTotal()
 	// A flood of output that has ended leaves its garbage and its
 	// peak heap goal behind, and an idle daemon runs no collection to

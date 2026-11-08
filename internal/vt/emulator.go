@@ -746,6 +746,15 @@ func (e *Emulator) SetScrollbackEvictHook(fn func(EncodedRow)) {
 	}
 }
 
+// ScrollbackEncodedRow returns the main screen's scrollback line at index,
+// oldest first, as an EncodedRow: see Scrollback.EncodedRowAt.
+func (e *Emulator) ScrollbackEncodedRow(index int) (EncodedRow, bool) {
+	if sb := e.scrs[0].Scrollback(); sb != nil {
+		return sb.EncodedRowAt(index)
+	}
+	return EncodedRow{}, false
+}
+
 // WidthMethod returns the width method used by the terminal.
 //
 // It is always grapheme width, because that is what handleGrapheme measures

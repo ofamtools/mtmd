@@ -124,6 +124,21 @@ type savedHistory struct {
 	// everything else a running program set are left out: the history comes
 	// back as something to read, under a new shell that sets its own.
 	State *TerminalState
+	// ColdTail, when HasColdTail, is the id in the pane's cold log of the
+	// first history row State holds. The restored pane's ring starts there,
+	// whatever the log holds by then.
+	ColdTail    uint64
+	HasColdTail bool
+}
+
+// coldTail is the cold log id of the first row of h, nil when h does not
+// say (a file from before the log, or no file).
+func (h *savedHistory) coldTail() *uint64 {
+	if h == nil || !h.HasColdTail {
+		return nil
+	}
+	t := h.ColdTail
+	return &t
 }
 
 // restoreSpec marks a pane being made for a restored window. A nil one is a
@@ -343,7 +358,7 @@ func historyWanted(w WindowState) bool {
 // savedAt is the time the file records, which the divider shows on restore.
 func (s *Session) saveOnePane(sessionName, windowID string, pty *PTY, pol HistoryPolicy, savedAt time.Time) (int64, error) {
 	budget := min(pol.Bytes, historySessionBytes-otherHistoryBytes(sessionName, windowID))
-	rows, seq := pty.captureHistory(pol.Lines)
+	rows, seq, end, hasEnd := pty.captureHistoryEnd(pol.Lines)
 	if rows == nil {
 		return seq, nil
 	}
@@ -351,7 +366,11 @@ func (s *Session) saveOnePane(sessionName, windowID string, pty *PTY, pol Histor
 	var data []byte
 	for range 4 {
 		var err error
-		data, err = encodeHistory(&savedHistory{Version: historyVersion, SavedAt: savedAt, State: rows.State(lines)})
+		h := &savedHistory{Version: historyVersion, SavedAt: savedAt, State: rows.State(lines)}
+		if hasEnd {
+			h.ColdTail, h.HasColdTail = end-uint64(min(lines, rows.Len())), true
+		}
+		data, err = encodeHistory(h)
 		if err != nil {
 			return seq, err
 		}
@@ -374,12 +393,19 @@ func (s *Session) saveOnePane(sessionName, windowID string, pty *PTY, pol Histor
 	if data == nil {
 		debugLog("[DEBUG] pane %s history does not fit in %d bytes, not saved", shortID(windowID), budget)
 		_ = os.Remove(path)
+		pty.cold.noteTail(0, false)
 		return seq, nil
 	}
 	if historyWriteHook != nil {
 		historyWriteHook(sessionName, windowID)
 	}
-	return seq, writePrivateFile(path, data)
+	if err := writePrivateFile(path, data); err != nil {
+		return seq, err
+	}
+	if hasEnd {
+		pty.cold.noteTail(end-uint64(min(lines, rows.Len())), true)
+	}
+	return seq, nil
 }
 
 // historyWriteHook, when set, is told of every history file about to be
@@ -486,12 +512,22 @@ func (p *PTY) consumedSeq() int64 {
 // history rows, and the stream position it was read at. This is all that
 // holds the emulator's lock; see snapshot.History.State for the rest.
 func (p *PTY) captureHistory(lines int) (*snapshot.History, int64) {
+	rows, seq, _, _ := p.captureHistoryEnd(lines)
+	return rows, seq
+}
+
+// captureHistoryEnd is captureHistory, and also the cold log id one past the
+// newest history row it read, when the pane has a cold log to number them by.
+func (p *PTY) captureHistoryEnd(lines int) (rows *snapshot.History, seq int64, end uint64, ok bool) {
 	p.terminalMu.RLock()
 	defer p.terminalMu.RUnlock()
 	if p.terminal == nil {
-		return nil, p.vtSeq
+		return nil, p.vtSeq, 0, false
 	}
-	return snapshot.CaptureHistory(p.terminal, lines), p.vtSeq
+	if p.cold != nil {
+		end, ok = p.cold.ringStart()+uint64(p.terminal.ScrollbackLen()), true
+	}
+	return snapshot.CaptureHistory(p.terminal, lines), p.vtSeq, end, ok
 }
 
 func encodeHistory(h *savedHistory) ([]byte, error) {

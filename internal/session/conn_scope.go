@@ -133,6 +133,17 @@ var verbScopes = map[string]scopeKind{
 	"list-hooks":         scopeGlobal,
 	// search-panes takes a list of sessions, and every session without one.
 	"search-panes": scopeGlobal,
+	// The cold scrollback logs. Reading, keep and unkeep lose nothing, so a
+	// restricted caller has them. Adopting moves a log onto a pane and
+	// purging deletes: both are for the person, which purge-history-logs
+	// checks itself so that its dry_run stays open.
+	"list-history-logs":  scopeGlobal,
+	"show-history-log":   scopeGlobal,
+	"keep-history-log":   scopeGlobal,
+	"unkeep-history-log": scopeGlobal,
+	"purge-history-logs": scopeGlobal,
+	"adopt-history-log":  scopeDeny,
+	"adopt-history":      scopeDeny,
 
 	"session-info":    scopeRead,
 	"list-windows":    scopeRead,

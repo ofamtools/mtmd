@@ -2715,6 +2715,8 @@ func buildVerbRegistry() map[string]verbEntry {
 	// search-panes, command-history and list-ports. See verb_find.go and
 	// verb_ports.go.
 	maps.Copy(table, findVerbs())
+	// The cold scrollback log verbs. See verb_history_log.go.
+	maps.Copy(table, historyLogVerbs())
 	return table
 }
 

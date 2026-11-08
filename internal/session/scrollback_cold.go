@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 	"sync"
+	"sync/atomic"
 	"time"
 
 	"ofam.dev/mtmd/internal/coldlog"
@@ -113,35 +114,95 @@ type paneCold struct {
 	log    *coldlog.Log
 	failed bool // the log could not be opened or broke: the pane is as without one
 	done   bool // closed: no more rows are taken
+
+	// Row ids. The log's ids are global: the number of rows the pane let go
+	// of before a row. The ring's oldest row has id base+evicted, so the
+	// next row the hook reports is that one. base is guarded by mu.
+	base    uint64
+	evicted atomic.Uint64 // rows the hook has reported since base was set
+	// skip is how many of the next evictions are rows the log already holds
+	// (spilled whole at a close or handoff, or logged before a restart whose
+	// saved history starts earlier): they are counted and not written again.
+	// Written under the pane's terminalMu, like the hook.
+	skip atomic.Int64
+	// tail is the id of the first row of the history file saved last, 0 and
+	// tailOK false when there is none that a restart would restore.
+	tail   atomic.Uint64
+	tailOK atomic.Bool
 }
 
 func newPaneCold(pol ColdPolicy, windowID string, session func() string) *paneCold {
 	return &paneCold{pol: pol, windowID: windowID, session: session}
 }
 
+// ringStart is the id of the pane's oldest ring row.
+func (c *paneCold) ringStart() uint64 {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return c.base + c.evicted.Load()
+}
+
+// setStart says the ring's oldest row has id start, as of now.
+func (c *paneCold) setStart(start uint64) {
+	c.mu.Lock()
+	c.base = start
+	c.evicted.Store(0)
+	c.skip.Store(0)
+	c.mu.Unlock()
+}
+
+// diskNext is the id one past the last row the pane's log holds on disk, 0
+// when there is none.
+func (c *paneCold) diskNext() uint64 {
+	dir, err := coldDir(c.session(), c.windowID)
+	if err != nil {
+		return 0
+	}
+	r, err := coldlog.OpenReader(dir, 1)
+	if err != nil {
+		return 0
+	}
+	return r.Next()
+}
+
 // append is the evict hook. It runs under the pane's terminalMu, so it only
 // copies the row (Log.Append never blocks); the open at the first row is the
 // one exception.
 func (c *paneCold) append(r vt.EncodedRow) {
-	c.mu.RLock()
-	l := c.log
-	c.mu.RUnlock()
-	if l != nil {
-		l.Append(r)
+	defer c.evicted.Add(1)
+	if n := c.skip.Load(); n > 0 {
+		c.skip.Store(n - 1)
 		return
 	}
-	c.mu.Lock()
-	if c.log == nil && !c.failed && !c.done {
-		c.open()
+	l := c.openLog()
+	if n := c.skip.Load(); n > 0 {
+		// Opening found the log ahead of the ring: this row is in it.
+		c.skip.Store(n - 1)
+		return
 	}
-	l = c.log
-	c.mu.Unlock()
 	if l != nil {
 		l.Append(r)
 	}
 }
 
-// open opens the log. The caller holds c.mu.
+// openLog returns the open log, opening it first when the pane has none.
+func (c *paneCold) openLog() *coldlog.Log {
+	c.mu.RLock()
+	l := c.log
+	c.mu.RUnlock()
+	if l != nil {
+		return l
+	}
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	if c.log == nil && !c.failed && !c.done {
+		c.open()
+	}
+	return c.log
+}
+
+// open opens the log and brings its ids in line with the ring's. The caller
+// holds c.mu.
 func (c *paneCold) open() {
 	dir, err := coldDir(c.session(), c.windowID)
 	if err == nil {
@@ -156,6 +217,19 @@ func (c *paneCold) open() {
 	if err != nil {
 		c.failed = true
 		LogError("Scrollback log of window %s could not be opened, its history stays in memory only: %v", shortID(c.windowID), err)
+		return
+	}
+	// The ring's oldest row has this id. A log that ends before it lost the
+	// rows between (a crash, a history file that holds fewer rows than the
+	// ring did): they become a gap, so the ids after it stay the ring's. A
+	// log that ends after it already holds the first rows of the ring (the
+	// history file is older than the log): those are not written twice.
+	want := c.base + c.evicted.Load()
+	switch have := c.log.Next(); {
+	case have < want:
+		c.log.Skip(want - have)
+	case have > want:
+		c.skip.Store(int64(have - want))
 	}
 }
 
@@ -226,6 +300,10 @@ func (c *paneCold) clear() {
 	}
 	c.mu.Lock()
 	defer c.mu.Unlock()
+	c.base = 0
+	c.evicted.Store(0)
+	c.skip.Store(0)
+	c.tailOK.Store(false)
 	var dir string
 	if c.log != nil {
 		dir = c.log.Dir()
@@ -277,7 +355,10 @@ func (c *paneCold) close(reason, title, cwd string) {
 // installCold gives the pane's emulator a hook that writes the rows it evicts
 // to the pane's cold log, when the policy asks for one and the emulator can
 // report them (libghostty cannot: its history stays inside the library).
-func (p *PTY) installCold(pol ColdPolicy, windowID string) {
+//
+// tail, when the pane is restored from a history file, is the id of the first
+// row that file holds, which is where the pane's ring starts.
+func (p *PTY) installCold(pol ColdPolicy, windowID string, tail *uint64) {
 	if !pol.Enabled || !validHistoryWindowID(windowID) {
 		return
 	}
@@ -288,6 +369,13 @@ func (p *PTY) installCold(pol ColdPolicy, windowID string) {
 			}
 			return ""
 		})
+	if tail != nil {
+		c.base = *tail
+	} else {
+		// A pane that comes back under the id of a pane with a log carries
+		// on after the log's last row.
+		c.base = c.diskNext()
+	}
 	p.terminalMu.Lock()
 	ok := p.terminal != nil && setScrollbackEvictHook(p.terminal, c.append)
 	p.terminalMu.Unlock()

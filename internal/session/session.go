@@ -2653,7 +2653,11 @@ func (s *Session) installPTY(ctx context.Context, cancel context.CancelFunc, id 
 	// single vtWriter goroutine; the emitter only does a non-blocking hub publish,
 	// so it never re-enters the terminal lock held during Write.
 	pty.marks = terminal.SemanticMarkers()
-	pty.installCold(s.coldPolicy(), sp.windowID)
+	var tail *uint64
+	if sp.restored != nil {
+		tail = sp.restored.history.coldTail()
+	}
+	pty.installCold(s.coldPolicy(), sp.windowID, tail)
 	terminal.SetCallbacks(vt.Callbacks{
 		Bell: func() { pty.emit(SessionEvent{Type: EventBell}) },
 		Title: func(title string) {
@@ -5024,6 +5028,7 @@ func (p *PTY) closeAs(reason string) error {
 	// Mark the VT emulator closed so forwardTerminalResponses returns EOF on
 	// its next read. (A read already blocked in the response pipe is only
 	// unblocked once Emulator.Close CloseWrites the pipe.)
+	p.spillColdAtClose(reason)
 	if p.terminal != nil {
 		_ = p.terminal.Close()
 	}

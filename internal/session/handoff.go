@@ -278,6 +278,9 @@ func (r *handoffRun) prepare() error {
 	// manifest is written. The next image opens the logs by path: the lock
 	// goes with the exec, and a segment left open is sealed on open.
 	for _, ref := range refs {
+		// The snapshot carries the newest rows of each ring; the older ones
+		// that no log holds yet go to it first, so none is lost.
+		ref.pty.spillColdForHandoff()
 		ref.pty.cold.flush()
 	}
 	for _, ref := range refs {

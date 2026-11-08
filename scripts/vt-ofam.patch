@@ -1,7 +1,7 @@
 diff -ruN a/emulator.go b/emulator.go
---- a/emulator.go	2026-11-08 15:44:01
-+++ b/emulator.go	2026-11-08 15:44:01
-@@ -737,6 +737,15 @@
+--- a/emulator.go	2026-11-08 16:38:14
++++ b/emulator.go	2026-11-08 16:38:14
+@@ -737,6 +737,24 @@
  	e.scrs[0].SetScrollbackMaxLines(maxLines)
  }
  
@@ -14,12 +14,21 @@ diff -ruN a/emulator.go b/emulator.go
 +	}
 +}
 +
++// ScrollbackEncodedRow returns the main screen's scrollback line at index,
++// oldest first, as an EncodedRow: see Scrollback.EncodedRowAt.
++func (e *Emulator) ScrollbackEncodedRow(index int) (EncodedRow, bool) {
++	if sb := e.scrs[0].Scrollback(); sb != nil {
++		return sb.EncodedRowAt(index)
++	}
++	return EncodedRow{}, false
++}
++
  // WidthMethod returns the width method used by the terminal.
  //
  // It is always grapheme width, because that is what handleGrapheme measures
 diff -ruN a/scrollback.go b/scrollback.go
---- a/scrollback.go	2026-11-08 15:44:01
-+++ b/scrollback.go	2026-11-08 15:44:01
+--- a/scrollback.go	2026-11-08 16:38:14
++++ b/scrollback.go	2026-11-08 16:38:14
 @@ -63,6 +63,11 @@
  	heldTrims int
  	// discard drops every line pushed, before it is encoded. See Discard.
@@ -69,8 +78,8 @@ diff -ruN a/scrollback.go b/scrollback.go
  	if newLen > 0 {
 diff -ruN a/scrollback_evict.go b/scrollback_evict.go
 --- a/scrollback_evict.go	1969-12-31 19:00:00
-+++ b/scrollback_evict.go	2026-11-08 15:44:01
-@@ -0,0 +1,85 @@
++++ b/scrollback_evict.go	2026-11-08 16:38:14
+@@ -0,0 +1,100 @@
 +package vt
 +
 +import (
@@ -121,6 +130,11 @@ diff -ruN a/scrollback_evict.go b/scrollback_evict.go
 +
 +// evict reports the line in ring slot slot to the hook.
 +func (sb *Scrollback) evict(slot int) {
++	sb.onEvict(sb.encodedRowAt(slot))
++}
++
++// encodedRowAt is the line in ring slot slot as an EncodedRow, standing alone.
++func (sb *Scrollback) encodedRowAt(slot int) EncodedRow {
 +	data := sb.lines[slot]
 +	if len(sb.colors) > 0 {
 +		// The line may name a colour held in the ring's table. Rewrite it
@@ -135,7 +149,17 @@ diff -ruN a/scrollback_evict.go b/scrollback_evict.go
 +		sb.rgbOnly = false
 +	}
 +	w, _ := lineWidth(data)
-+	sb.onEvict(EncodedRow{Data: data, Width: w, Flags: uint8(sb.wraps[slot])})
++	return EncodedRow{Data: data, Width: w, Flags: uint8(sb.wraps[slot])}
++}
++
++// EncodedRowAt returns the line at index, oldest first, as the evict hook
++// would have been given it; false when index is out of range. Data is valid
++// until the ring changes: copy it to keep it.
++func (sb *Scrollback) EncodedRowAt(index int) (EncodedRow, bool) {
++	if index < 0 || index >= sb.Len() {
++		return EncodedRow{}, false
++	}
++	return sb.encodedRowAt(sb.slot(index)), true
 +}
 +
 +// DecodeScrollbackRow decodes the Data of an EncodedRow into a line of its
@@ -158,7 +182,7 @@ diff -ruN a/scrollback_evict.go b/scrollback_evict.go
 +}
 diff -ruN a/scrollback_evict_test.go b/scrollback_evict_test.go
 --- a/scrollback_evict_test.go	1969-12-31 19:00:00
-+++ b/scrollback_evict_test.go	2026-11-08 15:44:01
++++ b/scrollback_evict_test.go	2026-11-08 16:38:14
 @@ -0,0 +1,230 @@
 +package vt
 +

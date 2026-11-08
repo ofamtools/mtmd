@@ -939,3 +939,55 @@ func FuzzSegmentBytes(f *testing.F) {
 		}
 	})
 }
+
+// Skip makes the next ids a gap and Next reports the id the next row gets,
+// counting rows queued and gaps queued: what a restored pane needs to line
+// the log's ids up with its ring.
+func TestSkipAndNext(t *testing.T) {
+	dir := t.TempDir()
+	rows := corpus(t, 30)
+	l, err := OpenLog(dir, small(Options{}))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if n := l.Next(); n != 0 {
+		t.Fatalf("empty log: next %d", n)
+	}
+	l.Skip(100)
+	if n := l.Next(); n != 100 {
+		t.Fatalf("after skipping 100: next %d", n)
+	}
+	for _, r := range rows[:10] {
+		l.Append(r)
+	}
+	l.Skip(5)
+	if n := l.Next(); n != 115 {
+		t.Fatalf("next %d, want 115", n)
+	}
+	for _, r := range rows[10:12] {
+		l.Append(r)
+	}
+	if err := l.Close(); err != nil {
+		t.Fatal(err)
+	}
+	r, err := OpenReader(dir, 4)
+	if err != nil {
+		t.Fatal(err)
+	}
+	st := r.Stats()
+	if st.First != 100 || st.Next != 117 || st.Rows != 12 || len(st.Gaps) != 1 || st.Gaps[0] != (Gap{110, 5}) {
+		t.Fatalf("stats %+v", st)
+	}
+	if got, err := r.Row(115); err != nil || string(got.Data) != string(rows[10].Data) {
+		t.Fatalf("row 115: %v", err)
+	}
+	// Reopening continues after the last row.
+	l2, err := OpenLog(dir, small(Options{}))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer l2.Close()
+	if n := l2.Next(); n != 117 {
+		t.Fatalf("reopened: next %d", n)
+	}
+}

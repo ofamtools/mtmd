@@ -48,6 +48,11 @@ func (sb *Scrollback) SetOnEvict(fn func(EncodedRow)) {
 
 // evict reports the line in ring slot slot to the hook.
 func (sb *Scrollback) evict(slot int) {
+	sb.onEvict(sb.encodedRowAt(slot))
+}
+
+// encodedRowAt is the line in ring slot slot as an EncodedRow, standing alone.
+func (sb *Scrollback) encodedRowAt(slot int) EncodedRow {
 	data := sb.lines[slot]
 	if len(sb.colors) > 0 {
 		// The line may name a colour held in the ring's table. Rewrite it
@@ -62,7 +67,17 @@ func (sb *Scrollback) evict(slot int) {
 		sb.rgbOnly = false
 	}
 	w, _ := lineWidth(data)
-	sb.onEvict(EncodedRow{Data: data, Width: w, Flags: uint8(sb.wraps[slot])})
+	return EncodedRow{Data: data, Width: w, Flags: uint8(sb.wraps[slot])}
+}
+
+// EncodedRowAt returns the line at index, oldest first, as the evict hook
+// would have been given it; false when index is out of range. Data is valid
+// until the ring changes: copy it to keep it.
+func (sb *Scrollback) EncodedRowAt(index int) (EncodedRow, bool) {
+	if index < 0 || index >= sb.Len() {
+		return EncodedRow{}, false
+	}
+	return sb.encodedRowAt(sb.slot(index)), true
 }
 
 // DecodeScrollbackRow decodes the Data of an EncodedRow into a line of its

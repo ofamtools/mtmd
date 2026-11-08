@@ -106,6 +106,8 @@ type Log struct {
 	errv     atomic.Pointer[error]
 	dropped  atomic.Uint64
 	appended atomic.Uint64
+	// flushedNext is the id the next row gets, as of the last Flush.
+	flushedNext atomic.Uint64
 
 	// Writer-goroutine state.
 	comp    *compressor
@@ -233,6 +235,27 @@ func (l *Log) control(kind uint8) {
 // open block is written out short).
 func (l *Log) Flush() { l.control(kindFlush) }
 
+// Next flushes and returns the id the next appended row gets: the end of
+// what the log holds, with any gap Skip queued counted in.
+func (l *Log) Next() uint64 {
+	l.Flush()
+	return l.flushedNext.Load()
+}
+
+// Skip makes the next n row ids a gap: rows that exist but will not be
+// written, so the ids of the rows after them stay aligned with the pane's
+// count. The gap shows on disk once a row follows it.
+func (l *Log) Skip(n uint64) {
+	if n == 0 {
+		return
+	}
+	l.mu.Lock()
+	if !l.closed {
+		l.pending += n
+	}
+	l.mu.Unlock()
+}
+
 // Close flushes, seals the open segment, releases the lock and stops the
 // writer. The log's files stay; see CloseOrphan to leave an orphan marker.
 func (l *Log) Close() error {
@@ -311,6 +334,7 @@ func (l *Log) handle(it *item) (exit bool) {
 		}
 	case kindFlush:
 		l.flushBlock()
+		l.flushedNext.Store(l.nextID)
 		close(it.done)
 	case kindClose:
 		l.flushBlock()

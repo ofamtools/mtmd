@@ -146,7 +146,7 @@ func TestColdPaneThatNeverEvictsLeavesNoFiles(t *testing.T) {
 
 func TestColdWithoutEvictHookKeepsTodaysBehaviour(t *testing.T) {
 	p := &PTY{terminal: noEvictor{}}
-	p.installCold(coldTestPolicy(), "win-1")
+	p.installCold(coldTestPolicy(), "win-1", nil)
 	if p.cold != nil {
 		t.Fatal("a terminal that cannot report evictions got a log")
 	}
