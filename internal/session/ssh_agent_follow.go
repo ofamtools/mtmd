@@ -15,6 +15,7 @@ import (
 	"github.com/google/uuid"
 	"ofam.dev/mtmd/internal/config"
 	"ofam.dev/mtmd/internal/federation"
+	"ofam.dev/mtmd/internal/hostnames"
 	"ofam.dev/mtmd/internal/lazyre"
 	"ofam.dev/mtmd/internal/sockpath"
 )
@@ -141,7 +142,7 @@ var hostLinkPattern = lazyre.New(`^link-[a-z0-9][a-z0-9._-]{0,31}-[0-9a-f]{8}$`)
 // folder names its own after the socket.
 func agentLinkPrefix(socketPath string) string {
 	base := filepath.Base(socketPath)
-	if base == "tuios.sock" {
+	if base == hostnames.Get().SocketFile {
 		return "agent-"
 	}
 	return strings.TrimSuffix(base, ".sock") + "-agent-"

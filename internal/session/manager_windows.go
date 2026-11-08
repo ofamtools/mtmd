@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"ofam.dev/mtmd/internal/hostnames"
 	"ofam.dev/mtmd/internal/serverscope"
 )
 
@@ -39,12 +40,12 @@ func defaultSocketPath() (string, error) {
 		localAppData = filepath.Join(userProfile, "AppData", "Local")
 	}
 
-	socketDir := serverscope.SocketDir(filepath.Join(localAppData, "tuios"))
+	socketDir := serverscope.SocketDir(filepath.Join(localAppData, hostnames.Get().SocketApp))
 	if err := os.MkdirAll(socketDir, 0700); err != nil {
 		return "", fmt.Errorf("failed to create socket directory: %w", err)
 	}
 
-	return filepath.Join(socketDir, "tuios.sock"), nil
+	return filepath.Join(socketDir, hostnames.Get().SocketFile), nil
 }
 
 // GetPidFilePath returns the path to the daemon PID file.

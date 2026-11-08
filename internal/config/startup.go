@@ -4,6 +4,7 @@ import (
 	"strconv"
 
 	"github.com/adrg/xdg"
+	"ofam.dev/mtmd/internal/hostnames"
 )
 
 // EffectiveDefault returns the value an option has when the user has not set
@@ -17,7 +18,7 @@ func EffectiveDefault(opt Option) string {
 	if opt.Path != "startup.tiled" && opt.Path != "startup.daemon" {
 		return opt.Default
 	}
-	path, err := xdg.SearchConfigFile("tuios/config.toml")
+	path, err := xdg.SearchConfigFile(hostnames.ConfigFile("config.toml"))
 	if err != nil {
 		return opt.Default
 	}

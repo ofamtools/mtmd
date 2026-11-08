@@ -45,6 +45,7 @@ Merge at release tags only.
 | 10 (M5) | `session: read the cold log back in capture-pane and search-panes` | `internal/session/scrollback_read.go` (new: `coldView`, `paneCold.view`, `coldLines`, `PTY.captureWithCold`), `verb_handlers.go` (capture-pane: one call to `captureWithCold`, `lead` shifts the start/end region, reply field `history_rows_disk`), `verb_find.go` (`scanLines` reads the disk rows after the ring; `searchPaneBudget` is a variable; search-panes replies `complete`), `session.go` (`paneMeta.ColdRows`), `internal/vt/scrollback_evict.go` and `scripts/vt-ofam.patch` (`EncodedRow.Padded`) | Deep history written by patch #8 is read back: a recent capture, with `start`/`end`/`lines`/`unwrap`/`styled`/`resolved`, and search reach past the ring, and equal what a pane whose ring held everything gives. A lost run of rows is one marker line. Large explicit state requests (`GetTerminalState`) are not extended: see docs/scrollback-m5-report. |
 | 11 | `session: cold log survives restart, orphan sweep, history-log verbs` | New files `scrollback_spill.go` (ring rows to the log at close, daemon stop and handoff), `scrollback_orphans.go` (grace sweep, adopt, log docs), `verb_history_log.go` (`list/show/keep/unkeep/adopt/purge` history-log verbs, `adopt-history`); a few lines in `scrollback_cold.go` (row-id accounting, reconcile at open), `scrollback_persist.go` (`savedHistory.ColdTail`, `captureHistoryEnd`), `session.go` (`installCold` start hint, `spillColdAtClose` in `closeAs`), `handoff.go`, `daemon.go` (sweep at start and in `cleanupOnce`), `verb_protocol.go`, `conn_scope.go`, `link_policy.go`; `internal/coldlog` (`Log.Next`, `Log.Skip`); `internal/vt` via the patch (`Scrollback.EncodedRowAt`, `Emulator.ScrollbackEncodedRow`). | A restored pane adopts its cold log, nothing falls between the log and a handoff or restart, orphans are swept after `daemon.scrollback_grace_days`. |
 | 12 (M7) | `memory: one-step ring shrink with backpressure ...` | `internal/vt` via the patch (`SetMaxLines` copies the kept lines into one array; the hook doc), `internal/coldlog/log.go` (`AppendWait`, queue arrays and gzip state released when idle, `Options.IdleRelease`), `internal/session/scrollback_tier.go` (one `SetScrollbackMaxLines`, `tierStep` gone), `scrollback_cold.go` (`paneCold.wait`), `scrollback_read.go` (`coldLines.index` needs no row reads without `unwrap`), tests `serve/m7_*_test.go` (env-gated measurements) | A demoted pane's memory is given back: see docs in README and the lane report. |
+| 13 | `fork: the host names the daemon's folders, socket and pane variables` | `internal/hostnames/` (new: the `Names` table, `Upstream`, `Mirror`, `ApplyEnv`, `Setenv`), `serve/{serve,migrate}.go` (`Options.Names`, `migrate-paths`, the start-time move), one-line call sites: `internal/sockpath/sockpath_{unix,windows}.go` (`BaseDirFor`, `DirFor`, `legacyDirFor`), `internal/session/{manager_unix,manager_windows,socket_pick_unix,display_follow,ssh_agent_follow}.go` (`SocketFile`), `internal/serverscope/serverscope.go` (`StateServers` in `Apply`, `hostnames.Setenv`/`Unsetenv`, new `StateDir`), `internal/session/{logsink,resurrection}.go` (`serverscope.StateDir()`), `internal/session/verb_files_confine.go` (both tables' folders), `internal/config/{startup,save,userconfig}.go` and `internal/theme/{custom,glyphs}.go` (`hostnames.ConfigFile`), `internal/ptyspawn/spawn.go`, `internal/hooks/hooks.go`, `internal/session/plugin_host.go` (`hostnames.Mirror`) | mtm's daemon uses mtm's names (owner decision 2026-11-08, Review key `mtmd-path-rename`); nil `Names` keeps every upstream path and variable. See below. |
 
 ### The rewrite (`scripts/ofam-rewrite.go`)
 
@@ -111,6 +112,60 @@ random-access reader (`Log.AppendWait` for a producer that would rather wait tha
 markers with a grace-period purge, flock-based sole-writer lock. Lane M3 wires
 it into the daemon (patch #8 below); user documentation: README.md, "Scrollback on disk"; plan: `o-plans/plans/mtmd-scrollback-disk.md`.
 
+### Host names (`internal/hostnames`, patch 13)
+
+The names of the daemon's socket folder and file, its state folders and its
+configuration folder are one table, `hostnames.Names`, in data. `Upstream` is
+tuios's and the default; a host passes its own as `serve.Options.Names`
+(`serve.Names`, an alias), which `serve.Main` installs before anything
+resolves a path. Every upstream file that builds one of those paths reads the
+table through a one-line call (the files are listed in row 13), so an upstream
+change to those files conflicts on one line at most. After a merge,
+`grep -rn '"tuios.sock"\|"tuios/\|"tuios-servers"\|tuios-%d' --include='*.go' internal serve | grep -v _test`
+lists any new hard-coded name to route through the table.
+
+| Field | Upstream | mtm (`matomeru/internal/daemon` Layouts row `mtm`) |
+|---|---|---|
+| `SocketApp` (under `$XDG_RUNTIME_DIR`, `/run/user/UID`, `%LOCALAPPDATA%`) | `tuios` | `mtm` |
+| `SocketTmp` (`/tmp/<SocketTmp><uid>` without a runtime folder) | `tuios-` | `mtm-` |
+| `SocketFile` | `tuios.sock` | `mtm.sock` |
+| `StateApp` (default server, under the state home) | `tuios` | `mtm` |
+| `StateServers` (one state home per named server) | `tuios-servers` | `mtm/servers` |
+| `ServerApp` (a named server's folder in its state home) | `tuios` | (the state home itself) |
+| `ConfigApp` (under the config home) | `tuios` | `mtm` |
+
+On macOS a named server's state moves from `~/Library/Application Support/tuios-servers/NAME/tuios/`
+to `~/Library/Application Support/mtm/servers/NAME/`, its socket from
+`/tmp/tuios-UID/servers/NAME/tuios.sock` to `/tmp/mtm-UID/servers/NAME/mtm.sock`
+(not `$TMPDIR`: macOS's per-user temp folder is about 50 bytes long and the
+agent-link sockets beside the daemon's would pass the 104-byte limit), and the
+configuration from `.../tuios/config.toml` to `.../mtm/config.toml`. The data
+folder (worktrees, herdr plugin locks, cloned repos) and the harness folder keep
+upstream's `tuios` names.
+
+`Names.Env` are variables exported beside upstream's: `{Name: "MTM_SOCKET",
+Upstream: "TUIOS_SOCKET"}`. `hostnames.Mirror` sets them in every child the
+daemon starts with an environment of its own (`ptyspawn.SpawnTTY`, the single
+door of every pane; hook commands; plugin processes): it drops inherited
+assignments of the host's names and adds each with the value of the last
+assignment of its upstream one. `hostnames.ApplyEnv`, at the top of
+`serve.Main`, gives every upstream variable the value of its host name when that
+is set, so upstream code reads the host's name first without a change.
+`serverscope.Apply` sets and clears both names.
+
+The one-time move (`serve/migrate.go`): `daemon` (not `--adopt-fd`) and
+`start-server` first move a named server's state from the upstream folder to
+the host's when the host's is absent and upstream's exists (a rename: same
+volume), write `MOVED-TO` beside the folder it left and `MOVED-FROM` inside the
+moved one, and copy the configuration file when the host has none (the old one
+stays). A daemon answering on the upstream socket (or a live pid in its pid
+file) refuses the move and the start, changing nothing. The default (unnamed)
+server is not moved: its state shares a folder with the configuration.
+`[--server NAME] migrate-paths [--dry-run] [--rollback]` runs the same move on
+its own and prints a JSON report; `--rollback` renames back (refused while a
+daemon answers on the host's socket) and removes the markers; the copied
+configuration file stays.
+
 ### The facade (`serve`)
 
 `serve.Main(args []string, opt serve.Options) int`. `args` are the words after
@@ -121,13 +176,15 @@ adding a root file never conflicts with it. It runs:
 |---|---|
 | `[--server NAME] daemon [--log-level L] [--no-restore] [--adopt-fd=N]` | the daemon in the foreground; `--adopt-fd` is the live upgrade's second image |
 | `[--server NAME] start-server` | spawn a detached daemon, return when one answers |
+| `[--server NAME] migrate-paths [--dry-run] [--rollback]` | the one-time move of the server's state to the host's names (patch 13), as a JSON report |
 | `daemon handoff-accepts` | the live-upgrade preflight |
 | `agent-proto --protocol acp\|codex [--harness H] [--cwd D] -- AGENT...` | the pane program of a protocol agent (cobra-free port of upstream's `agent_proto_command.go`) |
 | `__plugin-reaper PROGRAM...` | the reaper that herdr plugin commands run under |
 
 `Options.SelfCommand` is the prefix by which the host runs itself again,
 `{"", "mtmd"}` for `mtm mtmd ...`; nil is upstream's behaviour. `Options.Version`
-is the label the daemon reports in `hello`. Not exposed, by the owner's
+is the label the daemon reports in `hello`. `Options.Names` is the host's
+table of folder, socket and variable names (patch 13); nil is upstream's. Not exposed, by the owner's
 decision: the rest of tuios's command line, and mail.
 
 Self re-exec goes through `internal/selfcmd` (`Exe`, `Argv`, `Words`). The sites

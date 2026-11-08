@@ -17,3 +17,6 @@ func daemonSysProcAttr() *syscall.SysProcAttr {
 		HideWindow:    true,
 	}
 }
+
+// pidAlive is false on Windows: the migration's live check dials the socket.
+func pidAlive(int) bool { return false }

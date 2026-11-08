@@ -19,6 +19,7 @@ import (
 	"path/filepath"
 
 	"github.com/adrg/xdg"
+	"ofam.dev/mtmd/internal/hostnames"
 )
 
 // Env is the variable that names the server when --server does not.
@@ -27,6 +28,7 @@ const Env = "TUIOS_SERVER"
 // StateDirName is the folder under the state home that holds one folder per
 // named server. Each of those stands in for the state home itself, so a named
 // server's files are at <state home>/tuios-servers/<name>/tuios/...
+// It is upstream's name; the one in force is hostnames.Get().StateServers.
 const StateDirName = "tuios-servers"
 
 // SocketDirName is the folder under the default daemon's socket folder that
@@ -93,7 +95,7 @@ func Apply(s string) error {
 		}
 		name = ""
 		xdg.StateHome = baseStateHome
-		return os.Unsetenv(Env)
+		return hostnames.Unsetenv(Env)
 	}
 	if err := Validate(s); err != nil {
 		return err
@@ -102,8 +104,8 @@ func Apply(s string) error {
 		baseStateHome = xdg.StateHome
 	}
 	name = s
-	xdg.StateHome = filepath.Join(baseStateHome, StateDirName, s)
-	return os.Setenv(Env, s)
+	xdg.StateHome = filepath.Join(hostnames.Path(baseStateHome, hostnames.Get().StateServers), s)
+	return hostnames.Setenv(Env, s)
 }
 
 // ApplyEnv applies the server TUIOS_SERVER names. Its error says what is wrong
@@ -134,4 +136,14 @@ func SocketDir(base string) string {
 		return base
 	}
 	return filepath.Join(base, SocketDirName, name)
+}
+
+// StateDir is the folder the current server keeps its files in: the state
+// home's StateApp folder for the default server, and the named server's
+// state home's ServerApp folder for a named one (hostnames).
+func StateDir() string {
+	if name == "" {
+		return hostnames.Path(xdg.StateHome, hostnames.Get().StateApp)
+	}
+	return hostnames.Path(xdg.StateHome, hostnames.Get().ServerApp)
 }

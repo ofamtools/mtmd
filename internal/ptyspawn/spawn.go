@@ -30,6 +30,7 @@ import (
 	"time"
 
 	"github.com/charmbracelet/x/xpty"
+	"ofam.dev/mtmd/internal/hostnames"
 )
 
 // Attempts bounds the retries of a spawn refused with EPERM. Two retries is
@@ -118,6 +119,7 @@ func SpawnTTY(width, height int, build func(tty string) *exec.Cmd, logf func(str
 			tty = named.SlaveName()
 		}
 		cmd := build(tty)
+		cmd.Env = hostnames.Mirror(cmd.Env) // the host's names beside TUIOS_ (FORK.md patch 13)
 		configureCommand(cmd)
 
 		if err = StartProcess(pty, cmd); err == nil {

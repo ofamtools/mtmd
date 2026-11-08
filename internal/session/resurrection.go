@@ -13,12 +13,12 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/adrg/xdg"
 	"ofam.dev/mtmd/internal/atomicfile"
+	"ofam.dev/mtmd/internal/serverscope"
 )
 
 const (
-	resurrectionDir = "tuios/sessions"
+	resurrectionDir = "sessions"
 	// resurrectionInterval is the longest a session whose panes printed waits
 	// to be saved, which is what keeps each window's captured working
 	// directory current: a user typing cd changes no session structure.
@@ -63,7 +63,7 @@ func getResurrectionDir() string {
 	if override, _ := resurrectionDirOverride.Load().(string); override != "" {
 		return override
 	}
-	return filepath.Join(xdg.StateHome, resurrectionDir)
+	return filepath.Join(serverscope.StateDir(), resurrectionDir)
 }
 
 // getResurrectionPath returns the path for a specific session's resurrection

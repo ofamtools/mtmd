@@ -15,6 +15,7 @@ import (
 	"github.com/adrg/xdg"
 	"golang.org/x/text/unicode/norm"
 	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/hostnames"
 	"ofam.dev/mtmd/internal/pathroot"
 	"ofam.dev/mtmd/internal/serverscope"
 )
@@ -785,13 +786,16 @@ func linkDenied(p, home string, lp linkPrivate) bool {
 // a link to one server cannot reach another server's files.
 func tuiosOwnDirs() []string {
 	var list []string
-	for _, dir := range []string{xdg.ConfigHome, serverscope.BaseStateHome(), xdg.DataHome} {
-		if dir != "" {
-			list = append(list, filepath.Join(realPath(dir), "tuios"))
+	// Upstream's names and the ones in force (hostnames): a host's daemon
+	// guards both its own folders and the tuios ones it may have moved from.
+	for _, n := range []hostnames.Names{hostnames.Upstream, hostnames.Get()} {
+		for _, dir := range []struct{ home, rel string }{{xdg.ConfigHome, n.ConfigApp}, {serverscope.BaseStateHome(), n.StateApp}, {xdg.DataHome, "tuios"}, {serverscope.BaseStateHome(), n.StateServers}} {
+			if dir.home != "" && dir.rel != "" {
+				if p := hostnames.Path(realPath(dir.home), dir.rel); !slices.Contains(list, p) {
+					list = append(list, p)
+				}
+			}
 		}
-	}
-	if base := serverscope.BaseStateHome(); base != "" {
-		list = append(list, filepath.Join(realPath(base), serverscope.StateDirName))
 	}
 	return list
 }

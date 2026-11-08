@@ -11,13 +11,14 @@ import (
 
 	"github.com/adrg/xdg"
 	tint "github.com/lrstanley/bubbletint/v2"
+	"ofam.dev/mtmd/internal/hostnames"
 )
 
 // GetThemesDir returns the path to the custom themes directory (~/.config/tuios/themes/).
 // Creates the directory if it doesn't exist.
 func GetThemesDir() (string, error) {
 	// Use xdg.ConfigFile to get the path and ensure parent dirs exist
-	keepFile, err := xdg.ConfigFile("tuios/themes/.keep")
+	keepFile, err := xdg.ConfigFile(hostnames.ConfigFile("themes/.keep"))
 	if err != nil {
 		return "", fmt.Errorf("failed to get themes directory: %w", err)
 	}

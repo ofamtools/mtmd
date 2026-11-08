@@ -13,6 +13,7 @@ import (
 
 	"github.com/adrg/xdg"
 	"github.com/pelletier/go-toml/v2"
+	"ofam.dev/mtmd/internal/hostnames"
 )
 
 // configFileHeader is the comment block written at the top of a generated
@@ -302,7 +303,7 @@ var (
 // older one gives way rather than overwriting the newer. Its WriteNote says
 // when a read-only file sent a change to another file.
 func RenderUserConfig(cfg *UserConfig) (func() (WriteNote, error), error) {
-	configPath, err := xdg.ConfigFile("tuios/config.toml")
+	configPath, err := xdg.ConfigFile(hostnames.ConfigFile("config.toml"))
 	if err != nil {
 		return nil, fmt.Errorf("failed to resolve config path: %w", err)
 	}

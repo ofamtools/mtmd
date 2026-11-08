@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 	"syscall"
 
+	"ofam.dev/mtmd/internal/hostnames"
 	"ofam.dev/mtmd/internal/sockpath"
 )
 
@@ -44,7 +45,7 @@ func defaultSocketPath() (string, error) {
 			return "", err
 		}
 	}
-	return pickLiveSocket(filepath.Join(socketDir, "tuios.sock")), nil
+	return pickLiveSocket(filepath.Join(socketDir, hostnames.Get().SocketFile)), nil
 }
 
 // GetPidFilePath returns the path to the daemon PID file.

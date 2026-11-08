@@ -11,7 +11,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/adrg/xdg"
+	"ofam.dev/mtmd/internal/hostnames"
 	"ofam.dev/mtmd/internal/serverscope"
 )
 
@@ -25,7 +25,7 @@ import (
 
 const (
 	// daemonLogName is the file the daemon appends to under the state directory.
-	daemonLogName = "tuios/daemon.log"
+	daemonLogName = "daemon.log"
 
 	// daemonLogMaxBytes caps the file. At the cap the daemon renames it over
 	// daemon.log.old and starts a new one, so it keeps between one and two caps
@@ -49,9 +49,9 @@ func DefaultDaemonLogPath() string {
 	// the state directory later would otherwise be ignored. A named server's
 	// state home is set on xdg, not in the environment, so it reads xdg.
 	if dir := os.Getenv("XDG_STATE_HOME"); dir != "" && serverscope.Name() == "" {
-		return filepath.Join(dir, daemonLogName)
+		return filepath.Join(hostnames.Path(dir, hostnames.Get().StateApp), daemonLogName)
 	}
-	return filepath.Join(xdg.StateHome, daemonLogName)
+	return filepath.Join(serverscope.StateDir(), daemonLogName)
 }
 
 // ringWriter is the standard library logger's output inside the daemon. Every

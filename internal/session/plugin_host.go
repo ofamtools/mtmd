@@ -12,6 +12,7 @@ import (
 
 	"ofam.dev/mtmd/internal/config"
 	"ofam.dev/mtmd/internal/herdrplugin"
+	"ofam.dev/mtmd/internal/hostnames"
 )
 
 // The herdr plugin host.
@@ -361,7 +362,7 @@ func (h *pluginHost) baseEnv(p *herdrplugin.Plugin, dirs herdrplugin.Dirs) []str
 			env = append(env, "PATH="+filepath.Dir(*b)+string(os.PathListSeparator)+os.Getenv("PATH"))
 		}
 	}
-	return env
+	return hostnames.Mirror(env) // the host's names beside TUIOS_ (FORK.md patch 13)
 }
 
 // followEvents runs the event hooks of the enabled plugins, for as long as

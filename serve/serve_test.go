@@ -27,7 +27,11 @@ const hostEnv = "MTMD_TEST_HOST"
 
 func TestMain(m *testing.M) {
 	if os.Getenv(hostEnv) == "1" && len(os.Args) > 1 && os.Args[1] == "mtmd" {
-		os.Exit(serve.Main(os.Args[2:], serve.Options{SelfCommand: []string{"", "mtmd"}, Version: "v0-test"}))
+		opt := serve.Options{SelfCommand: []string{"", "mtmd"}, Version: "v0-test"}
+		if os.Getenv(hostNamesEnv) == "1" {
+			opt.Names = &testHostNames
+		}
+		os.Exit(serve.Main(os.Args[2:], opt))
 	}
 	os.Exit(m.Run())
 }
@@ -39,6 +43,7 @@ type host struct {
 	env     []string
 	runtime string
 	base    string
+	names   *serve.Names // the host's table (hostNamesEnv), nil for upstream's
 }
 
 func newHost(t *testing.T) *host {
@@ -93,6 +98,9 @@ func (h *host) cmd(args ...string) *exec.Cmd {
 }
 
 func (h *host) socket() string {
+	if h.names != nil {
+		return filepath.Join(h.runtime, h.names.SocketApp, "servers", h.server, h.names.SocketFile)
+	}
 	return filepath.Join(h.runtime, "tuios", "servers", h.server, "tuios.sock")
 }
 

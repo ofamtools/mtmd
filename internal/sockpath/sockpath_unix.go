@@ -3,13 +3,13 @@
 package sockpath
 
 import (
-	"fmt"
 	"os"
 	"path/filepath"
 	"runtime"
 	"strconv"
 	"syscall"
 
+	"ofam.dev/mtmd/internal/hostnames"
 	"ofam.dev/mtmd/internal/serverscope"
 )
 
@@ -27,7 +27,13 @@ var (
 // server, and BaseDir/servers/<name> for a named one. It only names the
 // folder; the daemon creates and checks it.
 func Dir() string {
-	return serverscope.SocketDir(BaseDir())
+	return DirFor(hostnames.Get())
+}
+
+// DirFor is Dir under the names of n (hostnames), for a host that looks for
+// a daemon of another table: the migration's live-writer check.
+func DirFor(n hostnames.Names) string {
+	return serverscope.SocketDir(BaseDirFor(n))
 }
 
 // BaseDir is the default server's socket folder: $XDG_RUNTIME_DIR/tuios, or
@@ -39,10 +45,15 @@ func Dir() string {
 // a paired device) often does not. Without the step the two picked different
 // folders and started two daemons that could not see each other's sessions.
 func BaseDir() string {
+	return BaseDirFor(hostnames.Get())
+}
+
+// BaseDirFor is BaseDir under the names of n.
+func BaseDirFor(n hostnames.Names) string {
 	if rt := RuntimeDir(); rt != "" {
-		return filepath.Join(rt, "tuios")
+		return filepath.Join(rt, n.SocketApp)
 	}
-	return LegacyDir()
+	return legacyDirFor(n)
 }
 
 // RuntimeDir is the user's runtime folder: $XDG_RUNTIME_DIR when it is set,
@@ -60,8 +71,12 @@ func RuntimeDir() string {
 
 // LegacyDir is the folder used without a runtime folder: /tmp/tuios-<uid>.
 func LegacyDir() string {
+	return legacyDirFor(hostnames.Get())
+}
+
+func legacyDirFor(n hostnames.Names) string {
 	_, tmp := roots()
-	return filepath.Join(tmp, fmt.Sprintf("tuios-%d", os.Getuid()))
+	return n.TmpSocketDir(tmp, os.Getuid())
 }
 
 // OtherDir is the second folder a daemon of this user may already listen in,
@@ -72,7 +87,7 @@ func LegacyDir() string {
 // and neither has a named server: no older tuios started one.
 func OtherDir() string {
 	sys := systemRuntimeDir()
-	if sys == "" || filepath.Clean(Dir()) != filepath.Join(sys, "tuios") {
+	if sys == "" || filepath.Clean(Dir()) != filepath.Join(sys, hostnames.Get().SocketApp) {
 		return ""
 	}
 	return LegacyDir()

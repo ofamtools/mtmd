@@ -17,6 +17,7 @@ import (
 
 	"github.com/adrg/xdg"
 	"github.com/pelletier/go-toml/v2"
+	"ofam.dev/mtmd/internal/hostnames"
 	"ofam.dev/mtmd/internal/overlay"
 	"ofam.dev/mtmd/internal/sortx"
 	"ofam.dev/mtmd/internal/theme"
@@ -2266,7 +2267,7 @@ func clampPercent(v, lo, hi, fallback int) int {
 // LoadUserConfig loads the user configuration from XDG config directory
 func LoadUserConfig() (*UserConfig, error) {
 	// Try to find existing config file
-	configPath, err := xdg.SearchConfigFile("tuios/config.toml")
+	configPath, err := xdg.SearchConfigFile(hostnames.ConfigFile("config.toml"))
 	if err != nil {
 		// Config doesn't exist, create default
 		return createDefaultConfig()
@@ -2454,7 +2455,7 @@ func seedDefaults(data []byte, parsed *UserConfig) ([]byte, bool) {
 // config.toml that cannot be written is not an error: the config loads
 // without it.
 func createDefaultConfig() (*UserConfig, error) {
-	configPath, err := xdg.ConfigFile("tuios/config.toml")
+	configPath, err := xdg.ConfigFile(hostnames.ConfigFile("config.toml"))
 	if err != nil {
 		return nil, fmt.Errorf("failed to get config path: %w", err)
 	}
@@ -4227,10 +4228,10 @@ func ConfigWarnings(cfg *UserConfig) []string {
 
 // GetConfigPath returns the path to the config file
 func GetConfigPath() (string, error) {
-	path, err := xdg.SearchConfigFile("tuios/config.toml")
+	path, err := xdg.SearchConfigFile(hostnames.ConfigFile("config.toml"))
 	if err != nil {
 		// Return where it would be created
-		return xdg.ConfigFile("tuios/config.toml")
+		return xdg.ConfigFile(hostnames.ConfigFile("config.toml"))
 	}
 	return path, nil
 }

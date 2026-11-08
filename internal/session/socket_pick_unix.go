@@ -12,6 +12,7 @@ import (
 	"sync"
 
 	"golang.org/x/term"
+	"ofam.dev/mtmd/internal/hostnames"
 	"ofam.dev/mtmd/internal/sockpath"
 )
 
@@ -48,7 +49,7 @@ func pickLiveSocket(primary string) string {
 	if otherDir == "" {
 		return primary
 	}
-	other := filepath.Join(otherDir, "tuios.sock")
+	other := filepath.Join(otherDir, hostnames.Get().SocketFile)
 	if filepath.Clean(other) == filepath.Clean(primary) {
 		return primary
 	}

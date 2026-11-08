@@ -19,6 +19,7 @@ import (
 	"time"
 
 	"ofam.dev/mtmd/internal/childproc"
+	"ofam.dev/mtmd/internal/hostnames"
 )
 
 // Event represents a hook event type.
@@ -404,6 +405,7 @@ func executeHook(cmdStr string, ctx Context, timeout time.Duration) hookResult {
 		fmt.Sprintf("TUIOS_WORKTREE_CREATED_BRANCH=%s", ctx.WorktreeCreatedBranch),
 		fmt.Sprintf("TUIOS_SETTLE_REASON=%s", ctx.SettleReason),
 	)
+	cmd.Env = hostnames.Mirror(cmd.Env) // the host's names beside TUIOS_ (FORK.md patch 13)
 
 	// Stdout stays discarded: a hook is run for its side effects and nothing
 	// reads what it prints. Stderr is kept, but only its tail, because that is

@@ -27,6 +27,7 @@ import (
 	"ofam.dev/mtmd/internal/guestenv"
 	"ofam.dev/mtmd/internal/herdrplugin"
 	"ofam.dev/mtmd/internal/hooks"
+	"ofam.dev/mtmd/internal/hostnames"
 	"ofam.dev/mtmd/internal/selfcmd"
 	"ofam.dev/mtmd/internal/serverscope"
 	"ofam.dev/mtmd/internal/session"
@@ -44,13 +45,28 @@ type Options struct {
 	// Version is the build label the daemon reports in hello and writes in
 	// its live-upgrade preflight. Empty means DefaultVersion.
 	Version string
+	// Names is the table of folder, socket and variable names the daemon
+	// uses (hostnames). Nil is upstream's. With a table of its own, a daemon
+	// or start-server first moves a named server's state from upstream's
+	// folders (Migrate), and every pane gets the table's variables beside
+	// TUIOS_ ones.
+	Names *Names
 }
+
+// Names is the table of names a host gives the daemon; see Options.Names.
+type Names = hostnames.Names
+
+// EnvName is one variable exported beside an upstream one.
+type EnvName = hostnames.EnvName
+
+// UpstreamNames is tuios's own table.
+var UpstreamNames = hostnames.Upstream
 
 // DefaultVersion is the label when a host gives none.
 const DefaultVersion = "v0.12.1-mtmd"
 
 const (
-	usage        = "usage: [--server NAME] daemon [--log-level L] [--no-restore] | daemon handoff-accepts | start-server | agent-proto --protocol acp|codex [--harness H] [--cwd D] -- AGENT... | __plugin-reaper PROGRAM..."
+	usage        = "usage: [--server NAME] daemon [--log-level L] [--no-restore] | daemon handoff-accepts | start-server | [--server NAME] migrate-paths [--dry-run] [--rollback] | agent-proto --protocol acp|codex [--harness H] [--cwd D] -- AGENT... | __plugin-reaper PROGRAM..."
 	adoptFDFlag  = "adopt-fd"
 	startTimeout = 5 * time.Second
 )
@@ -59,6 +75,10 @@ const (
 // are the words after the host's own (os.Args[1:] of a tuios binary).
 func Main(args []string, opt Options) int {
 	selfcmd.Set(opt.SelfCommand)
+	// The host's names, before anything resolves a path; and its variables
+	// read first (FORK.md patch 13).
+	hostnames.Set(opt.Names)
+	hostnames.ApplyEnv()
 	version := opt.Version
 	if version == "" {
 		version = DefaultVersion
@@ -91,12 +111,22 @@ func Main(args []string, opt Options) int {
 	r := &run{p: p, version: version}
 	switch p.verb {
 	case "start-server":
+		if code := r.migrateOnStart(); code != 0 {
+			return code
+		}
 		return r.startServer()
 	case "daemon":
 		if len(p.rest) > 0 && p.rest[0] == "handoff-accepts" {
 			return r.handoffAccepts()
 		}
+		if p.adoptFD == 0 {
+			if code := r.migrateOnStart(); code != 0 {
+				return code
+			}
+		}
 		return r.daemon()
+	case "migrate-paths":
+		return r.migratePaths()
 	case "agent-proto":
 		return r.agentProto()
 	}
@@ -112,6 +142,8 @@ type parsed struct {
 	serverSet bool
 	logLevel  string
 	noRestore bool
+	dryRun    bool
+	rollback  bool
 	adoptFD   int
 	protocol  string
 	harness   string
@@ -177,6 +209,10 @@ func parse(args []string) (*parsed, error) {
 		switch {
 		case a == "--no-restore":
 			p.noRestore = true
+		case a == "--dry-run":
+			p.dryRun = true
+		case a == "--rollback":
+			p.rollback = true
 		case strings.HasPrefix(a, "--"+adoptFDFlag+"="):
 			n, err := strconv.Atoi(strings.TrimPrefix(a, "--"+adoptFDFlag+"="))
 			if err != nil || n <= 0 {

@@ -12,6 +12,7 @@ import (
 
 	"github.com/google/uuid"
 	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/hostnames"
 	"ofam.dev/mtmd/internal/lazyre"
 	"ofam.dev/mtmd/internal/sockpath"
 )
@@ -252,7 +253,7 @@ func DisplayLinkPath(socketPath, sessionID string) string {
 // daemon on another socket in the same folder.
 func displayLinkPrefix(socketPath string) string {
 	base := filepath.Base(socketPath)
-	if base == "tuios.sock" {
+	if base == hostnames.Get().SocketFile {
 		return "wayland-"
 	}
 	return strings.TrimSuffix(base, ".sock") + "-wayland-"

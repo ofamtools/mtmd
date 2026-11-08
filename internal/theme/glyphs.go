@@ -16,6 +16,7 @@ import (
 	"charm.land/lipgloss/v2"
 	"github.com/adrg/xdg"
 	"github.com/charmbracelet/x/ansi"
+	"ofam.dev/mtmd/internal/hostnames"
 	"ofam.dev/mtmd/internal/overlay"
 )
 
@@ -235,7 +236,7 @@ var builtinGlyphSets = map[string]*GlyphSet{
 // and tuios reads, not a section of the config file, because it is a document
 // with a shape of its own that people copy between machines.
 func GetGlyphsDir() (string, error) {
-	keepFile, err := xdg.ConfigFile("tuios/glyphs/.keep")
+	keepFile, err := xdg.ConfigFile(hostnames.ConfigFile("glyphs/.keep"))
 	if err != nil {
 		return "", fmt.Errorf("failed to get glyphs directory: %w", err)
 	}
