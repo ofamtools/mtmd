@@ -935,6 +935,9 @@ type PTY struct {
 	// cold is the pane's log of rows that left its memory, nil when the pane
 	// has none. Set once, before the pane starts. See scrollback_cold.go.
 	cold *paneCold
+	// ringRows is the depth the pane's history ring was last set to by the
+	// tiering sweep, 0 while it has the configured depth. See scrollback_tier.go.
+	ringRows atomic.Int64
 	// probeTail is the end of the last output chunk, so a probe split across
 	// two reads is still seen. Only readOutput touches it.
 	probeTail []byte

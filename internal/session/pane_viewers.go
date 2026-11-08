@@ -96,6 +96,7 @@ func (s *Session) applyViewers() {
 // with none the viewers' report applies.
 func (s *Session) noteTUIClients(n int) {
 	s.tuiClients.Store(int32(n))
+	s.noteIdleStateChange() // a pane on or off screen may change its history tier
 	s.ptysMu.RLock()
 	ptys := make([]*PTY, 0, len(s.ptys))
 	for _, p := range s.ptys {

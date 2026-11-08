@@ -270,7 +270,18 @@ const (
 	ScrollbackDiskMBPerPaneDefault   = 128
 	ScrollbackDiskMBTotalDefault     = 2048
 	ScrollbackGraceDaysDefault       = 3
+
+	// Defaults and floor of the daemon.scrollback_hot_* and _cold_ring_rows
+	// settings: how long a quiet pane counts as in use, how many rows a pane
+	// that is not in use keeps in memory, and the fewest it is ever given.
+	ScrollbackHotIdleSecondsDefault = 300
+	ScrollbackColdRingRowsDefault   = 10000
+	ScrollbackColdRingRowsFloor     = 5000
 )
+
+// ScrollbackHotSignals are the names daemon.scrollback_hot_when accepts, and
+// its default: every one.
+var ScrollbackHotSignals = []string{"displayed", "focused", "output"}
 
 type DaemonConfig struct {
 	LogLevel string `toml:"log_level"` // Debug log level: off, errors, basic, messages, verbose, trace (default: off)
@@ -329,6 +340,19 @@ type DaemonConfig struct {
 	// killed session is kept before the sweep deletes it. Zero deletes at
 	// close.
 	ScrollbackGraceDays int `toml:"scrollback_grace_days"`
+	// ScrollbackHotWhen names the signals that keep a pane's history ring at
+	// its full depth (appearance.scrollback_lines): "displayed" (on screen
+	// for a client), "focused", "output" (printed within
+	// scrollback_hot_idle_seconds). A pane none of them holds for is cold: its
+	// ring shrinks to scrollback_cold_ring_rows and the rest lives on disk.
+	// Unset means all three; an empty list means every pane is always cold.
+	// Has no effect while scrollback_disk is off or for a pane without a log.
+	ScrollbackHotWhen []string `toml:"scrollback_hot_when"`
+	// ScrollbackHotIdleSeconds is how long a pane may be silent and still
+	// count as hot by "output".
+	ScrollbackHotIdleSeconds int `toml:"scrollback_hot_idle_seconds"`
+	// ScrollbackColdRingRows is the ring depth of a cold pane, never below 5000.
+	ScrollbackColdRingRows int `toml:"scrollback_cold_ring_rows"`
 	// WindowSize decides the size of a session with more than one client
 	// attached, as tmux's window-size option does: "latest" (the default, as
 	// in tmux since 3.1) takes the client that last had input, "smallest" the
@@ -1245,6 +1269,10 @@ func DefaultConfig() *UserConfig {
 			ScrollbackDiskMBPerPane:   ScrollbackDiskMBPerPaneDefault,
 			ScrollbackDiskMBTotal:     ScrollbackDiskMBTotalDefault,
 			ScrollbackGraceDays:       ScrollbackGraceDaysDefault,
+
+			ScrollbackHotWhen:        slices.Clone(ScrollbackHotSignals),
+			ScrollbackHotIdleSeconds: ScrollbackHotIdleSecondsDefault,
+			ScrollbackColdRingRows:   ScrollbackColdRingRowsDefault,
 		},
 		Startup: StartupConfig{
 			OpenDefaultWindow:   false,

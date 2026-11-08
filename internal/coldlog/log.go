@@ -466,3 +466,8 @@ func (l *Log) DropOldestSegment() (int64, bool) {
 // Stats returns the log's extent on disk (rows still in the open block or the
 // queue are not counted).
 func (l *Log) Stats() Stats { return l.ix.stats() }
+
+// Disabled reports whether the log has stopped taking rows (a write failed):
+// what it was given since is lost, so a caller that would lean on the log to
+// hold rows it lets go of should not.
+func (l *Log) Disabled() bool { return l.disabled.Load() }

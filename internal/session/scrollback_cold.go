@@ -39,6 +39,8 @@ type ColdPolicy struct {
 	TotalBytes int64
 	// GraceDays is how long a closed pane's log is kept; 0 deletes it at close.
 	GraceDays int
+	// Tier is how the pane's memory ring follows its use. See scrollback_tier.go.
+	Tier TierPolicy
 }
 
 // ResolveColdPolicy turns the config's settings into a policy. nil enabled
@@ -167,6 +169,18 @@ func (c *paneCold) flush() {
 	if c.log != nil {
 		c.log.Flush()
 	}
+}
+
+// usable reports whether rows the pane lets go of reach the log: it is open
+// or can be, and has not stopped. A log that has not is no place to put rows
+// on purpose.
+func (c *paneCold) usable() bool {
+	if c == nil {
+		return false
+	}
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return !c.failed && !c.done && (c.log == nil || !c.log.Disabled())
 }
 
 // DropOldestSegment makes a pane's log a coldlog.Trimmer.
