@@ -913,6 +913,10 @@ type DaemonConfig struct {
 	// restart restores it. The zero value saves nothing; a real starter fills
 	// it through DaemonConfigFromUser.
 	History HistoryPolicy
+	// Cold is daemon.scrollback_disk and its bounds, resolved: whether the rows
+	// that leave a pane's memory are written to a log on disk. The zero value
+	// writes nothing; a real starter fills it through DaemonConfigFromUser.
+	Cold ColdPolicy
 	// Hosts are the federated peers from the [hosts] config table. Empty, the
 	// default, means the daemon holds no links and every federation verb reports
 	// an empty table.
@@ -1045,6 +1049,7 @@ func NewDaemon(cfg *DaemonConfig) *Daemon {
 	d.buffers = pastebuf.New(cfg.pasteBufferLimit(), cfg.PasteBufferMaxBytes)
 	d.manager.SetScrollbackLines(cfg.ScrollbackLines)
 	d.manager.SetHistoryPolicy(cfg.History)
+	d.manager.SetColdPolicy(cfg.Cold)
 	d.manager.SetNewWindowInheritCwd(cfg.NewWindowInheritCwd)
 	d.manager.SetPreferredShell(cfg.PreferredShell)
 	d.manager.SetHerdrProtocol(cfg.HerdrProtocol)
@@ -1540,6 +1545,7 @@ func (d *Daemon) Start() error {
 	// accepting clients, so an attach immediately after start finds them. Runs
 	// synchronously; a single corrupt file is archived and skipped, never fatal.
 	d.dropHistoryWhenOff()
+	d.dropColdWhenOff()
 	if !d.disableAutoRestore {
 		d.restoreAllSessions()
 	}
@@ -2407,6 +2413,7 @@ func (d *Daemon) cleanupOnce() bool {
 	waiting := len(d.pendingRequests) > 0
 	d.pendingRequestsMu.Unlock()
 	d.releaseReflowScratch()
+	d.enforceColdTotal()
 	// A flood of output that has ended leaves its garbage and its
 	// peak heap goal behind, and an idle daemon runs no collection to
 	// lower either. memtrim trims only when the daemon is quiet.

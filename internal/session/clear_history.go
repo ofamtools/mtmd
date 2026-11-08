@@ -139,6 +139,9 @@ func (p *PTY) ClearHistory(ctx context.Context, screen bool) error {
 		_, _ = p.terminal.Write(data)
 	}
 	p.terminalMu.Unlock()
+	// The history is gone, so is its log. The output queued before the clear
+	// has been applied (the ack above) and none can follow under streamMu.
+	p.cold.clear()
 
 	p.outputMu.Lock()
 	seq := p.appendToBuffer(data)

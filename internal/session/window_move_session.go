@@ -445,6 +445,7 @@ func (d *Daemon) moveWindowToSession(src, dst *Session, windowID string, workspa
 	d.moveQueuedWindow(windowID, dstName)
 	d.noteMovedWindow(windowID, src.ID, srcName)
 	moveWindowHistory(src, dst, windowID)
+	moveWindowCold(t.pty, src, dst, windowID)
 
 	// A process that exited while the pane was between the two sessions was
 	// heard by nobody attached to the destination.

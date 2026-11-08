@@ -1168,6 +1168,32 @@ var optionSpecs = []Option{
 		Default:     "0", Min: 0, Max: 1048576,
 	},
 
+	{
+		Path: "daemon.scrollback_disk", Type: OptionBool, Section: "daemon",
+		Description: "Write scrollback rows that leave a pane's memory to a log on disk, so a pane keeps more history than appearance.scrollback_lines. False turns the log off and deletes the logs when the daemon next starts. A change applies when the daemon next starts.",
+		Default:     "true",
+	},
+	{
+		Path: "daemon.scrollback_disk_rows_per_pane", Type: OptionInt, Section: "daemon",
+		Description: "Most rows one pane's log keeps; the oldest segments go first. 0 means no row limit. A change applies at the next sweep.",
+		Default:     strconv.Itoa(ScrollbackDiskRowsPerPaneDefault), Min: 0, Max: 1000000000,
+	},
+	{
+		Path: "daemon.scrollback_disk_mb_per_pane", Type: OptionInt, Section: "daemon",
+		Description: "Most MiB one pane's log takes. A change applies when the pane's log is next opened.",
+		Default:     strconv.Itoa(ScrollbackDiskMBPerPaneDefault), Min: 1, Max: 1048576,
+	},
+	{
+		Path: "daemon.scrollback_disk_mb_total", Type: OptionInt, Section: "daemon",
+		Description: "Most MiB all pane logs take together, live and closed; closed logs go first. A change applies at the next sweep.",
+		Default:     strconv.Itoa(ScrollbackDiskMBTotalDefault), Min: 1, Max: 10485760,
+	},
+	{
+		Path: "daemon.scrollback_grace_days", Type: OptionInt, Section: "daemon",
+		Description: "Days the log of a closed pane or a killed session is kept before it is deleted. 0 deletes at close.",
+		Default:     strconv.Itoa(ScrollbackGraceDaysDefault), Min: 0, Max: 365,
+	},
+
 	// [notifications]
 	{
 		Path: "notifications.duration", Type: OptionInt, Section: "notifications",

@@ -179,20 +179,52 @@ func validHistoryWindowID(id string) bool {
 		!strings.ContainsFunc(id, func(r rune) bool { return r < 0x20 || r == 0x7f })
 }
 
-// RemoveHistory deletes every saved pane history of a session.
+// RemoveHistory deletes every saved pane history of a session. The cold logs
+// stay: they outlive the session for the grace period.
 func RemoveHistory(sessionName string) {
 	dir, err := historyDir(sessionName)
 	if err != nil {
 		return
 	}
-	_ = os.RemoveAll(dir)
+	removeSessionHistory(dir)
+}
+
+// removeSessionHistory deletes what a session's history folder holds except
+// its cold logs, and the folder itself when nothing is left.
+func removeSessionHistory(dir string) {
+	entries, err := os.ReadDir(dir)
+	if err != nil {
+		return
+	}
+	left := false
+	for _, e := range entries {
+		if e.IsDir() && isColdDir(e.Name()) {
+			left = true
+			continue
+		}
+		_ = os.RemoveAll(filepath.Join(dir, e.Name()))
+	}
+	if !left {
+		_ = os.Remove(dir)
+	}
 }
 
 // RemoveAllHistory deletes every saved pane history of every session. The
 // daemon calls it on start when persist_scrollback is off, so turning the
 // setting off also takes what was saved while it was on off the disk.
 func RemoveAllHistory() {
-	_ = os.RemoveAll(historyRoot())
+	entries, err := os.ReadDir(historyRoot())
+	if err != nil {
+		return
+	}
+	for _, e := range entries {
+		if e.IsDir() {
+			removeSessionHistory(filepath.Join(historyRoot(), e.Name()))
+		} else {
+			_ = os.Remove(filepath.Join(historyRoot(), e.Name()))
+		}
+	}
+	_ = os.Remove(historyRoot()) // when nothing is left in it
 }
 
 // cleanOrphanHistory deletes the history of every session that has no state
@@ -211,9 +243,7 @@ func cleanOrphanHistory() {
 				continue
 			}
 		}
-		if err := os.RemoveAll(filepath.Join(historyRoot(), e.Name())); err != nil {
-			LogError("Failed to remove saved history of gone session %s: %v", e.Name(), err)
-		}
+		removeSessionHistory(filepath.Join(historyRoot(), e.Name()))
 	}
 }
 
@@ -408,6 +438,9 @@ func pruneHistory(sessionName string, keep map[string]bool) {
 	}
 	for _, e := range entries {
 		name := e.Name()
+		if e.IsDir() && isColdDir(name) {
+			continue
+		}
 		id, ok := strings.CutSuffix(name, historyExt)
 		if ok && keep[id] {
 			continue

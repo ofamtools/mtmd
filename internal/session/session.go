@@ -932,6 +932,9 @@ type PTY struct {
 	// reach the session that shows it. See window_move_session.go.
 	sessionID string
 	home      atomic.Pointer[Session]
+	// cold is the pane's log of rows that left its memory, nil when the pane
+	// has none. Set once, before the pane starts. See scrollback_cold.go.
+	cold *paneCold
 	// probeTail is the end of the last output chunk, so a probe split across
 	// two reads is still seen. Only readOutput touches it.
 	probeTail []byte
@@ -1844,6 +1847,10 @@ type SessionConfig struct {
 	// restart. The manager stamps it from the daemon's config. Nil saves
 	// nothing.
 	history *HistoryPolicy
+	// cold is what the session does with the rows that leave its panes'
+	// memory. The manager stamps it from the daemon's config. Nil writes
+	// nothing.
+	cold *ColdPolicy
 	// Global creates the session as a global one. See SessionState.Global.
 	Global bool
 	// Space creates the session in a space. See SessionState.Space. A restore
@@ -2643,6 +2650,7 @@ func (s *Session) installPTY(ctx context.Context, cancel context.CancelFunc, id 
 	// single vtWriter goroutine; the emitter only does a non-blocking hub publish,
 	// so it never re-enters the terminal lock held during Write.
 	pty.marks = terminal.SemanticMarkers()
+	pty.installCold(s.coldPolicy(), sp.windowID)
 	terminal.SetCallbacks(vt.Callbacks{
 		Bell: func() { pty.emit(SessionEvent{Type: EventBell}) },
 		Title: func(title string) {
@@ -2882,7 +2890,7 @@ func (s *Session) ClosePTY(id string) error {
 
 	delete(s.ptys, id)
 	s.places.Delete(id)
-	return pty.Close()
+	return pty.closeAs(coldWindowClosed)
 }
 
 // ListPTYIDs returns all PTY IDs in this session.
@@ -3751,8 +3759,14 @@ func (s *Session) Stop() {
 	s.ptysMu.Lock()
 	defer s.ptysMu.Unlock()
 
+	// A killed session leaves its panes' logs to the grace period; a daemon
+	// that is stopping seals them for the panes' next life.
+	reason := ""
+	if s.discardHistory.Load() {
+		reason = coldSessionKilled
+	}
 	for id, pty := range s.ptys {
-		_ = pty.Close()
+		_ = pty.closeAs(reason)
 		delete(s.ptys, id)
 		s.places.Delete(id)
 	}
@@ -4964,8 +4978,19 @@ func (p *PTY) capturePlainAt(scrollback bool) (string, captureState) {
 }
 
 // Close terminates the PTY.
-func (p *PTY) Close() error {
+func (p *PTY) Close() error { return p.closeAs("") }
+
+// closeAs terminates the PTY. The reason the pane is going (coldWindowClosed,
+// coldSessionKilled) says its scrollback log is left as an orphan; none means
+// the daemon is stopping and the log is only sealed.
+func (p *PTY) closeAs(reason string) error {
 	p.cancel()
+	// What the closed marker says about the pane, read while its shell lives.
+	var title, cwd string
+	if reason != "" && p.cold != nil {
+		title = p.Title()
+		cwd, _ = p.ProcessCwd()
+	}
 
 	// Before anything else, so a settle scan already armed cannot fire against a
 	// pane whose emulator is about to be closed.
@@ -4996,6 +5021,7 @@ func (p *PTY) Close() error {
 	if p.terminal != nil {
 		_ = p.terminal.Close()
 	}
+	p.cold.close(reason, title, cwd)
 
 	// No held window size may be written once the descriptor is closed.
 	p.closeWinsize()

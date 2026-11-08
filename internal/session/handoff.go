@@ -274,6 +274,12 @@ func (r *handoffRun) prepare() error {
 		return err
 	}
 	r.stats.QuiesceMS = msSince(t0)
+	// The rows each pane has let go of are in its log's files before the
+	// manifest is written. The next image opens the logs by path: the lock
+	// goes with the exec, and a segment left open is sealed on open.
+	for _, ref := range refs {
+		ref.pty.cold.flush()
+	}
 	for _, ref := range refs {
 		ptyspawn.ControlMaster(ref.pty.pty, func(fd int) {
 			if n := pendingBytes(fd); n > 0 {

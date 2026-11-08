@@ -49,6 +49,7 @@ func DaemonConfigFromUser(uc *config.UserConfig) *DaemonConfig {
 	cfg.SSHAgent = uc.Daemon.SSHAgent
 	cfg.Display = uc.Daemon.Display
 	cfg.History = ResolveHistoryPolicy(uc.Daemon.PersistScrollback, uc.Daemon.PersistScrollbackLines, uc.Daemon.PersistScrollbackKB)
+	cfg.Cold = ResolveColdPolicy(uc.Daemon.ScrollbackDisk, uc.Daemon.ScrollbackDiskRowsPerPane, uc.Daemon.ScrollbackDiskMBPerPane, uc.Daemon.ScrollbackDiskMBTotal, uc.Daemon.ScrollbackGraceDays)
 	cfg.Hosts = HostsFromConfig(uc)
 	// The same table says what each machine linked to this one may do here.
 	cfg.LinkPolicies = uc.Hosts

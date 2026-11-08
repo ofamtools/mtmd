@@ -36,6 +36,7 @@ type Manager struct {
 	// history is what sessions made from now on do with their panes' history
 	// across a restart. Nil saves nothing. Guarded by mu.
 	history *HistoryPolicy
+	cold    *ColdPolicy
 	// inheritCwd is appearance.new_window_inherit_cwd, stamped into every
 	// session this manager makes.
 	inheritCwd bool
@@ -335,6 +336,9 @@ func (m *Manager) CreateSession(name string, cfg *SessionConfig, width, height i
 	if cfg.history == nil {
 		cfg.history = m.history
 	}
+	if cfg.cold == nil {
+		cfg.cold = m.cold
+	}
 	if cfg.grants == nil {
 		cfg.grants = m.grants
 	}
@@ -507,7 +511,9 @@ func (m *Manager) RenameSession(old, newName string) (*Session, error) {
 		}
 	}
 	// Before the old state goes, which takes the old name's history with it.
+	releaseCold := sess.holdCold()
 	moveHistory(old, newName)
+	releaseCold()
 	RemoveResurrectionState(old)
 
 	if onRename != nil {

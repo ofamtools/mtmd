@@ -264,6 +264,14 @@ func (c TapeConfig) TapeStatusShown() bool {
 }
 
 // DaemonConfig holds daemon-related settings
+// Defaults of the daemon.scrollback_disk* settings.
+const (
+	ScrollbackDiskRowsPerPaneDefault = 2000000
+	ScrollbackDiskMBPerPaneDefault   = 128
+	ScrollbackDiskMBTotalDefault     = 2048
+	ScrollbackGraceDaysDefault       = 3
+)
+
 type DaemonConfig struct {
 	LogLevel string `toml:"log_level"` // Debug log level: off, errors, basic, messages, verbose, trace (default: off)
 	// AgentAutoDetect toggles automatic detection of a pane's foreground AI-agent
@@ -302,6 +310,25 @@ type DaemonConfig struct {
 	// disk, compressed, in KiB. Zero means 2048. A pane over it saves fewer
 	// lines.
 	PersistScrollbackKB int `toml:"persist_scrollback_kb"`
+	// ScrollbackDisk writes each pane's scrollback rows to a log on disk as
+	// they leave the in-memory history, so a pane keeps more history than
+	// appearance.scrollback_lines holds in memory. Nil means on, the default.
+	// False is exactly the behaviour without the log: no hook, no files, and
+	// the logs a previous run left are deleted when the daemon next starts.
+	ScrollbackDisk *bool `toml:"scrollback_disk"`
+	// ScrollbackDiskRowsPerPane is the most rows one pane's log keeps, oldest
+	// segments dropped first. Zero means no row limit (the size limits still
+	// apply).
+	ScrollbackDiskRowsPerPane int `toml:"scrollback_disk_rows_per_pane"`
+	// ScrollbackDiskMBPerPane is the most MiB one pane's log takes.
+	ScrollbackDiskMBPerPane int `toml:"scrollback_disk_mb_per_pane"`
+	// ScrollbackDiskMBTotal is the most MiB all logs take together, live and
+	// closed; closed ones go first.
+	ScrollbackDiskMBTotal int `toml:"scrollback_disk_mb_total"`
+	// ScrollbackGraceDays is how many days the log of a closed pane or a
+	// killed session is kept before the sweep deletes it. Zero deletes at
+	// close.
+	ScrollbackGraceDays int `toml:"scrollback_grace_days"`
 	// WindowSize decides the size of a session with more than one client
 	// attached, as tmux's window-size option does: "latest" (the default, as
 	// in tmux since 3.1) takes the client that last had input, "smallest" the
@@ -1213,6 +1240,11 @@ func DefaultConfig() *UserConfig {
 			ResumeAgents: ResumeAgentsAsk,
 			WindowSize:   WindowSizeLatest,
 			Display:      DisplayFollow,
+
+			ScrollbackDiskRowsPerPane: ScrollbackDiskRowsPerPaneDefault,
+			ScrollbackDiskMBPerPane:   ScrollbackDiskMBPerPaneDefault,
+			ScrollbackDiskMBTotal:     ScrollbackDiskMBTotalDefault,
+			ScrollbackGraceDays:       ScrollbackGraceDaysDefault,
 		},
 		Startup: StartupConfig{
 			OpenDefaultWindow:   false,
