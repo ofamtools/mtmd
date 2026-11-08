@@ -23,6 +23,13 @@ daemon restart and a live upgrade, and the log of a closed pane is kept for a
 grace period. The pure Go emulator only: panes on the libghostty backend have
 no log and keep today's behaviour.
 
+The log is read on demand only. A restart adopts a pane's log by its index (no
+block is read; the ring gets the saved tail as before), attaching to or
+promoting a pane reads none of it, and older rows are read in blocks of 256
+rows when a capture (`start`/`end`/`lines`) or a search asks for them, a window
+costing the blocks it lies in. `unwrap` with a window and a capture of the
+whole history read the log from its start, because they number lines by it.
+
 Settings (`[daemon]` in config.toml; each is also in the option table):
 
 | Setting | Default | Meaning |

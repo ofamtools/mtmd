@@ -16,6 +16,7 @@ Disk-backed scrollback for the pure Go emulator.
   from 143 MB to 77 MB (macOS) and RSS from 154 MB to 77 MB (Linux).
 - Added: `capture-pane` (`source=recent`) and `search-panes` read through the
   log (`history_rows_disk`, `complete` in the replies).
+- Added: nothing reads the log eagerly: a restart adopts it by its index, attach and promotion read none of it, and a capture or search reads only the blocks its range needs (`coldlog.BlockReads` counts them; tests assert zero for restore, attach and promotion).
 - Added: the log survives a daemon restart and a live upgrade; the log of a
   closed pane is deleted after `scrollback_grace_days`.
 - Added verbs: `list-history-logs`, `show-history-log`, `keep-history-log`,

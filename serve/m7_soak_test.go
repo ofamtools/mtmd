@@ -388,7 +388,7 @@ func TestM7RestoreCost(t *testing.T) {
 		}
 	}
 	stop(pid)
-	backup := dir + ".bak"
+	backup := filepath.Join(h.base, "cold.bak")
 	if err := os.Rename(dir, backup); err != nil {
 		t.Fatal(err)
 	}
