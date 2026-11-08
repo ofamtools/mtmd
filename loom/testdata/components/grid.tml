@@ -1,4 +1,0 @@
-<!-- 32x5 -->
-<tml version="1">
-  <grid cols="3" gap="1"><badge w="fill">a</badge><badge w="fill">b</badge><badge w="fill">c</badge><badge w="fill">d</badge><text>a long text that wraps</text></grid>
-</tml>
