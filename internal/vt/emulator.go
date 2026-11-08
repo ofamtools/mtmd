@@ -737,6 +737,15 @@ func (e *Emulator) SetScrollbackMaxLines(maxLines int) {
 	e.scrs[0].SetScrollbackMaxLines(maxLines)
 }
 
+// SetScrollbackEvictHook sets fn to be called with each line the main
+// screen's scrollback lets go of from its old end: see Scrollback.SetOnEvict.
+// Nil removes it. It does nothing on an emulator without scrollback.
+func (e *Emulator) SetScrollbackEvictHook(fn func(EncodedRow)) {
+	if sb := e.scrs[0].Scrollback(); sb != nil {
+		sb.SetOnEvict(fn)
+	}
+}
+
 // WidthMethod returns the width method used by the terminal.
 //
 // It is always grapheme width, because that is what handleGrapheme measures

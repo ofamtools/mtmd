@@ -63,6 +63,11 @@ type Scrollback struct {
 	heldTrims int
 	// discard drops every line pushed, before it is encoded. See Discard.
 	discard bool
+	// onEvict, when set, sees each line the ring lets go of from its old end
+	// (see SetOnEvict). rgbOnly makes packColor write every colour it does
+	// not know as RGB, for a line re-encoded to leave the ring.
+	onEvict func(EncodedRow)
+	rgbOnly bool
 
 	// Intern table for colour values of a type the packer does not know. It
 	// is capped at internCap entries; past the cap a colour is reduced to RGB
@@ -264,6 +269,10 @@ func (sb *Scrollback) push(cells uv.Line, width int) {
 	// Once the ring's storage has reached its capacity, every line lands in
 	// a slot in place: the oldest when the ring is full, or one a reflow
 	// gave back with truncate.
+	if sb.full && sb.onEvict != nil {
+		// The oldest line is about to be overwritten in place.
+		sb.evict(sb.head)
+	}
 	inPlace := len(sb.lines) == sb.maxLines
 	var buf []byte
 	if inPlace {
@@ -540,6 +549,10 @@ func (sb *Scrollback) packColor(c color.Color) uint32 {
 }
 
 func (sb *Scrollback) internColor(c color.Color) uint32 {
+	if sb.rgbOnly {
+		r, g, b, _ := c.RGBA()
+		return colorRGB | ((r>>8)<<16|(g>>8)<<8|b>>8)<<colorTagBits
+	}
 	comparable := reflect.TypeOf(c).Comparable()
 	if comparable {
 		if sb.colorIdx == nil {
@@ -930,6 +943,12 @@ func (sb *Scrollback) SetMaxLines(maxLines int) {
 
 	oldLen := sb.Len()
 	newLen := min(oldLen, maxLines)
+	if sb.onEvict != nil {
+		// Shrinking drops the oldest lines, oldest first.
+		for i := range oldLen - newLen {
+			sb.evict(sb.slot(i))
+		}
+	}
 	var newLines [][]byte
 	var newWraps []rowFlag
 	if newLen > 0 {
