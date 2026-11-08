@@ -3,7 +3,7 @@
 `ofam.dev/mtmd` is a fork of [Gaurav-Gosain/tuios](https://github.com/Gaurav-Gosain/tuios)
 that keeps only tuios's daemon and the packages the daemon needs, so a host
 program (mtm) can link the daemon into its own binary and need no `tuios` on
-PATH. It shares git history with upstream, so `git merge vX.Y.Z` keeps working.
+PATH. It shares git history with upstream, so merging an upstream tag (`git merge upstream-tags/vX.Y.Z`) keeps working.
 
 It is local to the o-family and is not published. `upstream` is the remote for
 github.com/Gaurav-Gosain/tuios. `~/proj/tuios` (remote `local-tuios`) is the
@@ -100,6 +100,25 @@ Keep rule, in this order:
 exits 1 if there is anything. `-tidy` also runs `go mod tidy` (not part of the
 recipe: it would make `go.mod` conflict at every merge).
 
+## Versions and tags
+
+mtmd has its own versions: its tags are `vX.Y.Z` of mtmd, not of tuios
+(`v0.1.0` is upstream `v0.12.1`, pruned). Each release records the upstream
+tag it is based on in the tag message.
+
+Upstream's tags (`v0.1.0` to `v0.12.1`, and later) collide with those names, so
+they live in `refs/upstream-tags/`, not `refs/tags/`. Never push upstream tags
+to `origin`: push only `git push origin main` and `git push origin vX.Y.Z`.
+
+On a fresh clone, recreate the remote configuration:
+
+```sh
+git remote add upstream https://github.com/Gaurav-Gosain/tuios.git
+git config remote.upstream.tagOpt --no-tags
+git config --add remote.upstream.fetch '+refs/tags/*:refs/upstream-tags/*'
+git fetch upstream
+```
+
 ## Merging the next upstream tag
 
 The order matters: the rewrite comes before the prune, because `ofam-prune` asks
@@ -108,11 +127,11 @@ the old module path until the rewrite has run.
 
 ```sh
 cd ~/proj/mtmd
-git fetch upstream --tags
+git fetch upstream   # no --tags: the remote's refspec brings tags into refs/upstream-tags/
 git worktree add .worktrees/sync-vX.Y.Z -b sync-vX.Y.Z <fork integration branch>
 cd .worktrees/sync-vX.Y.Z
 export GOWORK=off GOFLAGS=-trimpath GOMAXPROCS=4
-git -c merge.directoryRenames=false merge vX.Y.Z   # will stop with conflicts
+git -c merge.directoryRenames=false merge upstream-tags/vX.Y.Z   # will stop with conflicts
 git checkout --ours README.md                       # ours: the credit README
 go run scripts/ofam-rewrite.go                      # new upstream lines carry the old path
 go run scripts/ofam-prune.go                        # deletes every modify/delete and new pruned file
