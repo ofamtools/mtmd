@@ -128,6 +128,10 @@ type paneCold struct {
 	// wait makes the hook wait for room in the log's queue instead of dropping
 	// the row: set by a shrink (tierScrollback) around SetScrollbackMaxLines.
 	wait atomic.Bool
+	// diskRd is the reader of the log on disk of a pane that has not opened
+	// it: kept so a second read finds its blocks in the cache. Cleared when
+	// the log opens, is deleted or is replaced.
+	diskRd atomic.Pointer[coldlog.Reader]
 	// tail is the id of the first row of the history file saved last, 0 and
 	// tailOK false when there is none that a restart would restore.
 	tail   atomic.Uint64
@@ -211,6 +215,7 @@ func (c *paneCold) openLog() *coldlog.Log {
 // open opens the log and brings its ids in line with the ring's. The caller
 // holds c.mu.
 func (c *paneCold) open() {
+	c.diskRd.Store(nil)
 	dir, err := coldDir(c.session(), c.windowID)
 	if err == nil {
 		c.log, err = coldlog.OpenLog(dir, coldlog.Options{
@@ -311,6 +316,7 @@ func (c *paneCold) clear() {
 	c.evicted.Store(0)
 	c.skip.Store(0)
 	c.tailOK.Store(false)
+	c.diskRd.Store(nil)
 	var dir string
 	if c.log != nil {
 		dir = c.log.Dir()

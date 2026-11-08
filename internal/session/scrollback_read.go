@@ -53,10 +53,15 @@ func (c *paneCold) view() coldView {
 	if c.log != nil {
 		c.log.Flush()
 		rd = c.log.Reader()
-	} else if dir, err := coldDir(c.session(), c.windowID); err == nil {
+	} else if rd = c.diskRd.Load(); rd == nil {
 		// A restored or adopted pane has a log on disk before it opens one.
-		if r, err := coldlog.OpenReader(dir, 8); err == nil {
-			rd = r
+		// Its index is read once, and so are the blocks its reads touch: the
+		// reader is kept until the log opens, clears or is adopted over.
+		if dir, err := coldDir(c.session(), c.windowID); err == nil {
+			if r, err := coldlog.OpenReader(dir, 8); err == nil {
+				rd = r
+				c.diskRd.Store(r)
+			}
 		}
 	}
 	if rd == nil {

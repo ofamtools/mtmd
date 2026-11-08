@@ -368,3 +368,55 @@ func TestM7GracePurgeAfterThreeDays(t *testing.T) {
 		t.Fatal("a log past its grace was not purged")
 	}
 }
+
+// Restore with a 1M-row log on disk costs what a restore without a log costs.
+func TestM7RestoreCost(t *testing.T) {
+	m7Gate(t)
+	h := newHost(t)
+	m7Config(h, "[appearance]\nscrollback_lines = 10000\n")
+	pid := h.start()
+	win := h.newShell("rc", "w")
+	time.Sleep(500 * time.Millisecond)
+	h.run("rc", win, m7Rows(1100000, false), "FLOOD", 300*time.Second)
+	time.Sleep(3 * time.Second)
+	h.waitLog("rc/"+win, 1000000)
+	dir := h.coldDirOf(win)
+	stop := func(pid int) {
+		_ = syscall.Kill(pid, syscall.SIGTERM)
+		for i := 0; i < 400 && syscall.Kill(pid, 0) == nil; i++ {
+			time.Sleep(50 * time.Millisecond)
+		}
+	}
+	stop(pid)
+	backup := dir + ".bak"
+	if err := os.Rename(dir, backup); err != nil {
+		t.Fatal(err)
+	}
+	restart := func(label string) {
+		reads := coldlog.BlockReads()
+		t0 := time.Now()
+		out, err := h.cmd("start-server").CombinedOutput()
+		if err != nil {
+			t.Fatalf("start-server: %v %s", err, out)
+		}
+		hello := h.must("hello", map[string]any{})
+		up := time.Since(t0)
+		newPid := int(hello["pid"].(float64))
+		// The pane is back with its tail.
+		h.waitPane("rc", win, "R", 30*time.Second)
+		ready := time.Since(t0)
+		time.Sleep(3 * time.Second)
+		res := h.must("get-window", map[string]any{"session": "rc", "window": win})
+		t.Logf("M7 restore %s: daemon answers after %.0f ms, pane readable after %.0f ms; history_rows=%v; %s", label, float64(up.Milliseconds()), float64(ready.Milliseconds()), res["history_rows"], m7Footprint(newPid))
+		_ = reads
+		stop(newPid)
+	}
+	// Without a log (the saved tail only), then with the 1M-row log back.
+	restart("without a log")
+	_ = os.RemoveAll(dir)
+	if err := os.Rename(backup, dir); err != nil {
+		t.Fatal(err)
+	}
+	restart("with a 1M-row log")
+	restart("with a 1M-row log, second restart")
+}

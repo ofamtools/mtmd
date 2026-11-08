@@ -235,5 +235,6 @@ func (c *paneCold) adoptHistoryLog(src string) (rows int64, err error) {
 	c.skip.Store(0)
 	c.failed = false
 	c.tailOK.Store(false)
+	c.diskRd.Store(nil)
 	return st.Rows, nil
 }

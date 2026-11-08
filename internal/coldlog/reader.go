@@ -12,6 +12,7 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"sync/atomic"
 
 	uv "github.com/charmbracelet/ultraviolet"
 
@@ -263,6 +264,14 @@ func (ix *index) locate(id uint64) (path string, b blockRef, err error) {
 	return s.path, s.blocks[bi], nil
 }
 
+// blockReads counts the blocks read and decompressed from disk by any reader
+// in the process (a block served from the cache does not count).
+var blockReads atomic.Uint64
+
+// BlockReads is that count. It is for tests and diagnostics: it proves that a
+// path (a restore, an attach) reads no history from the log.
+func BlockReads() uint64 { return blockReads.Load() }
+
 type decoded struct {
 	first uint64
 	rows  []vt.EncodedRow
@@ -287,6 +296,7 @@ func (ix *index) block(path string, b blockRef) (*decoded, error) {
 	if crc32.Checksum(payload, crcTable) != b.crc {
 		return nil, ErrCorrupt
 	}
+	blockReads.Add(1)
 	raw, err := gunzip(payload, b.rawLen)
 	if err != nil {
 		return nil, err

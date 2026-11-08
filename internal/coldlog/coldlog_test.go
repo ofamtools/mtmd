@@ -1095,3 +1095,43 @@ func TestIdleLogReleasesWriterState(t *testing.T) {
 	}
 	l.Close()
 }
+
+// A read of a range touches the blocks that range lies in and no others; a
+// block already in the cache is not read again; opening the log reads none.
+func TestBlockReadsAreBoundedByTheRange(t *testing.T) {
+	dir := t.TempDir()
+	rows := corpus(t, 256)
+	l := openLog(t, dir, Options{BlockRows: 256, SegmentRows: 4096})
+	for i := range 20000 {
+		l.Append(rows[i%len(rows)])
+	}
+	l.Flush()
+	l.Close()
+
+	before := BlockReads()
+	r, err := OpenReader(dir, 8)
+	if err != nil {
+		t.Fatal(err)
+	}
+	l2 := openLog(t, dir, Options{BlockRows: 256})
+	_ = l2.Next()
+	l2.Close()
+	if n := BlockReads() - before; n != 0 {
+		t.Fatalf("opening a reader and a writer on 20000 rows read %d blocks", n)
+	}
+	for id := uint64(5000); id < 5300; id++ { // 300 rows: at most 3 blocks
+		if _, err := r.Row(id); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if n := BlockReads() - before; n < 1 || n > 3 {
+		t.Fatalf("300 rows read %d blocks", n)
+	}
+	mid := BlockReads()
+	for id := uint64(5000); id < 5300; id++ {
+		_, _ = r.Row(id)
+	}
+	if BlockReads() != mid {
+		t.Fatal("rows in the cache were read from disk again")
+	}
+}
