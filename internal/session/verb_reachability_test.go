@@ -51,15 +51,22 @@ type exampleOutcome struct {
 var exampleOutcomes = map[string]exampleOutcome{
 	// The fixture's session is made fresh for each example and holds no
 	// task card. The verbs are proved in task_test.go.
-	"block-task#0":     {errCode: ErrVerbNoTask, why: "the fixture's session holds no task card"},
-	"block-task#1":     {errCode: ErrVerbNoTask, why: "the fixture's session holds no task card"},
-	"claim-task#0":     {errCode: ErrVerbNoTask, why: "the fixture's session holds no task card"},
-	"claim-task#1":     {errCode: ErrVerbNoTask, why: "the fixture's session holds no task card"},
-	"finish-task#0":    {errCode: ErrVerbNoTask, why: "the fixture's session holds no task card"},
-	"get-task#0":       {errCode: ErrVerbNoTask, why: "the fixture's session holds no task card"},
-	"release-task#0":   {errCode: ErrVerbNoTask, why: "the fixture's session holds no task card"},
-	"remove-task#0":    {errCode: ErrVerbNoTask, why: "the fixture's session holds no task card"},
-	"set-task-stage#0": {errCode: ErrVerbNoTask, why: "the fixture's session holds no task card"},
+	// The fixture has no cold logs; the verbs are proved in scrollback_m6_test.go
+	// and serve/history_log_test.go.
+	"show-history-log#0":   {errCode: ErrVerbInvalidParams, why: "the fixture holds no history log"},
+	"keep-history-log#0":   {errCode: ErrVerbInvalidParams, why: "the fixture holds no history log"},
+	"unkeep-history-log#0": {errCode: ErrVerbInvalidParams, why: "the fixture holds no history log"},
+	"adopt-history-log#0":  {errCode: ErrVerbInvalidParams, why: "the fixture's panes keep no cold log"},
+	"adopt-history#0":      {errCode: ErrVerbWindowNotFound, why: "the example names a window the fixture does not have"},
+	"block-task#0":         {errCode: ErrVerbNoTask, why: "the fixture's session holds no task card"},
+	"block-task#1":         {errCode: ErrVerbNoTask, why: "the fixture's session holds no task card"},
+	"claim-task#0":         {errCode: ErrVerbNoTask, why: "the fixture's session holds no task card"},
+	"claim-task#1":         {errCode: ErrVerbNoTask, why: "the fixture's session holds no task card"},
+	"finish-task#0":        {errCode: ErrVerbNoTask, why: "the fixture's session holds no task card"},
+	"get-task#0":           {errCode: ErrVerbNoTask, why: "the fixture's session holds no task card"},
+	"release-task#0":       {errCode: ErrVerbNoTask, why: "the fixture's session holds no task card"},
+	"remove-task#0":        {errCode: ErrVerbNoTask, why: "the fixture's session holds no task card"},
+	"set-task-stage#0":     {errCode: ErrVerbNoTask, why: "the fixture's session holds no task card"},
 	// A client-owned surface with no client attached.
 	"list-dock-components#0": {errCode: ErrVerbNeedsClient, why: "the dock is drawn by a client"},
 	// The fixture daemon reads no config file. The verb is proved in

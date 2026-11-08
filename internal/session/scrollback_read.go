@@ -49,12 +49,26 @@ func (c *paneCold) view() coldView {
 	}
 	c.mu.RLock()
 	defer c.mu.RUnlock()
-	if c.log == nil {
+	var rd *coldlog.Reader
+	if c.log != nil {
+		c.log.Flush()
+		rd = c.log.Reader()
+	} else if dir, err := coldDir(c.session(), c.windowID); err == nil {
+		// A restored or adopted pane has a log on disk before it opens one.
+		if r, err := coldlog.OpenReader(dir, 8); err == nil {
+			rd = r
+		}
+	}
+	if rd == nil {
 		return coldView{}
 	}
-	c.log.Flush()
-	rd := c.log.Reader()
-	return coldView{rd: rd, first: rd.First(), end: rd.Next()}
+	end := rd.Next()
+	if start := c.base + c.evicted.Load(); end > start {
+		// The log already holds the ring's first rows (spilled at a handoff
+		// or a restart): the ring shows them, the log stops before them.
+		end = start
+	}
+	return coldView{rd: rd, first: rd.First(), end: end}
 }
 
 // coldGapText is the line that stands for a run of n rows the log lost.

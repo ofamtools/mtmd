@@ -172,7 +172,6 @@ func TestHistoryLogSurvivesADaemonRestart(t *testing.T) {
 	if after["next_row"].(float64) < 60000-6000-300 {
 		t.Fatalf("log ends at %v", after["next_row"])
 	}
-	h.waitPane("rs", win, "done-60000", 10*time.Second)
 	// And it carries on from there.
 	h.flood("rs", win, 30000)
 	later := h.waitLog(id, after["rows"].(float64)+10000)

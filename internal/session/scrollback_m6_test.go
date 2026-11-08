@@ -88,6 +88,13 @@ func TestColdRestartKeepsTheFullHistory(t *testing.T) {
 	if got := pty2.cold.ringStart(); got != next {
 		t.Fatalf("the restored ring starts at row %d, the log ends at %d", got, next)
 	}
+	// Readers see the log before the restored pane has evicted a row.
+	pty2.terminalMu.RLock()
+	v := pty2.cold.view()
+	pty2.terminalMu.RUnlock()
+	if v.end != next || v.rows() < total-10000 {
+		t.Fatalf("view of the restored pane: end %d rows %d", v.end, v.rows())
+	}
 	// The ring's oldest row is the log's next one.
 	pty2.terminalMu.RLock()
 	first := strings.TrimRight(pty2.terminal.ScrollbackLine(0).String(), " ")
