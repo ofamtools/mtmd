@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"ofam.dev/mtmd/internal/ptyspawn"
+	"ofam.dev/mtmd/internal/selfcmd"
 	"tuios.dev/vt"
 )
 
@@ -460,7 +461,7 @@ func (r *handoffRun) commit() error {
 	}
 	d.closeClientsForHandoff()
 
-	argv := append([]string{r.bin.path}, d.handoffArgs(int(r.file.Fd()))...) //nolint:gosec // a descriptor number
+	argv := selfcmd.Argv(r.bin.path, d.handoffArgs(int(r.file.Fd()))...) //nolint:gosec // a descriptor number
 	log.Printf("Live upgrade: exec %s with %d panes (manifest %d bytes, stopped %s)", r.bin.path, r.panes, r.manifestBytes, time.Since(r.started).Round(time.Millisecond))
 	err := execHandoff(r.bin.path, argv, withoutEnv(os.Environ(), handoffFallbackEnv), r.fds, r.req.inWindow)
 	LogError("Live upgrade: exec %s failed, the daemon carries on: %v", r.bin.path, err)

@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"ofam.dev/mtmd/internal/selfcmd"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -77,7 +78,8 @@ func preflightBinary(path string) (handoffBinary, error) {
 	defer cancel()
 	var out, errOut bytes.Buffer
 	//tuios:allow-exec the preflight runs the new binary once, before anything is paused
-	cmd := exec.CommandContext(ctx, abs, "daemon", "handoff-accepts")
+	argv := selfcmd.Argv(abs, "daemon", "handoff-accepts")
+	cmd := exec.CommandContext(ctx, argv[0], argv[1:]...)
 	cmd.Stdout, cmd.Stderr = &out, &errOut
 	started := time.Now()
 	if err := cmd.Run(); err != nil {

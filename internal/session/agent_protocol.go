@@ -1,11 +1,11 @@
 package session
 
 import (
-	"os"
 	"slices"
 	"strings"
 
 	"ofam.dev/mtmd/internal/agentproto"
+	"ofam.dev/mtmd/internal/selfcmd"
 )
 
 // Protocol panes: an agent start-agent runs headless, over ACP or the Codex
@@ -59,7 +59,7 @@ func (d *Daemon) agentProtoExecutable() (string, error) {
 	if d.agentProtoExe != nil {
 		return d.agentProtoExe()
 	}
-	return os.Executable()
+	return selfcmd.Exe()
 }
 
 // checkProtocol refuses a protocol tuios does not speak.
@@ -93,7 +93,7 @@ func (d *Daemon) protocolArgv(protocol, harness string, agentArgv []string) ([]s
 		return nil, hintedVerbError(ErrVerbInternal, "could not find the tuios binary to run the protocol pane: "+err.Error(), nil)
 	}
 	argv := agentArgv
-	out := []string{exe, "agent-proto", "--protocol", protocol}
+	out := selfcmd.Argv(exe, "agent-proto", "--protocol", protocol)
 	if harness = strings.TrimSpace(harness); harness != "" {
 		out = append(out, "--harness", harness)
 	}

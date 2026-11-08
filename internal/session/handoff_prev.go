@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"ofam.dev/mtmd/internal/selfcmd"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -107,7 +108,8 @@ func keepRunningBinary(dir string) (*prevBinary, error) {
 	// fallback.
 	go func() {
 		//tuios:allow-exec runs the kept copy once so a fallback does not pay its first exec
-		_ = exec.Command(dst, "daemon", "handoff-accepts").Run()
+		argv := selfcmd.Argv(dst, "daemon", "handoff-accepts")
+		_ = exec.Command(argv[0], argv[1:]...).Run()
 	}()
 	return &prevBinary{path: dst, file: id, sum: sum}, nil
 }
