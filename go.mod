@@ -1,4 +1,4 @@
-module github.com/Gaurav-Gosain/tuios
+module ofam.dev/mtmd
 
 go 1.26.8
 

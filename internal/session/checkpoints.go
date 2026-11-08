@@ -7,8 +7,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/worktree"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/worktree"
 )
 
 // Checkpoints: the state of a pane's git work tree, saved each time its agent

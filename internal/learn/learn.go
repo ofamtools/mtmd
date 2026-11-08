@@ -16,9 +16,9 @@ import (
 
 	tea "charm.land/bubbletea/v2"
 
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/webshell"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/webshell"
 )
 
 // Event types. See cmd/tuios-wasm/README.md for each one's data.

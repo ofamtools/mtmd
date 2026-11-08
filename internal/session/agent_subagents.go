@@ -10,7 +10,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/integration"
+	"ofam.dev/mtmd/internal/integration"
 )
 
 // The subagents an agent pane is running. A harness that hands work to

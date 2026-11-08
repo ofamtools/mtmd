@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/app"
+	"ofam.dev/mtmd/internal/app"
 )
 
 // handleFocusSidebar enters the rail's keyboard scope. Bound to "s" in window

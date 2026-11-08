@@ -5,8 +5,8 @@ import (
 	"testing"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // A chord is matched as the key produced before the key at its US position.

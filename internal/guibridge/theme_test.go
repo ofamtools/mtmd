@@ -3,8 +3,8 @@ package guibridge
 import (
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
 	"github.com/charmbracelet/colorprofile"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // The renderer paints the chrome only from what the bridge exports, so a

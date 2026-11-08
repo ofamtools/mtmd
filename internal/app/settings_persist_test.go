@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // runSaveCmd is runSave for a caller that expects a save to have been queued.

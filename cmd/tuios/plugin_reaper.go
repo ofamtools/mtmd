@@ -4,7 +4,7 @@ import (
 	"os"
 	"runtime"
 
-	"github.com/Gaurav-Gosain/tuios/internal/herdrplugin"
+	"ofam.dev/mtmd/internal/herdrplugin"
 )
 
 // pluginReaper is the argv the daemon runs a plugin command under, or nil

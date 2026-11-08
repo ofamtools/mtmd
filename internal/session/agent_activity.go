@@ -8,8 +8,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/integration"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/integration"
 )
 
 // An agent pane's activity: the prompts, tool calls, tool results, finished

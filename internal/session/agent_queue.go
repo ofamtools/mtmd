@@ -9,7 +9,7 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // The delivery queue: messages for the agent in a pane, typed as a prompt the

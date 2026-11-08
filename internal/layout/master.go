@@ -3,7 +3,7 @@ package layout
 import (
 	"slices"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // MasterParams is everything the master-stack tiler reads besides the region

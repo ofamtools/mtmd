@@ -5,9 +5,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/sessiontree"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/sessiontree"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // benchAgentStates cycles through every state a rail row can be in, so the

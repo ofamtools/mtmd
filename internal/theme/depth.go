@@ -5,8 +5,8 @@ import (
 	"os"
 	"sync/atomic"
 
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
 	"github.com/charmbracelet/colorprofile"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // colorProfile is the colour profile the frame reaches the terminal with.

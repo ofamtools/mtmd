@@ -11,9 +11,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/herdrplugin"
 	"github.com/spf13/cobra"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/herdrplugin"
 )
 
 // tuios plugins uninstall: undo tuios plugins install. It disables the

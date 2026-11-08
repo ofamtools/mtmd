@@ -13,18 +13,18 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/dnd"
+	"ofam.dev/mtmd/internal/dnd"
 
 	uv "github.com/charmbracelet/ultraviolet"
 
 	"charm.land/lipgloss/v2"
 	xpty "github.com/charmbracelet/x/xpty"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/debuglog"
-	"github.com/Gaurav-Gosain/tuios/internal/guestenv"
-	"github.com/Gaurav-Gosain/tuios/internal/ptyspawn"
-	"github.com/Gaurav-Gosain/tuios/internal/sessiontree"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/debuglog"
+	"ofam.dev/mtmd/internal/guestenv"
+	"ofam.dev/mtmd/internal/ptyspawn"
+	"ofam.dev/mtmd/internal/sessiontree"
 	"tuios.dev/vt"
 )
 

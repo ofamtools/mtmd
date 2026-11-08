@@ -3,7 +3,7 @@ package app
 import (
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // TestRestoreTerminalContentAppliesInputRoutingState is the client half of the

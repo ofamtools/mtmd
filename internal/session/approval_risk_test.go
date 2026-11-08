@@ -8,9 +8,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/integration"
-	"github.com/Gaurav-Gosain/tuios/internal/risk"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/integration"
+	"ofam.dev/mtmd/internal/risk"
 )
 
 // enableRiskyApprovals turns approvals on for claude-code with the shipped

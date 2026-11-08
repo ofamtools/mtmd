@@ -12,8 +12,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/lazyre"
-	"github.com/Gaurav-Gosain/tuios/skills"
+	"ofam.dev/mtmd/internal/lazyre"
+	"ofam.dev/mtmd/skills"
 )
 
 // The skill stub: a SKILL.md that makes a harness load the tuios skill.

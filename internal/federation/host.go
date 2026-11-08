@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/lazyre"
+	"ofam.dev/mtmd/internal/lazyre"
 )
 
 // LocalHostName is the reserved name for the daemon a caller is already talking

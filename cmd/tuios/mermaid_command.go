@@ -24,9 +24,9 @@ import (
 	"tuios.dev/sketch/raster"
 	sketchtext "tuios.dev/sketch/text"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/mermaid"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/mermaid"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // mermaidOptions are the flags of tuios mermaid.

@@ -16,9 +16,9 @@ import (
 	"time"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
-	"github.com/Gaurav-Gosain/tuios/internal/release"
-	"github.com/Gaurav-Gosain/tuios/internal/restartplan"
+	"ofam.dev/mtmd/internal/overlay"
+	"ofam.dev/mtmd/internal/release"
+	"ofam.dev/mtmd/internal/restartplan"
 )
 
 // Restarting the daemon from the app.

@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // fakeDaemon records the verbs a hook calls and answers them.

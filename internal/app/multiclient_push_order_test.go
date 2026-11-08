@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // Two orderings a client used to get wrong, each pinned by making it happen on

@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"charm.land/lipgloss/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // TestSettingsPanelLinesMatchGeometryWidth guards against any settings row

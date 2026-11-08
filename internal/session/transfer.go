@@ -20,8 +20,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/federation"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/federation"
 )
 
 // Transfers: copies between machines that the daemon runs.

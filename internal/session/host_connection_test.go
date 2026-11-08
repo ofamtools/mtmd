@@ -14,9 +14,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/federation"
-	"github.com/Gaurav-Gosain/tuios/internal/tape"
-	"github.com/Gaurav-Gosain/tuios/internal/testutil"
+	"ofam.dev/mtmd/internal/federation"
+	"ofam.dev/mtmd/internal/tape"
+	"ofam.dev/mtmd/internal/testutil"
 )
 
 // A connection through a host, proved with two real daemons in one process.

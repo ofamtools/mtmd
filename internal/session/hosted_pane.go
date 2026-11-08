@@ -12,8 +12,8 @@ import (
 	"github.com/charmbracelet/x/xpty"
 	"github.com/google/uuid"
 
-	"github.com/Gaurav-Gosain/tuios/internal/guestenv"
-	"github.com/Gaurav-Gosain/tuios/internal/ptyspawn"
+	"ofam.dev/mtmd/internal/guestenv"
+	"ofam.dev/mtmd/internal/ptyspawn"
 )
 
 // A pane this machine runs on another machine's behalf: the far half of a

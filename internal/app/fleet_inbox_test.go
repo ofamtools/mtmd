@@ -5,9 +5,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/federation"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
 	"github.com/charmbracelet/x/ansi"
+	"ofam.dev/mtmd/internal/federation"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // The fleet in the client: the Inbox holds other machines' items, the rail

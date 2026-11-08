@@ -5,7 +5,7 @@ import (
 	"strconv"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // The rail's layout is an ordered list with a number on each entry, which is

@@ -14,7 +14,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/federation"
+	"ofam.dev/mtmd/internal/federation"
 )
 
 // Drop files on a pane: the files a person drops from the desktop onto a pane

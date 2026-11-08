@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/tmuxcompat"
+	"ofam.dev/mtmd/internal/tmuxcompat"
 )
 
 // TestTmuxLinkHandsOtherCallsToRealTmux runs the binary's tmux entry point

@@ -7,7 +7,7 @@ import (
 
 	"charm.land/lipgloss/v2"
 	"charm.land/lipgloss/v2/table"
-	"github.com/Gaurav-Gosain/tuios/internal/plural"
+	"ofam.dev/mtmd/internal/plural"
 )
 
 // The CLI half of the dock's two verbs.

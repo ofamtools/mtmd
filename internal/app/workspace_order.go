@@ -6,7 +6,7 @@ import (
 
 	tea "charm.land/bubbletea/v2"
 
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // The dock's workspace pills can be dragged into any arrangement, and a

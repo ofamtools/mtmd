@@ -3,10 +3,10 @@ package app
 import (
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
-	"github.com/Gaurav-Gosain/tuios/internal/ui"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/session"
+	"ofam.dev/mtmd/internal/terminal"
+	"ofam.dev/mtmd/internal/ui"
 )
 
 // syncWindow builds a window state the daemon would push, without a PTY.

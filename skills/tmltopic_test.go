@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/skills/internal/tmlref"
+	"ofam.dev/mtmd/skills/internal/tmlref"
 )
 
 // TestTMLTopicMatchesCatalog holds the component list of the tml topic to the

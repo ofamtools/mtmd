@@ -3,7 +3,7 @@ package app
 import (
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // TestAgentsControlsDefaultOnAGarbageStateFile: the file is shared with whatever

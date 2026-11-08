@@ -1,8 +1,8 @@
 package app
 
 import (
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // Marks on the dock's workspace tabs: a bell or output on a workspace you are

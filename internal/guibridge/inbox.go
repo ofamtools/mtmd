@@ -1,8 +1,8 @@
 package guibridge
 
 import (
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // The Inbox, alerts and the end of the attach, for the renderer (plan 2.13).

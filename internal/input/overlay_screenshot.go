@@ -3,7 +3,7 @@ package input
 import (
 	tea "charm.land/bubbletea/v2"
 
-	"github.com/Gaurav-Gosain/tuios/internal/app"
+	"ofam.dev/mtmd/internal/app"
 )
 
 // The screenshot chord over an open overlay.

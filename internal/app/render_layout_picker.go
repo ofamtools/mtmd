@@ -5,7 +5,7 @@ import (
 	"image/color"
 
 	"charm.land/lipgloss/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 const layoutPickerWidth = 58

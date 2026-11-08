@@ -6,8 +6,8 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
 	"github.com/adrg/xdg"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // glyphsTempDir points XDG at a fresh directory and returns the glyphs

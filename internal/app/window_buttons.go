@@ -6,9 +6,9 @@ import (
 	"strings"
 
 	"charm.land/lipgloss/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/terminal"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // WindowButtonAction is what pressing one of a window's title-bar controls

@@ -6,8 +6,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/hooks"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/hooks"
 )
 
 // Session-side hooks.

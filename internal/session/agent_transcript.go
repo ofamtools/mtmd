@@ -9,10 +9,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/harness"
-	"github.com/Gaurav-Gosain/tuios/internal/procinfo"
-	"github.com/Gaurav-Gosain/tuios/internal/transcript"
-	"github.com/Gaurav-Gosain/tuios/internal/transcriptview"
+	"ofam.dev/mtmd/internal/harness"
+	"ofam.dev/mtmd/internal/procinfo"
+	"ofam.dev/mtmd/internal/transcript"
+	"ofam.dev/mtmd/internal/transcriptview"
 )
 
 // transcriptDebounce coalesces the several appends one turn produces into one

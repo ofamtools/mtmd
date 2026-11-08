@@ -15,7 +15,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/federation"
+	"ofam.dev/mtmd/internal/federation"
 )
 
 // Kitty images named by a path, from a pane on another machine: the near

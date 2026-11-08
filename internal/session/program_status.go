@@ -8,8 +8,8 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/Gaurav-Gosain/tuios/internal/harness"
-	"github.com/Gaurav-Gosain/tuios/internal/invisible"
+	"ofam.dev/mtmd/internal/harness"
+	"ofam.dev/mtmd/internal/invisible"
 	"tuios.dev/progstatus"
 	"tuios.dev/vt"
 )

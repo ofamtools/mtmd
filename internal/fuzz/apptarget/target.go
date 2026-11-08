@@ -23,11 +23,11 @@ import (
 	"time"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/fuzz"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
 	"github.com/adrg/xdg"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/fuzz"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // Target is the model under test plus the bookkeeping the oracle needs: the

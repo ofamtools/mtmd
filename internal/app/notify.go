@@ -5,8 +5,8 @@ import (
 	"time"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // Rate limits for guest-driven notifications. A guest that spams OSC 9 or BEL

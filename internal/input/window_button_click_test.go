@@ -3,9 +3,9 @@ package input
 import (
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // The window controls are pressable only on the cells the renderer recorded as

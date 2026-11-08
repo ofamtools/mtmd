@@ -3,9 +3,9 @@ package input
 import (
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/internal/layout"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/internal/layout"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // The keyboard height paths decide whether an edge is the content region's

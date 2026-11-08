@@ -4,7 +4,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/plural"
+	"ofam.dev/mtmd/internal/plural"
 )
 
 // PaneFacts is what the caller observed about the pane the report is about.

@@ -8,8 +8,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // writeSidebarStateFile drops raw JSON where loadSidebarState will find it.

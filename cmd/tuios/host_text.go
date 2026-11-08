@@ -4,7 +4,7 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"github.com/Gaurav-Gosain/tuios/internal/invisible"
+	"ofam.dev/mtmd/internal/invisible"
 )
 
 // Text another machine wrote reaches this terminal from a capture of a pane

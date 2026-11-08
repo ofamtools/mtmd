@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // The verb proxy: the renderer calls any daemon verb through the bridge, so

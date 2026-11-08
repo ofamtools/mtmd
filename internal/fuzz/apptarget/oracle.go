@@ -5,12 +5,12 @@ import (
 	"strings"
 
 	"charm.land/lipgloss/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/fuzz"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
 	"github.com/charmbracelet/x/ansi"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/fuzz"
+	"ofam.dev/mtmd/internal/session"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // The oracle, over the exported surface only. Every rule here is one the suite

@@ -7,8 +7,8 @@ import (
 	"io"
 	"os"
 
-	"github.com/Gaurav-Gosain/tuios/internal/session"
 	"github.com/spf13/cobra"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // subscribeOptions are the flags of tuios subscribe.

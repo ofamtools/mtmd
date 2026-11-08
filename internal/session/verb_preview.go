@@ -23,7 +23,7 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/Gaurav-Gosain/tuios/internal/childproc"
+	"ofam.dev/mtmd/internal/childproc"
 	"tuios.dev/shot"
 )
 

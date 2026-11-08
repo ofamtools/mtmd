@@ -7,7 +7,7 @@ import (
 
 	"github.com/charmbracelet/x/ansi"
 
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // The backgrounds on the fullscreen fast path.

@@ -3,7 +3,7 @@ package layout
 import (
 	"sync/atomic"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // nodeIDCounter is used to generate unique node IDs

@@ -7,9 +7,9 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/Gaurav-Gosain/tuios/internal/transcript"
-	"github.com/Gaurav-Gosain/tuios/internal/transcriptview"
 	"github.com/charmbracelet/x/ansi"
+	"ofam.dev/mtmd/internal/transcript"
+	"ofam.dev/mtmd/internal/transcriptview"
 )
 
 // agent-transcript: the agent's conversation, for the person.

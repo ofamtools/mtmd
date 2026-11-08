@@ -2,7 +2,7 @@ package app
 
 import (
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // A routed command's way into a client that is not the local attach client.

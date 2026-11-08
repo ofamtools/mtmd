@@ -17,10 +17,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/hooks"
-	"github.com/Gaurav-Gosain/tuios/internal/plural"
-	"github.com/Gaurav-Gosain/tuios/internal/sessiontree"
-	"github.com/Gaurav-Gosain/tuios/internal/worktree"
+	"ofam.dev/mtmd/internal/hooks"
+	"ofam.dev/mtmd/internal/plural"
+	"ofam.dev/mtmd/internal/sessiontree"
+	"ofam.dev/mtmd/internal/worktree"
 )
 
 // The worktree verbs: a git worktree as a session, and one prompt fanned out

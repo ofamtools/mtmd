@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // Issue #234: a pane in the multifocus set takes the keys the user types, so

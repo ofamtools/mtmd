@@ -10,7 +10,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/winpath"
+	"ofam.dev/mtmd/internal/winpath"
 )
 
 // Where a plugin was found.

@@ -16,9 +16,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/federation"
-	"github.com/Gaurav-Gosain/tuios/internal/testutil"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/federation"
+	"ofam.dev/mtmd/internal/testutil"
 )
 
 // What a machine linked to this one may do here. See link_policy.go.

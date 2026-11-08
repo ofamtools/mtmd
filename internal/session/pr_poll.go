@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/ghpr"
+	"ofam.dev/mtmd/internal/ghpr"
 )
 
 // Pull request state: what the rail and the listings say about a worktree's

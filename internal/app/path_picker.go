@@ -6,10 +6,10 @@ import (
 	"strings"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
-	"github.com/Gaurav-Gosain/tuios/internal/textedit"
-	"github.com/Gaurav-Gosain/tuios/pkg/fuzzy"
+	"ofam.dev/mtmd/internal/session"
+	"ofam.dev/mtmd/internal/terminal"
+	"ofam.dev/mtmd/internal/textedit"
+	"ofam.dev/mtmd/pkg/fuzzy"
 )
 
 // # The path picker

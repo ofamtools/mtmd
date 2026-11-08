@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/worktree"
+	"ofam.dev/mtmd/internal/worktree"
 )
 
 // A fake git with one repository, the Go project in ProjectDir, and the

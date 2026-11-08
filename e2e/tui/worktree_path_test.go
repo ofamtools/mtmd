@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/testutil"
+	"ofam.dev/mtmd/internal/testutil"
 )
 
 // [worktree] path, end to end through the binary a person runs (issue #1278):

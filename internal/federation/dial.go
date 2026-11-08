@@ -10,7 +10,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/childproc"
+	"ofam.dev/mtmd/internal/childproc"
 )
 
 // Transport is one open pipe to a remote proxy. Diagnostic carries whatever the

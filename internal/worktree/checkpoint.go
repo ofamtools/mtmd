@@ -12,10 +12,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/childproc"
+	"ofam.dev/mtmd/internal/childproc"
 
-	"github.com/Gaurav-Gosain/tuios/internal/plural"
-	"github.com/Gaurav-Gosain/tuios/internal/sortx"
+	"ofam.dev/mtmd/internal/plural"
+	"ofam.dev/mtmd/internal/sortx"
 )
 
 // Checkpoints: the state of a work tree at the end of an agent's turn, kept

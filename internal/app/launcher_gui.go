@@ -6,7 +6,7 @@ import (
 	"time"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/pkg/applist"
+	"ofam.dev/mtmd/pkg/applist"
 )
 
 // runGUIProgram starts a graphical desktop entry with launcher.gui_command,

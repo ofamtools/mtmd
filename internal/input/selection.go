@@ -3,7 +3,7 @@ package input
 import (
 	"fmt"
 
-	"github.com/Gaurav-Gosain/tuios/internal/app"
+	"ofam.dev/mtmd/internal/app"
 )
 
 // forwardPasteToFocused sends paste text to the focused window's PTY, wrapping it in

@@ -15,11 +15,11 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
-	"github.com/Gaurav-Gosain/tuios/internal/sortx"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
 	"github.com/adrg/xdg"
 	"github.com/pelletier/go-toml/v2"
+	"ofam.dev/mtmd/internal/overlay"
+	"ofam.dev/mtmd/internal/sortx"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // UserConfig represents the user's custom configuration

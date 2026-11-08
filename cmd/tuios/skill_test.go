@@ -4,8 +4,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/integration"
-	"github.com/Gaurav-Gosain/tuios/skills"
+	"ofam.dev/mtmd/internal/integration"
+	"ofam.dev/mtmd/skills"
 )
 
 // A skill that documents a command the binary does not have is worse than no

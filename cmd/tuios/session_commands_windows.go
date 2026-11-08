@@ -9,9 +9,9 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/session"
-	"github.com/Gaurav-Gosain/tuios/internal/stopevent"
 	"golang.org/x/sys/windows"
+	"ofam.dev/mtmd/internal/session"
+	"ofam.dev/mtmd/internal/stopevent"
 )
 
 // daemonSysProcAttr starts the daemon on a console of its own with no window,

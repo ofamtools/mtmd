@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // windowShows reports whether the window's emulator holds want anywhere on

@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/layout"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/layout"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // ResizeFocusedWindowHeight resizes the focused window's height by moving the BOTTOM edge

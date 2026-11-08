@@ -6,9 +6,9 @@ import (
 
 	tea "charm.land/bubbletea/v2"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/layout"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/layout"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // The work behind the actions that give tuios a tmux-shaped keymap to bind:

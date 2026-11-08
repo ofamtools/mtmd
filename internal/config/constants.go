@@ -10,10 +10,10 @@ import (
 	"unicode/utf8"
 
 	"charm.land/lipgloss/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
 	"github.com/lrstanley/go-nf/glyphs/fa"
 	"github.com/lrstanley/go-nf/glyphs/ple"
+	"ofam.dev/mtmd/internal/overlay"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // =============================================================================

@@ -10,10 +10,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/integration"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
 	"github.com/spf13/cobra"
 	"golang.org/x/term"
+	"ofam.dev/mtmd/internal/integration"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // agentHookDeadline bounds a whole hook run: reading the payload, finding the

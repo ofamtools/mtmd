@@ -4,8 +4,8 @@ import (
 	"image/color"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
+	"ofam.dev/mtmd/internal/overlay"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // accentCursorFloor is the ratio the cursor glyph has to clear against the

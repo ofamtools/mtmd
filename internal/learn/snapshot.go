@@ -5,11 +5,11 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/scrollback"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/scrollback"
+	"ofam.dev/mtmd/internal/terminal"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // Overlay names, as the page sees them in overlay.open and overlay.close and

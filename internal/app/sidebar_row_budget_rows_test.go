@@ -7,10 +7,10 @@ import (
 	"charm.land/lipgloss/v2"
 	"github.com/charmbracelet/x/ansi"
 
-	"github.com/Gaurav-Gosain/tuios/internal/federation"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
-	"github.com/Gaurav-Gosain/tuios/internal/sessiontree"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
+	"ofam.dev/mtmd/internal/federation"
+	"ofam.dev/mtmd/internal/overlay"
+	"ofam.dev/mtmd/internal/sessiontree"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // Rows drawn on the row budget, at the widths a person can set.

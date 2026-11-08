@@ -5,10 +5,10 @@ import (
 	"strings"
 
 	"charm.land/ssh"
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
 	"github.com/charmbracelet/colorprofile"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // Terminals known to render the kitty graphics protocol. The client's terminal,

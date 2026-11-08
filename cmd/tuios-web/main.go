@@ -17,17 +17,17 @@ import (
 
 	tea "charm.land/bubbletea/v2"
 	"github.com/Gaurav-Gosain/sip"
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/internal/cliflags"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/fang"
-	"github.com/Gaurav-Gosain/tuios/internal/netutil"
-	"github.com/Gaurav-Gosain/tuios/internal/release"
-	"github.com/Gaurav-Gosain/tuios/internal/served"
-	"github.com/Gaurav-Gosain/tuios/internal/serverscope"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
 	"github.com/charmbracelet/colorprofile"
 	"github.com/spf13/cobra"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/internal/cliflags"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/fang"
+	"ofam.dev/mtmd/internal/netutil"
+	"ofam.dev/mtmd/internal/release"
+	"ofam.dev/mtmd/internal/served"
+	"ofam.dev/mtmd/internal/serverscope"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // Version information (set by goreleaser)

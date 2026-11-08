@@ -9,8 +9,8 @@ import (
 
 	"github.com/charmbracelet/x/xpty"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/ptyspawn"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/ptyspawn"
 )
 
 // This is the standalone half of the spawn story. A pane created without a

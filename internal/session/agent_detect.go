@@ -7,8 +7,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/harness"
-	"github.com/Gaurav-Gosain/tuios/internal/procinfo"
+	"ofam.dev/mtmd/internal/harness"
+	"ofam.dev/mtmd/internal/procinfo"
 )
 
 // defaultAgentBinaries is the built-in set of AI-agent CLI binary names the

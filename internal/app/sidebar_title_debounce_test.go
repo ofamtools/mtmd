@@ -4,8 +4,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // backdate moves a window's adopted-title timestamp into the past so the

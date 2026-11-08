@@ -8,12 +8,12 @@ import (
 
 	tea "charm.land/bubbletea/v2"
 	"charm.land/lipgloss/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/overlay"
+	"ofam.dev/mtmd/internal/session"
+	"ofam.dev/mtmd/internal/theme"
 
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // A session larger than this client.

@@ -3,7 +3,7 @@ package transcriptview
 import (
 	"unicode/utf8"
 
-	"github.com/Gaurav-Gosain/tuios/internal/diffview"
+	"ofam.dev/mtmd/internal/diffview"
 )
 
 // The colours of a diff, for a client that draws them itself. They come

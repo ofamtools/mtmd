@@ -26,7 +26,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/Gaurav-Gosain/tuios/internal/tarpack"
+	"ofam.dev/mtmd/internal/tarpack"
 )
 
 //go:generate go run ../../tarpack/gen.go lessons.tar.gz tracks.json tracks

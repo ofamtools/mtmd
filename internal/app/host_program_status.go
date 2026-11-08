@@ -8,8 +8,8 @@ import (
 	tea "charm.land/bubbletea/v2"
 	uv "github.com/charmbracelet/ultraviolet"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/invisible"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/invisible"
 	"tuios.dev/progstatus"
 )
 

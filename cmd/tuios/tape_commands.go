@@ -9,14 +9,14 @@ import (
 
 	tea "charm.land/bubbletea/v2"
 	"charm.land/lipgloss/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/input"
-	"github.com/Gaurav-Gosain/tuios/internal/plural"
-	"github.com/Gaurav-Gosain/tuios/internal/tape"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
-	"github.com/Gaurav-Gosain/tuios/internal/units"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/input"
+	"ofam.dev/mtmd/internal/plural"
+	"ofam.dev/mtmd/internal/tape"
+	"ofam.dev/mtmd/internal/terminal"
+	"ofam.dev/mtmd/internal/theme"
+	"ofam.dev/mtmd/internal/units"
 )
 
 func runTapeInteractive(tapeFile string) error {

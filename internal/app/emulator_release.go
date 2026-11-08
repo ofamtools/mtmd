@@ -3,8 +3,8 @@ package app
 import (
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/memtrim"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/memtrim"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // emulatorReleaseEvery is how often the client drops its panes' spare

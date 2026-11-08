@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/fuzz"
 	"github.com/adrg/xdg"
+	"ofam.dev/mtmd/internal/fuzz"
 )
 
 // The entry points. Three of them, because the same engine has to run in three

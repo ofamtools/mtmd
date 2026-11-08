@@ -7,9 +7,9 @@ import (
 
 	"github.com/charmbracelet/x/ansi"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/layout"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/layout"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // A pane under shared borders has no border of its own, so the only thing that

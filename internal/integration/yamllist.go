@@ -5,7 +5,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/lazyre"
+	"ofam.dev/mtmd/internal/lazyre"
 )
 
 // yamlListItem is one item tuios adds to a list two keys deep in a YAML file:

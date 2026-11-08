@@ -3,7 +3,7 @@ package app
 import (
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // While a client too old for tree ops is attached, the daemon turns the ops

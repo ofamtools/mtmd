@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/testutil"
+	"ofam.dev/mtmd/internal/testutil"
 )
 
 // helperEnv selects a helper mode. The modes run this test binary as a

@@ -13,8 +13,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/testutil"
 	"github.com/Gaurav-Gosain/tuitest"
+	"ofam.dev/mtmd/internal/testutil"
 )
 
 // tuios plugins install, offline: a bare repository under the test's temp

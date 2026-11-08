@@ -6,8 +6,8 @@ import (
 	"testing"
 
 	tfx "github.com/Gaurav-Gosain/tuiffects"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // effectPickerOS is a screen worth animating: one pane with recognisable text

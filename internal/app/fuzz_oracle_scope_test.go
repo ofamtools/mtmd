@@ -3,9 +3,9 @@ package app
 import (
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/fuzz"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/fuzz"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // The scope of the guest-cells rule, pinned in both directions.

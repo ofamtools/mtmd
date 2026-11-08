@@ -3,8 +3,8 @@ package app
 import (
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // TestSidebarFocusResolvesByID pins the fix for a wrong-pane hazard: rail hit

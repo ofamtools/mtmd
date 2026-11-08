@@ -6,7 +6,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/Gaurav-Gosain/tuios/internal/tutor"
+	"ofam.dev/mtmd/internal/tutor"
 )
 
 // groupGettingStarted is the help group a new person reads first.

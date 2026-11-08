@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/session"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
-	"github.com/Gaurav-Gosain/tuios/internal/ui"
+	"ofam.dev/mtmd/internal/session"
+	"ofam.dev/mtmd/internal/terminal"
+	"ofam.dev/mtmd/internal/ui"
 )
 
 // MinimizeWindow minimizes the window at the specified index.

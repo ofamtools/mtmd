@@ -12,9 +12,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/session"
-	"github.com/Gaurav-Gosain/tuios/internal/tmuxcompat"
 	"github.com/spf13/cobra"
+	"ofam.dev/mtmd/internal/session"
+	"ofam.dev/mtmd/internal/tmuxcompat"
 )
 
 // The tmux compatibility shim. See internal/tmuxcompat for the mapping and

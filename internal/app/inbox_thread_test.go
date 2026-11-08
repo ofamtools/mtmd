@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // TestCockpitAnswersOnlyWhatItShowed: in the cockpit a answers the approval

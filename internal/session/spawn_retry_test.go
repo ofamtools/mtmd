@@ -9,7 +9,7 @@ import (
 
 	"github.com/charmbracelet/x/xpty"
 
-	"github.com/Gaurav-Gosain/tuios/internal/ptyspawn"
+	"ofam.dev/mtmd/internal/ptyspawn"
 )
 
 // These tests pin what the daemon's spawn path does about the kernel's

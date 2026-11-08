@@ -9,12 +9,12 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
-	"github.com/Gaurav-Gosain/tuios/internal/sessiontree"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/overlay"
+	"ofam.dev/mtmd/internal/session"
+	"ofam.dev/mtmd/internal/sessiontree"
+	"ofam.dev/mtmd/internal/terminal"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // TestSessionAccentVocabulary pins what a session accent may be written as. The

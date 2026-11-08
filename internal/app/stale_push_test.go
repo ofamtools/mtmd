@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // A client does not open or close a pane. It asks the daemon to, and the daemon

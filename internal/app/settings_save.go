@@ -3,7 +3,7 @@ package app
 import (
 	"sync"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // Config writes in order.

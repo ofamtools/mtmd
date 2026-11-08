@@ -9,8 +9,8 @@ import (
 
 	tea "charm.land/bubbletea/v2"
 
-	"github.com/Gaurav-Gosain/tuios/internal/session"
-	"github.com/Gaurav-Gosain/tuios/internal/worktree"
+	"ofam.dev/mtmd/internal/session"
+	"ofam.dev/mtmd/internal/worktree"
 )
 
 // The fan comparison of the agents view (DESIGN.md 3.4, frame g): every

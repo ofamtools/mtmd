@@ -4,8 +4,8 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/Gaurav-Gosain/tuios/internal/fuzz"
-	"github.com/Gaurav-Gosain/tuios/internal/fuzz/apptarget"
+	"ofam.dev/mtmd/internal/fuzz"
+	"ofam.dev/mtmd/internal/fuzz/apptarget"
 )
 
 // The app viewport's plumbing, and the only place the display touches the

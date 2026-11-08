@@ -14,9 +14,9 @@ import (
 	"unicode/utf8"
 
 	"charm.land/lipgloss/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
 	"github.com/adrg/xdg"
 	"github.com/charmbracelet/x/ansi"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // A glyph set is the other half of a rice. A theme says what colour the chrome

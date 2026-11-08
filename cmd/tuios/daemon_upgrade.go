@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/session"
 	"github.com/spf13/cobra"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // adoptFDFlag is the daemon command's flag naming the descriptor a live

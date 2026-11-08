@@ -9,9 +9,9 @@ import (
 
 	"charm.land/lipgloss/v2"
 
-	"github.com/Gaurav-Gosain/tuios/internal/layout"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
+	"ofam.dev/mtmd/internal/layout"
+	"ofam.dev/mtmd/internal/terminal"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // Stacks: several panes share one tile of the split tree. One of them is open

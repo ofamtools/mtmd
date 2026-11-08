@@ -11,8 +11,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/atomicfile"
-	"github.com/Gaurav-Gosain/tuios/internal/sortx"
+	"ofam.dev/mtmd/internal/atomicfile"
+	"ofam.dev/mtmd/internal/sortx"
 )
 
 // The transfer journal, the part folders, and the transfer events.

@@ -6,8 +6,8 @@ import (
 	"maps"
 	"sync"
 
-	"github.com/Gaurav-Gosain/tuios/internal/session"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/session"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // One wiring for the daemon connection, shared by every client.

@@ -3,7 +3,7 @@ package app
 import (
 	"charm.land/lipgloss/v2"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // What a window on top of an image leaves of it.

@@ -6,8 +6,8 @@ import (
 	"slices"
 	"strconv"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // The two tape commands tuios xpanes routes to the attached client, and that

@@ -6,10 +6,10 @@ import (
 	"testing"
 
 	"charm.land/lipgloss/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
 	"github.com/charmbracelet/x/ansi"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/terminal"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 func withButtonStyle(t *testing.T, style string, fn func()) {

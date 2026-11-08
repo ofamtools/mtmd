@@ -6,8 +6,8 @@ import (
 
 	"charm.land/lipgloss/v2"
 
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
+	"ofam.dev/mtmd/internal/overlay"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // The pointer on the dock's message block holds the message there.

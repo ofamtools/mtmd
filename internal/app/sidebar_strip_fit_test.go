@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/sessiontree"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/sessiontree"
 )
 
 // TestRailFitsAShortRegion walks heights 0-15 with the rail expanded, and says

@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/app"
+	"ofam.dev/mtmd/internal/app"
 )
 
 // TestHelpKeysAgreeAcrossModes drives the help overlay's keys through both

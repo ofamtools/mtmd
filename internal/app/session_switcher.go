@@ -3,7 +3,7 @@ package app
 import (
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/sessiontree"
+	"ofam.dev/mtmd/internal/sessiontree"
 )
 
 // RefreshSessionList populates the session switcher items from the daemon client.

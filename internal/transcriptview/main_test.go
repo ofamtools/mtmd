@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/testutil"
+	"ofam.dev/mtmd/internal/testutil"
 )
 
 // TestMain isolates the whole test binary from the developer's own XDG

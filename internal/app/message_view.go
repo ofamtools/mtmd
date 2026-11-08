@@ -10,7 +10,7 @@ import (
 	tea "charm.land/bubbletea/v2"
 	"charm.land/lipgloss/v2"
 
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // The message view is the one place a message is read in full.

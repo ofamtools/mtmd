@@ -13,8 +13,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/atomicfile"
 	"github.com/adrg/xdg"
+	"ofam.dev/mtmd/internal/atomicfile"
 )
 
 const (

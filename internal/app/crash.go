@@ -12,8 +12,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/release"
 	"github.com/adrg/xdg"
+	"ofam.dev/mtmd/internal/release"
 	"tuios.dev/vt"
 )
 

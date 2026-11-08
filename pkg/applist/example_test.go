@@ -3,8 +3,8 @@ package applist_test
 import (
 	"fmt"
 
-	"github.com/Gaurav-Gosain/tuios/pkg/applist"
-	"github.com/Gaurav-Gosain/tuios/pkg/fuzzy"
+	"ofam.dev/mtmd/pkg/applist"
+	"ofam.dev/mtmd/pkg/fuzzy"
 )
 
 // Example shows the whole launcher pipeline: scan once and keep the cache,

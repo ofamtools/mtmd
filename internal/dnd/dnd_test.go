@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/dnd"
+	"ofam.dev/mtmd/internal/dnd"
 	"tuios.dev/vt"
 )
 

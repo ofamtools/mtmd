@@ -5,10 +5,10 @@ import (
 	"testing"
 
 	"charm.land/lipgloss/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
-	"github.com/Gaurav-Gosain/tuios/internal/sessiontree"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/overlay"
+	"ofam.dev/mtmd/internal/sessiontree"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // TestSidebarSanitizesTitles checks a title carrying nerd-font private-use

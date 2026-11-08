@@ -4,7 +4,7 @@ import (
 	"maps"
 	"strconv"
 
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // adoptSessionLabels copies the daemon-owned labels off a state push. They are

@@ -8,8 +8,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/herdrplugin"
 	"github.com/spf13/cobra"
+	"ofam.dev/mtmd/internal/herdrplugin"
 )
 
 // tuios plugins approve: the person's answer for a native plugin on this

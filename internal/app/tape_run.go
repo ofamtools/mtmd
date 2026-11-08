@@ -10,7 +10,7 @@ import (
 
 	tea "charm.land/bubbletea/v2"
 
-	"github.com/Gaurav-Gosain/tuios/internal/tape"
+	"ofam.dev/mtmd/internal/tape"
 )
 
 // tapeSeedSettle is how long the seeded window in a freshly created project

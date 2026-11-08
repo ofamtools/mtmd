@@ -1,8 +1,8 @@
 package app
 
 import (
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // The pointer's side of the link feature: what it is on, and what changes when

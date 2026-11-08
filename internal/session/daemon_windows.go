@@ -9,8 +9,8 @@ import (
 	"strconv"
 	"syscall"
 
-	"github.com/Gaurav-Gosain/tuios/internal/stopevent"
 	"golang.org/x/sys/windows"
+	"ofam.dev/mtmd/internal/stopevent"
 )
 
 // handleSignals handles Windows signals for daemon shutdown.

@@ -21,7 +21,7 @@ import (
 	"tuios.dev/loom"
 	"tuios.dev/tml"
 
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // Inset is where a surface sits in a TML window's content box of cw by ch

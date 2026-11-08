@@ -4,8 +4,8 @@ import (
 	"slices"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/sessiontree"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/sessiontree"
 )
 
 // wrapCase is one list: how to put rows in it, how to move it, and where its

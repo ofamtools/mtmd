@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/Gaurav-Gosain/tuios/internal/review"
-	"github.com/Gaurav-Gosain/tuios/internal/worktree"
+	"ofam.dev/mtmd/internal/review"
+	"ofam.dev/mtmd/internal/worktree"
 )
 
 // Review is the fake repository's answer to tuios's review-diff: what the

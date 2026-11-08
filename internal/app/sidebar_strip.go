@@ -7,11 +7,11 @@ import (
 
 	"charm.land/lipgloss/v2"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
-	"github.com/Gaurav-Gosain/tuios/internal/plural"
-	"github.com/Gaurav-Gosain/tuios/internal/sessiontree"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/overlay"
+	"ofam.dev/mtmd/internal/plural"
+	"ofam.dev/mtmd/internal/sessiontree"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // The collapsed rail is three columns and it is the state the rail spends most

@@ -10,7 +10,7 @@ import (
 	"time"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // These tests pin the reply editor's boundaries: no reply to a pane waiting

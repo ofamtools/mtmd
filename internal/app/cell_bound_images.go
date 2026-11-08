@@ -3,7 +3,7 @@ package app
 import (
 	tea "charm.land/bubbletea/v2"
 
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // Hosts that store an image in their cells.

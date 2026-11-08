@@ -14,7 +14,7 @@ import (
 
 	"github.com/pelletier/go-toml/v2"
 
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // Looks.

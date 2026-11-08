@@ -7,7 +7,7 @@ import (
 
 	"charm.land/lipgloss/v2"
 	"charm.land/lipgloss/v2/table"
-	"github.com/Gaurav-Gosain/tuios/internal/plural"
+	"ofam.dev/mtmd/internal/plural"
 )
 
 // tuios list-hooks is the dock's debugging story, applied to the extension

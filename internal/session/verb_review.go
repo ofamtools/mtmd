@@ -11,11 +11,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/diffview"
-	"github.com/Gaurav-Gosain/tuios/internal/gitstate"
-	"github.com/Gaurav-Gosain/tuios/internal/review"
-	"github.com/Gaurav-Gosain/tuios/internal/worktree"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/diffview"
+	"ofam.dev/mtmd/internal/gitstate"
+	"ofam.dev/mtmd/internal/review"
+	"ofam.dev/mtmd/internal/worktree"
 )
 
 // Review: the diff of what an agent changed, the notes the person leaves on

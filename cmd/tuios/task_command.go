@@ -9,8 +9,8 @@ import (
 	"strings"
 	"text/tabwriter"
 
-	"github.com/Gaurav-Gosain/tuios/internal/session"
 	"github.com/spf13/cobra"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // newTaskCommand builds `tuios task`: the session's task cards, one unit of

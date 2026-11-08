@@ -5,8 +5,8 @@ import (
 	"testing"
 
 	"charm.land/lipgloss/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
 	"github.com/charmbracelet/x/ansi"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // The border box may skip lipgloss's word wrap only when the pane body is

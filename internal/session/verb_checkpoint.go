@@ -6,8 +6,8 @@ import (
 	"errors"
 	"strconv"
 
-	"github.com/Gaurav-Gosain/tuios/internal/review"
-	"github.com/Gaurav-Gosain/tuios/internal/worktree"
+	"ofam.dev/mtmd/internal/review"
+	"ofam.dev/mtmd/internal/worktree"
 )
 
 // The checkpoint verbs: list a pane's checkpoints, read what one turn

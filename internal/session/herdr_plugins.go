@@ -11,8 +11,8 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/herdrplugin"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/herdrplugin"
 )
 
 // herdr's plugin.* socket methods and popup.close, answered by the plugin

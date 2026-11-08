@@ -9,7 +9,7 @@ import (
 
 	"golang.org/x/term"
 
-	"github.com/Gaurav-Gosain/tuios/internal/guestenv"
+	"ofam.dev/mtmd/internal/guestenv"
 )
 
 // Client connects to the TUIOS daemon for one-shot request/response control

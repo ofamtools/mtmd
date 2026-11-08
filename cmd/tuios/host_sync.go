@@ -21,13 +21,13 @@ import (
 
 	"charm.land/lipgloss/v2"
 	"charm.land/lipgloss/v2/table"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/federation"
-	"github.com/Gaurav-Gosain/tuios/internal/plural"
-	"github.com/Gaurav-Gosain/tuios/internal/release"
-	"github.com/Gaurav-Gosain/tuios/internal/restartplan"
 	"github.com/spf13/cobra"
 	"golang.org/x/term"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/federation"
+	"ofam.dev/mtmd/internal/plural"
+	"ofam.dev/mtmd/internal/release"
+	"ofam.dev/mtmd/internal/restartplan"
 )
 
 // `tuios hosts sync`: bring the tuios on every host in the [hosts] table to

@@ -43,8 +43,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/perf"
 	"github.com/Gaurav-Gosain/tuitest"
+	"ofam.dev/mtmd/internal/perf"
 )
 
 // frameClock reads the client's host stream and timestamps what arrives.

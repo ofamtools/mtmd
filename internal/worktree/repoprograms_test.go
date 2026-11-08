@@ -10,10 +10,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/childproc"
-	"github.com/Gaurav-Gosain/tuios/internal/gitstate"
-	"github.com/Gaurav-Gosain/tuios/internal/review"
-	"github.com/Gaurav-Gosain/tuios/internal/worktree"
+	"ofam.dev/mtmd/internal/childproc"
+	"ofam.dev/mtmd/internal/gitstate"
+	"ofam.dev/mtmd/internal/review"
+	"ofam.dev/mtmd/internal/worktree"
 )
 
 // programRepo is a repository whose own config names programs that git

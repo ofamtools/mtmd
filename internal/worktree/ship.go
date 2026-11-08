@@ -9,7 +9,7 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/plural"
+	"ofam.dev/mtmd/internal/plural"
 )
 
 // Shipping: what takes an agent's work from its worktree to the base branch

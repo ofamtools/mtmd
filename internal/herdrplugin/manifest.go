@@ -13,10 +13,10 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/winpath"
 	"github.com/pelletier/go-toml/v2"
+	"ofam.dev/mtmd/internal/winpath"
 
-	"github.com/Gaurav-Gosain/tuios/internal/sortx"
+	"ofam.dev/mtmd/internal/sortx"
 )
 
 // HostVersion is the herdr release whose plugin format this package follows.

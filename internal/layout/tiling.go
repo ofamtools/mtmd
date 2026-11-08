@@ -4,7 +4,7 @@ package layout
 import (
 	"math"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // TileLayout represents the position and size for a tiled window

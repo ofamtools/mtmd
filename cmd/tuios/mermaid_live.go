@@ -22,7 +22,7 @@ import (
 	"golang.org/x/term"
 	"tuios.dev/sketch"
 
-	"github.com/Gaurav-Gosain/tuios/internal/mermaid"
+	"ofam.dev/mtmd/internal/mermaid"
 )
 
 // liveScreen is the full-screen view of tuios mermaid --watch and --demo: the

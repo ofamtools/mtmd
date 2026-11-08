@@ -16,11 +16,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/federation"
-	"github.com/Gaurav-Gosain/tuios/internal/procinfo"
-	"github.com/Gaurav-Gosain/tuios/internal/risk"
-	"github.com/Gaurav-Gosain/tuios/internal/testutil"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/federation"
+	"ofam.dev/mtmd/internal/procinfo"
+	"ofam.dev/mtmd/internal/risk"
+	"ofam.dev/mtmd/internal/testutil"
 )
 
 // TestAPaneCannotDialTheLinkSocket: the link socket is for the link proxy,

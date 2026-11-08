@@ -5,9 +5,9 @@ import (
 
 	"slices"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
-	"github.com/Gaurav-Gosain/tuios/internal/ui"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/terminal"
+	"ofam.dev/mtmd/internal/ui"
 )
 
 // CreateRestoreAnimation creates a restore animation for the window at index i

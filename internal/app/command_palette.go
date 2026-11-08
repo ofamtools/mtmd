@@ -5,12 +5,12 @@ import (
 	"strings"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/layout"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
-	"github.com/Gaurav-Gosain/tuios/internal/sortx"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
-	"github.com/Gaurav-Gosain/tuios/pkg/fuzzy"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/layout"
+	"ofam.dev/mtmd/internal/session"
+	"ofam.dev/mtmd/internal/sortx"
+	"ofam.dev/mtmd/internal/theme"
+	"ofam.dev/mtmd/pkg/fuzzy"
 )
 
 // paletteCategoryAgents is the palette's section for the agent entries.

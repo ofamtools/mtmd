@@ -7,10 +7,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/harness"
-	"github.com/Gaurav-Gosain/tuios/internal/risk"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
 	"github.com/charmbracelet/x/ansi"
+	"ofam.dev/mtmd/internal/harness"
+	"ofam.dev/mtmd/internal/risk"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // replyDaemon answers reply-approval and get-approval and records the calls.

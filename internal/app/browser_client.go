@@ -1,7 +1,7 @@
 package app
 
 import (
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // What a browser tab cannot do, and what tuios says about it.

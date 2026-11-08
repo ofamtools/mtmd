@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/testutil"
+	"ofam.dev/mtmd/internal/testutil"
 )
 
 // TestCloneRefusesALocalRepository is the security half of clone: a caller on

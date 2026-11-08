@@ -10,8 +10,8 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/atomicfile"
-	"github.com/Gaurav-Gosain/tuios/internal/sortx"
+	"ofam.dev/mtmd/internal/atomicfile"
+	"ofam.dev/mtmd/internal/sortx"
 )
 
 // show-environment and set-environment.

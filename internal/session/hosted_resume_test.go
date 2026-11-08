@@ -13,7 +13,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // A pane this machine runs for another machine, outliving a dropped link. See

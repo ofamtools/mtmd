@@ -2,8 +2,8 @@ package input
 
 import (
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // handleAgentMailInput handles keyboard input while the mailbox is open. Two

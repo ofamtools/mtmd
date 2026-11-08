@@ -8,13 +8,13 @@ import (
 	"time"
 
 	"charm.land/lipgloss/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/ghpr"
-	"github.com/Gaurav-Gosain/tuios/internal/harness"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
-	"github.com/Gaurav-Gosain/tuios/internal/sessiontree"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/ghpr"
+	"ofam.dev/mtmd/internal/harness"
+	"ofam.dev/mtmd/internal/overlay"
+	"ofam.dev/mtmd/internal/session"
+	"ofam.dev/mtmd/internal/sessiontree"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // An agent row is drawn from tokens: the facts the row has about its pane, each

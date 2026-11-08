@@ -13,8 +13,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/ptyspawn"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/ptyspawn"
 )
 
 // TestAttachFromOwnPaneIsRefused is #235 at the daemon: a client in a pane of

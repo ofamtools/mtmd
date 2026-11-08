@@ -4,7 +4,7 @@ import (
 	"slices"
 	"strconv"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // Task cards: one unit of work each, kept by the daemon in the session it

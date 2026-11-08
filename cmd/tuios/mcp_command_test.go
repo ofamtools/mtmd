@@ -12,7 +12,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/mcp"
+	"ofam.dev/mtmd/internal/mcp"
 )
 
 // runMCPChild runs tuios mcp in this process, for a test that started the test

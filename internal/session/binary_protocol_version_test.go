@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/testutil"
+	"ofam.dev/mtmd/internal/testutil"
 )
 
 // fakeDaemon answers exactly one binary handshake with the welcome it is given,

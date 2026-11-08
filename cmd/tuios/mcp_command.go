@@ -9,10 +9,10 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/mcp"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
 	"github.com/spf13/cobra"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/mcp"
+	"ofam.dev/mtmd/internal/session"
 )
 
 func newMCPCommand() *cobra.Command {

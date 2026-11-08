@@ -10,9 +10,9 @@ import (
 	"time"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/composer"
+	"ofam.dev/mtmd/internal/composer"
 
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // Pasting an image from the clipboard into a pane.

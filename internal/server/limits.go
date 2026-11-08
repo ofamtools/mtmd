@@ -13,7 +13,7 @@ import (
 	"charm.land/wish/v2"
 	gossh "golang.org/x/crypto/ssh"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // limitOptions are the server options that apply limits: the handshake

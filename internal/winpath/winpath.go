@@ -24,7 +24,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/childproc"
+	"ofam.dev/mtmd/internal/childproc"
 )
 
 // Mounts is what a root-relative POSIX path maps onto.

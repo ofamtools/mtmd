@@ -44,7 +44,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/sortx"
+	"ofam.dev/mtmd/internal/sortx"
 )
 
 // DesktopEntry is one activatable entry read from a .desktop file: the

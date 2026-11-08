@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"slices"
 
-	"github.com/Gaurav-Gosain/tuios/internal/risk"
+	"ofam.dev/mtmd/internal/risk"
 )
 
 // Reading a held approval whole, and the answers that need more than the

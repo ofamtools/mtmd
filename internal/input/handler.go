@@ -8,11 +8,11 @@ import (
 	"time"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/listnav"
-	"github.com/Gaurav-Gosain/tuios/internal/textedit"
 	"github.com/charmbracelet/x/ansi"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/listnav"
+	"ofam.dev/mtmd/internal/textedit"
 )
 
 // HandleInput is the main input coordinator that routes messages to appropriate handlers

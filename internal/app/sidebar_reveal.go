@@ -3,7 +3,7 @@ package app
 import (
 	"slices"
 
-	"github.com/Gaurav-Gosain/tuios/internal/sessiontree"
+	"ofam.dev/mtmd/internal/sessiontree"
 )
 
 // The rail is a map of what is open, and a map that scrolls the place you just

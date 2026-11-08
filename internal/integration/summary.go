@@ -6,7 +6,7 @@ import (
 	"sync"
 	"unicode/utf8"
 
-	"github.com/Gaurav-Gosain/tuios/internal/lazyre"
+	"ofam.dev/mtmd/internal/lazyre"
 )
 
 // MaxMessage is the longest message a hook reports, in runes. The message is

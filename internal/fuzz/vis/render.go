@@ -5,8 +5,8 @@ import (
 	"strings"
 
 	"charm.land/lipgloss/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
 	"github.com/charmbracelet/x/ansi"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // The frame. Two bands: the app under test and the action stream on Canvas at

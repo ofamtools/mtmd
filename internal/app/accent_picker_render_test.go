@@ -5,9 +5,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
 	"github.com/charmbracelet/colorprofile"
+	"ofam.dev/mtmd/internal/overlay"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // accentTestOS is sidebarTestOS with a pane that has no agent state, so the

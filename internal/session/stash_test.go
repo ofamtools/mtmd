@@ -9,8 +9,8 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/sockpath"
-	"github.com/Gaurav-Gosain/tuios/internal/testutil"
+	"ofam.dev/mtmd/internal/sockpath"
+	"ofam.dev/mtmd/internal/testutil"
 )
 
 // These tests hit the stash the way it will actually be used and the way it will

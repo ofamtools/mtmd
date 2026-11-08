@@ -7,7 +7,7 @@ import (
 	uv "github.com/charmbracelet/ultraviolet"
 	"github.com/charmbracelet/x/ansi"
 
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // ckCanvas is the grid the cockpit is drawn on: grounds first, then runs of

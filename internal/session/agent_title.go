@@ -3,7 +3,7 @@ package session
 import (
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/harness"
+	"ofam.dev/mtmd/internal/harness"
 )
 
 // The pane's window title as an agent-state signal.

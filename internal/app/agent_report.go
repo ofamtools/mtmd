@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // AgentReport is what a pane says about the agent running in it: the fields

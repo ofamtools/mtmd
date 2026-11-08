@@ -14,7 +14,7 @@ import (
 	"github.com/adrg/xdg"
 	gossh "golang.org/x/crypto/ssh"
 
-	"github.com/Gaurav-Gosain/tuios/internal/netutil"
+	"ofam.dev/mtmd/internal/netutil"
 )
 
 // Authentication for the SSH server.

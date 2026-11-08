@@ -11,8 +11,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/testutil"
 	"github.com/Gaurav-Gosain/tuitest"
+	"ofam.dev/mtmd/internal/testutil"
 )
 
 // Repositories that keep their refs in reftable, end to end. git writes the

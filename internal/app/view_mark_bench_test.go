@@ -4,7 +4,7 @@ import (
 	"image"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // viewMarkOS is a client showing part of a 300x80 session on a 207x55

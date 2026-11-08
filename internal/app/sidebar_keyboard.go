@@ -5,7 +5,7 @@ import (
 	"slices"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // sidebarNavRow is one keyboard-navigable rail row: what the cursor can land on

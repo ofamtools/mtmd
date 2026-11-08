@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"syscall"
 
-	"github.com/Gaurav-Gosain/tuios/internal/sockpath"
+	"ofam.dev/mtmd/internal/sockpath"
 )
 
 // GetSocketPath returns the path to the daemon socket. It refuses when

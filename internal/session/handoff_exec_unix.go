@@ -7,8 +7,8 @@ import (
 	"os"
 	"syscall"
 
-	"github.com/Gaurav-Gosain/tuios/internal/ptyspawn"
 	"golang.org/x/sys/unix"
+	"ofam.dev/mtmd/internal/ptyspawn"
 )
 
 // handoffSupported reports whether this build can hand its panes to another

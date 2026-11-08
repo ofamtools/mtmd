@@ -9,14 +9,14 @@ import (
 
 	tea "charm.land/bubbletea/v2"
 
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/input"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
-	"github.com/Gaurav-Gosain/tuios/internal/ui"
-	"github.com/Gaurav-Gosain/tuios/internal/webshell"
-	"github.com/Gaurav-Gosain/tuios/pkg/applist"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/input"
+	"ofam.dev/mtmd/internal/terminal"
+	"ofam.dev/mtmd/internal/theme"
+	"ofam.dev/mtmd/internal/ui"
+	"ofam.dev/mtmd/internal/webshell"
+	"ofam.dev/mtmd/pkg/applist"
 )
 
 // Commands lists the names RunCommand accepts, for the README and for a test

@@ -4,8 +4,8 @@ import (
 	"image/color"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
+	"ofam.dev/mtmd/internal/overlay"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // TestTuiosThemeKeepsItsFloors builds the diagram theme from every tuios

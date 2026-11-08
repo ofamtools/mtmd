@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/testutil"
+	"ofam.dev/mtmd/internal/testutil"
 )
 
 // TestDiagnoseCountsSavedSessions pins that the diagnosis knows what is on disk.

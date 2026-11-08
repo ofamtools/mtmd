@@ -3,7 +3,7 @@ package app
 import (
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // These tests pin the pane size invariant: the width and height the guest is

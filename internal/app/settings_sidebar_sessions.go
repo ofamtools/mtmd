@@ -3,7 +3,7 @@ package app
 import (
 	"strconv"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // editableSidebarEdge creates a file-backed edge table without changing the

@@ -4,8 +4,8 @@ import (
 	"slices"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/mcp"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/mcp"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // TestMCPEventsAcceptEverySubscribeType: tuios_events offered twelve of the

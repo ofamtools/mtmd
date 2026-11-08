@@ -5,9 +5,9 @@ import (
 	"strings"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/fuzz"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/fuzz"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // The in-process fuzz target. It drives a real OS through the real

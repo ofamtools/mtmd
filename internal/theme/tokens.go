@@ -4,7 +4,7 @@ import (
 	"image/color"
 
 	"charm.land/lipgloss/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // Named colours for the few pieces of furniture that are not drawn from the

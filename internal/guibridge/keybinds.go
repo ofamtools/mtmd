@@ -1,8 +1,8 @@
 package guibridge
 
 import (
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // The user's keys, for a renderer that resolves them itself: the leader and

@@ -9,7 +9,7 @@ import (
 
 	"github.com/adrg/xdg"
 
-	"github.com/Gaurav-Gosain/tuios/internal/sound"
+	"ofam.dev/mtmd/internal/sound"
 )
 
 // sandbox is the temp dir the tutor points the home and every XDG folder at

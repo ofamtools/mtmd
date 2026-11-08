@@ -9,7 +9,7 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/Gaurav-Gosain/tuios/internal/pushnotify"
+	"ofam.dev/mtmd/internal/pushnotify"
 )
 
 // register-push, list-push and remove-push: the person's phones for Web Push

@@ -14,8 +14,8 @@ import (
 	"tuios.dev/loom"
 	"tuios.dev/tml"
 
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
-	"github.com/Gaurav-Gosain/tuios/internal/tmldraw"
+	"ofam.dev/mtmd/internal/theme"
+	"ofam.dev/mtmd/internal/tmldraw"
 )
 
 // TML surfaces in the demo: tuios tml show, render and validate, and the tml

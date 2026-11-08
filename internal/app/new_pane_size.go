@@ -3,8 +3,8 @@ package app
 import (
 	"math"
 
-	"github.com/Gaurav-Gosain/tuios/internal/layout"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/layout"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // newPaneBox is the outer box a pane about to be created will be placed in,

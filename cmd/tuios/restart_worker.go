@@ -15,8 +15,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/restartplan"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/restartplan"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // The stop and the start of a restart run in a process of their own.

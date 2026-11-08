@@ -11,9 +11,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/childproc"
+	"ofam.dev/mtmd/internal/childproc"
 
-	"github.com/Gaurav-Gosain/tuios/internal/worktree"
+	"ofam.dev/mtmd/internal/worktree"
 )
 
 // Base is the commit a diff runs from, and how it was found.

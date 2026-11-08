@@ -2,7 +2,7 @@ package input
 
 import (
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/app"
+	"ofam.dev/mtmd/internal/app"
 )
 
 // handleEffectPickerInput handles keyboard input for the screen saver effect

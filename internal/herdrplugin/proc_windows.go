@@ -10,7 +10,7 @@ import (
 
 	"golang.org/x/sys/windows"
 
-	"github.com/Gaurav-Gosain/tuios/internal/winjob"
+	"ofam.dev/mtmd/internal/winjob"
 )
 
 // detach starts the command suspended, so track can put it in a job before

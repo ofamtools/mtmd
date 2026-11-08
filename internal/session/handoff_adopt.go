@@ -12,7 +12,7 @@ import (
 	"runtime/metrics"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/memtrim"
+	"ofam.dev/mtmd/internal/memtrim"
 	"tuios.dev/vt"
 )
 

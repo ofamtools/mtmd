@@ -2,7 +2,7 @@ package app
 
 import (
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // The scratch terminal as a popup, for a session that cannot have scratch

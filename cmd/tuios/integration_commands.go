@@ -8,8 +8,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/integration"
 	"github.com/spf13/cobra"
+	"ofam.dev/mtmd/internal/integration"
 )
 
 // integrationTargets resolves the harness arguments of an integration

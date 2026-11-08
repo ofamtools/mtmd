@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // repaintPayload is a full-screen truecolor repaint, the shape DOOM-fire and

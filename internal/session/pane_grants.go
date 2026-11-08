@@ -8,10 +8,10 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/harness"
-	"github.com/Gaurav-Gosain/tuios/internal/procinfo"
-	"github.com/Gaurav-Gosain/tuios/internal/tape"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/harness"
+	"ofam.dev/mtmd/internal/procinfo"
+	"ofam.dev/mtmd/internal/tape"
 )
 
 // Pane grants: what a process in a pane may do through tuios.

@@ -4,7 +4,7 @@ import (
 	"testing"
 	"testing/synctest"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // TestDaemonWindowOpenCloseLeaksNoGoroutines asserts that opening and closing a

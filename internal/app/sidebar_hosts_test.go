@@ -7,8 +7,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/federation"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/federation"
 )
 
 // TestFederationPollStopsWithNoHosts keeps the default install from paying for

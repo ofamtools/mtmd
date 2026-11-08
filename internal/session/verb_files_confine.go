@@ -12,11 +12,11 @@ import (
 	"time"
 	"unicode"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/pathroot"
-	"github.com/Gaurav-Gosain/tuios/internal/serverscope"
 	"github.com/adrg/xdg"
 	"golang.org/x/text/unicode/norm"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/pathroot"
+	"ofam.dev/mtmd/internal/serverscope"
 )
 
 // Where a file read or write that arrives over a link may land.

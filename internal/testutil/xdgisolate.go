@@ -13,8 +13,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/sound"
 	"github.com/adrg/xdg"
+	"ofam.dev/mtmd/internal/sound"
 )
 
 // Test binaries must not touch the developer's own XDG directories. The xdg

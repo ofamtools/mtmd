@@ -7,9 +7,9 @@ import (
 	"time"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/listnav"
-	"github.com/Gaurav-Gosain/tuios/internal/plural"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/listnav"
+	"ofam.dev/mtmd/internal/plural"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // The confirmation in front of closing a session.

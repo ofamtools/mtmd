@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // Opening help from the leader has to start at the top, as it does from the

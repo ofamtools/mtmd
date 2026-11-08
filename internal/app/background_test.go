@@ -10,9 +10,9 @@ import (
 	"charm.land/lipgloss/v2"
 	uv "github.com/charmbracelet/ultraviolet"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/terminal"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // The backgrounds beyond the pane's: the desktop, the window chrome, the dock

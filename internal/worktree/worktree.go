@@ -26,10 +26,10 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/childproc"
+	"ofam.dev/mtmd/internal/childproc"
 
-	"github.com/Gaurav-Gosain/tuios/internal/gitstate"
-	"github.com/Gaurav-Gosain/tuios/internal/lazyre"
+	"ofam.dev/mtmd/internal/gitstate"
+	"ofam.dev/mtmd/internal/lazyre"
 )
 
 // Info is what a worktree is, as far as the rest of tuios needs to know.

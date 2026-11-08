@@ -5,7 +5,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/Gaurav-Gosain/tuios/internal/guibridge"
+	"ofam.dev/mtmd/internal/guibridge"
 )
 
 // newGUIBridgeCommand is `tuios gui-bridge`, the process a native renderer

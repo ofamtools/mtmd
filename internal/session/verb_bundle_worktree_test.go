@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/testutil"
-	"github.com/Gaurav-Gosain/tuios/internal/worktree"
+	"ofam.dev/mtmd/internal/testutil"
+	"ofam.dev/mtmd/internal/worktree"
 )
 
 func TestBundleWorktreeIsReadOnlyByTheConnectionThatMadeIt(t *testing.T) {

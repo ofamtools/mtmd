@@ -1,8 +1,8 @@
 package app
 
 import (
-	"github.com/Gaurav-Gosain/tuios/internal/layout"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/layout"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // Tiling constants

@@ -1,7 +1,7 @@
 package app
 
 import (
-	"github.com/Gaurav-Gosain/tuios/internal/composer"
+	"ofam.dev/mtmd/internal/composer"
 )
 
 // The wiring every draft to an agent gets, whichever editor holds it: the

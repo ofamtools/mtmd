@@ -7,7 +7,7 @@ import (
 
 	"charm.land/lipgloss/v2"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // dockCrowdedOS is a session with named workspaces and minimized panes, which

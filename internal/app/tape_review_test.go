@@ -5,8 +5,8 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/tape/trust"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/tape/trust"
 )
 
 // checkTape returns the current trust status for the tape in dir, via a fresh

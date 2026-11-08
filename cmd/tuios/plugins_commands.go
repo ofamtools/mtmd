@@ -14,10 +14,10 @@ import (
 	"text/tabwriter"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/herdrcli"
-	"github.com/Gaurav-Gosain/tuios/internal/herdrplugin"
 	"github.com/spf13/cobra"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/herdrcli"
+	"ofam.dev/mtmd/internal/herdrplugin"
 )
 
 // tuios plugins: the herdr plugins tuios runs. See internal/herdrplugin for

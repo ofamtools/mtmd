@@ -5,7 +5,7 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/Gaurav-Gosain/tuios/internal/hints"
+	"ofam.dev/mtmd/internal/hints"
 )
 
 // HintsConfig is the [hints] section: what hints mode looks for on a pane and

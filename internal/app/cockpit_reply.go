@@ -6,8 +6,8 @@ import (
 
 	"github.com/charmbracelet/x/ansi"
 
-	"github.com/Gaurav-Gosain/tuios/internal/composer"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
+	"ofam.dev/mtmd/internal/composer"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // The reply area at the foot of the focus: who the reply is for and when it

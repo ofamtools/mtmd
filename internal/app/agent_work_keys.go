@@ -2,7 +2,7 @@ package app
 
 import (
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // The keys of the agent review, triage, reply and approval work, and where

@@ -9,14 +9,14 @@ import (
 	"time"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/input"
-	"github.com/Gaurav-Gosain/tuios/internal/ptyspawn"
-	"github.com/Gaurav-Gosain/tuios/internal/testutil"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
-	"github.com/Gaurav-Gosain/tuios/internal/webshell"
 	"github.com/charmbracelet/x/xpty"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/input"
+	"ofam.dev/mtmd/internal/ptyspawn"
+	"ofam.dev/mtmd/internal/testutil"
+	"ofam.dev/mtmd/internal/theme"
+	"ofam.dev/mtmd/internal/webshell"
 )
 
 func TestMain(m *testing.M) {

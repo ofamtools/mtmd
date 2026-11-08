@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/tarpack"
+	"ofam.dev/mtmd/internal/tarpack"
 )
 
 // TestArchiveMatchesFiles holds lessons.tar.gz to tracks.json and tracks/. The

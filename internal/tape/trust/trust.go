@@ -25,9 +25,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/atomicfile"
 	"github.com/adrg/xdg"
 	"github.com/pelletier/go-toml/v2"
+	"ofam.dev/mtmd/internal/atomicfile"
 )
 
 // MaxTapeSize bounds the bytes read from a tape. A layout script fits in a

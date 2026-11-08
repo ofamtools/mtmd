@@ -5,7 +5,7 @@ import (
 	"slices"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/harness"
+	"ofam.dev/mtmd/internal/harness"
 )
 
 // clearAgentNote drops what a window's state said about itself: the message

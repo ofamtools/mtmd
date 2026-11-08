@@ -46,7 +46,7 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"github.com/Gaurav-Gosain/tuios/internal/transcript"
+	"ofam.dev/mtmd/internal/transcript"
 )
 
 // Bounds on what one page carries.

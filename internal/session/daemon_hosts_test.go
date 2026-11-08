@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/federation"
+	"ofam.dev/mtmd/internal/federation"
 )
 
 // The daemon half of host hot reload.

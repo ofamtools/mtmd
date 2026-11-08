@@ -7,10 +7,10 @@ import (
 	"time"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/herdrcli"
-	"github.com/Gaurav-Gosain/tuios/internal/herdrplugin"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/herdrcli"
+	"ofam.dev/mtmd/internal/herdrplugin"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // Palette rows for the herdr plugins config.toml enables: one per action

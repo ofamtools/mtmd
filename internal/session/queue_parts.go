@@ -5,8 +5,8 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/harness"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/harness"
 )
 
 // A queued message in parts.

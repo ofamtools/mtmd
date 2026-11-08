@@ -4,7 +4,7 @@ import (
 	"image/color"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // The log viewer is a list of entries with a cursor, drawn by the shared list

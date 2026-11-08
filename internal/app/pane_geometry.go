@@ -3,8 +3,8 @@ package app
 import (
 	"strconv"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // The pane geometry inputs (shared borders and the pane gap) are session

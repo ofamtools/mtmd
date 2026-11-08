@@ -7,15 +7,15 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/composer"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
+	"ofam.dev/mtmd/internal/composer"
+	"ofam.dev/mtmd/internal/theme"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/harness"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
-	"github.com/Gaurav-Gosain/tuios/internal/risk"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/harness"
+	"ofam.dev/mtmd/internal/overlay"
+	"ofam.dev/mtmd/internal/risk"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // Safer approvals in the Inbox: a risky approval that needs a second press to

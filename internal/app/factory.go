@@ -5,12 +5,12 @@ import (
 	"strings"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/hooks"
-	"github.com/Gaurav-Gosain/tuios/internal/layout"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
-	"github.com/Gaurav-Gosain/tuios/pkg/applist"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/hooks"
+	"ofam.dev/mtmd/internal/layout"
+	"ofam.dev/mtmd/internal/session"
+	"ofam.dev/mtmd/internal/terminal"
+	"ofam.dev/mtmd/pkg/applist"
 )
 
 // OSOptions configures the creation of an OS instance.

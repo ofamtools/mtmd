@@ -5,10 +5,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
 	uv "github.com/charmbracelet/ultraviolet"
 	"github.com/charmbracelet/x/ansi"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // How the picture-in-picture view could be wrong, written down before the

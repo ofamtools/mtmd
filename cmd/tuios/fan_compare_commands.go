@@ -9,12 +9,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 
-	"github.com/Gaurav-Gosain/tuios/internal/plural"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
-	"github.com/Gaurav-Gosain/tuios/internal/worktree"
 	"github.com/spf13/cobra"
+	"ofam.dev/mtmd/internal/plural"
+	"ofam.dev/mtmd/internal/session"
+	"ofam.dev/mtmd/internal/worktree"
 )
 
 // tuios fan compare, diff and verify: the attempts of a fan side by side, what

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/layout"
+	"ofam.dev/mtmd/internal/layout"
 )
 
 // checkTree asserts the structural invariants: every internal node has two

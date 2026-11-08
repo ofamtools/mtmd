@@ -1,7 +1,7 @@
 package app
 
 import (
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // The dock's two session controls, at the bar's right-hand end.

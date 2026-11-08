@@ -1,6 +1,6 @@
 package config
 
-import "github.com/Gaurav-Gosain/tuios/internal/federation"
+import "ofam.dev/mtmd/internal/federation"
 
 // The [tailscale] table: which machines on your tailnet are offered as
 // addresses when you add a host.

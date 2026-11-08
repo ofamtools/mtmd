@@ -7,9 +7,9 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/worktree"
 	"github.com/google/uuid"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/worktree"
 )
 
 // defaultWorkspaces bounds the workspace indices the daemon-side state

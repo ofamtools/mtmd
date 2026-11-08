@@ -28,8 +28,8 @@ import (
 	"testing"
 
 	"charm.land/lipgloss/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // TestBorderBoxInnerWidthIsKnown is what licenses addToBorder to be told its

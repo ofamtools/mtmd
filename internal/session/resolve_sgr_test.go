@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // mochaPalette is catppuccin_mocha's first 8 colours plus bright variants, as

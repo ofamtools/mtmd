@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/harness"
+	"ofam.dev/mtmd/internal/harness"
 )
 
 // recordingPane is a promptPane that keeps every write, in order, with the time

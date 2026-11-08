@@ -1,6 +1,6 @@
 package app
 
-import "github.com/Gaurav-Gosain/tuios/internal/config"
+import "ofam.dev/mtmd/internal/config"
 
 // Nest mode: tmux-matryoshka's prefix Enter, as the nest action.
 //

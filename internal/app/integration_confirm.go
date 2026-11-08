@@ -6,8 +6,8 @@ import (
 
 	tea "charm.land/bubbletea/v2"
 
-	"github.com/Gaurav-Gosain/tuios/internal/integration"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
+	"ofam.dev/mtmd/internal/integration"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // The question an integration notice opens. The notice's key is ctrl+b j, the

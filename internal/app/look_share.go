@@ -8,9 +8,9 @@ import (
 
 	tea "charm.land/bubbletea/v2"
 
-	"github.com/Gaurav-Gosain/tuios/internal/capture"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/lookshare"
+	"ofam.dev/mtmd/internal/capture"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/lookshare"
 	"tuios.dev/shot"
 )
 

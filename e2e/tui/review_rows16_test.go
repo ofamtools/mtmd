@@ -5,8 +5,8 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/testutil"
 	"github.com/Gaurav-Gosain/tuitest"
+	"ofam.dev/mtmd/internal/testutil"
 )
 
 // TestReviewRowsAt16ColoursKeepTheTerminalColours opens the review at 16

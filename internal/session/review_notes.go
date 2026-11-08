@@ -10,8 +10,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/atomicfile"
-	"github.com/Gaurav-Gosain/tuios/internal/review"
+	"ofam.dev/mtmd/internal/atomicfile"
+	"ofam.dev/mtmd/internal/review"
 )
 
 // The review notes store: the notes people and agents leave on a pane's

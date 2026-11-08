@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/testutil"
+	"ofam.dev/mtmd/internal/testutil"
 )
 
 // TestMain isolates the test binary from the developer's own XDG directories.

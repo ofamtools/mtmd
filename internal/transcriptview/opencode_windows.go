@@ -6,7 +6,7 @@ import (
 	"os/exec"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/winjob"
+	"ofam.dev/mtmd/internal/winjob"
 )
 
 // runTree runs the export in a job object and kills the whole job when its

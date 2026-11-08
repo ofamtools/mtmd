@@ -3,7 +3,7 @@ package input
 import (
 	tea "charm.land/bubbletea/v2"
 
-	"github.com/Gaurav-Gosain/tuios/internal/textedit"
+	"ofam.dev/mtmd/internal/textedit"
 )
 
 // promptTextKeys is what a rail text prompt does with the keys every text field

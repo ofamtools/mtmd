@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/testutil"
 	"github.com/Gaurav-Gosain/tuitest"
+	"ofam.dev/mtmd/internal/testutil"
 )
 
 // workspaceNameIn is the name the daemon holds for workspace ws of session

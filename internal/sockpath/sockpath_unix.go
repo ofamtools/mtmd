@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"syscall"
 
-	"github.com/Gaurav-Gosain/tuios/internal/serverscope"
+	"ofam.dev/mtmd/internal/serverscope"
 )
 
 // The roots the folder is chosen from. They are variables so a test can move

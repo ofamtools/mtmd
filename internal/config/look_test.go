@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // A look is written by a stranger and applied by a person who trusts the

@@ -6,8 +6,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/Gaurav-Gosain/tuios/internal/federation"
 	"github.com/spf13/cobra"
+	"ofam.dev/mtmd/internal/federation"
 )
 
 // newSwitchSessionCmd is tuios switch-session: move an attached client to

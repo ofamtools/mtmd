@@ -8,7 +8,7 @@ import (
 
 	"golang.org/x/sys/windows"
 
-	"github.com/Gaurav-Gosain/tuios/internal/winacl"
+	"ofam.dev/mtmd/internal/winacl"
 )
 
 // passwordFileAccess is the access to a password file that only its owner may

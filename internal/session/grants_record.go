@@ -12,9 +12,9 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/atomicfile"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/federation"
+	"ofam.dev/mtmd/internal/atomicfile"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/federation"
 )
 
 // What panes held on the default when the daemon last ran.

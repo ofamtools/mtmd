@@ -4,8 +4,8 @@ import (
 	"maps"
 	"slices"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/layout"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/layout"
 )
 
 // Merging a client state sync into daemon-owned state.

@@ -13,10 +13,10 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/agentproto"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
 	"github.com/spf13/cobra"
 	"golang.org/x/term"
+	"ofam.dev/mtmd/internal/agentproto"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // agentProtoHoldMax bounds the wait on one Inbox hold. The daemon ends every

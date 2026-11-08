@@ -5,9 +5,9 @@ import (
 	"time"
 
 	"charm.land/lipgloss/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/hooks"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/hooks"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // Log adds a new log message to the log buffer.

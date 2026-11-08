@@ -1,9 +1,9 @@
 package app
 
 import (
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/federation"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/federation"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // sidebarDragState is the click-or-drag gesture on a session row. A left press

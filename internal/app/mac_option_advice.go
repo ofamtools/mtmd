@@ -1,7 +1,7 @@
 package app
 
 import (
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // NoteComposedOptionChord reports, once per run, that the host terminal is

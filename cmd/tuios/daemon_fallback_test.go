@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/testutil"
+	"ofam.dev/mtmd/internal/testutil"
 )
 
 // TestADaemonThatWillNotStartLeavesTheUserAWayOut covers the cost of shipping

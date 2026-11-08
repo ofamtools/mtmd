@@ -8,7 +8,7 @@ import (
 	"sync"
 	"unicode/utf8"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // The key tables are built on first use, not at package init, so a tuios

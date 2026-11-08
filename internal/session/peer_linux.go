@@ -5,8 +5,8 @@ package session
 import (
 	"net"
 
-	"github.com/Gaurav-Gosain/tuios/internal/procinfo"
 	"golang.org/x/sys/unix"
+	"ofam.dev/mtmd/internal/procinfo"
 )
 
 // peerPIDSupported says the daemon on this platform reads the peer's pid, so

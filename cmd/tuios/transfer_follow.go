@@ -14,12 +14,12 @@ import (
 	"unicode/utf8"
 
 	"charm.land/lipgloss/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
-	"github.com/Gaurav-Gosain/tuios/internal/units"
 	"github.com/charmbracelet/colorprofile"
 	"golang.org/x/term"
+	"ofam.dev/mtmd/internal/overlay"
+	"ofam.dev/mtmd/internal/session"
+	"ofam.dev/mtmd/internal/theme"
+	"ofam.dev/mtmd/internal/units"
 )
 
 // Following copies the daemon runs: tuios cp and tuios transfers wait.

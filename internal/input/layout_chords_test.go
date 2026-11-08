@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // ctrlOn is a Ctrl chord as a terminal reports it with alternate keys: the

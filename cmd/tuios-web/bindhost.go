@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/netutil"
+	"ofam.dev/mtmd/internal/netutil"
 )
 
 // The bind address.

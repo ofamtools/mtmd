@@ -6,8 +6,8 @@ import (
 
 	"charm.land/lipgloss/v2"
 	tfx "github.com/Gaurav-Gosain/tuiffects"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // Effect picker layout constants, matching the theme and glyph pickers so the

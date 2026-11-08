@@ -15,12 +15,12 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/federation"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
-	"github.com/Gaurav-Gosain/tuios/internal/units"
 	"github.com/spf13/cobra"
 	"golang.org/x/term"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/federation"
+	"ofam.dev/mtmd/internal/session"
+	"ofam.dev/mtmd/internal/units"
 )
 
 // tuios cp: copy files and folders between this machine and its hosts.

@@ -4,7 +4,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/ptyspawn"
+	"ofam.dev/mtmd/internal/ptyspawn"
 )
 
 // cwdRefreshInterval bounds how often the shell's working directory is read

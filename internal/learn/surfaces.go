@@ -14,9 +14,9 @@ import (
 	tea "charm.land/bubbletea/v2"
 	"tuios.dev/tml"
 
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
-	"github.com/Gaurav-Gosain/tuios/internal/webshell"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/internal/session"
+	"ofam.dev/mtmd/internal/webshell"
 )
 
 // TML surfaces in the tour. On a real machine the daemon holds a surface

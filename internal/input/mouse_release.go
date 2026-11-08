@@ -2,10 +2,10 @@ package input
 
 import (
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/internal/layout"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
 	uv "github.com/charmbracelet/ultraviolet"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/internal/layout"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // handleMouseRelease handles mouse release events

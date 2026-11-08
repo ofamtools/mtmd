@@ -6,8 +6,8 @@ import (
 
 	"github.com/charmbracelet/x/ansi"
 
-	"github.com/Gaurav-Gosain/tuios/internal/sessiontree"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
+	"ofam.dev/mtmd/internal/sessiontree"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // TestNarrowNoteKeepsTheSubagentCount: a value on the note line is kept whole

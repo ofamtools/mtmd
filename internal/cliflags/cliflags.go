@@ -9,7 +9,7 @@ package cliflags
 import (
 	"github.com/spf13/pflag"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // Interface is the values of the interface flags. The zero value applies

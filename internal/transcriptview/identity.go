@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/transcript"
+	"ofam.dev/mtmd/internal/transcript"
 )
 
 // Identity is what a transcript says about the session that wrote it: the

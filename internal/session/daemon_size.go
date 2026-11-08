@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // getSessionClientCount returns the number of TUI clients attached to a session.

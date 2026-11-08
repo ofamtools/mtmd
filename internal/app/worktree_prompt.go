@@ -8,9 +8,9 @@ import (
 	"time"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/gitstate"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
-	"github.com/Gaurav-Gosain/tuios/internal/textedit"
+	"ofam.dev/mtmd/internal/gitstate"
+	"ofam.dev/mtmd/internal/session"
+	"ofam.dev/mtmd/internal/textedit"
 )
 
 // The rail's worktree dialog: a branch name asked over a repository, and a

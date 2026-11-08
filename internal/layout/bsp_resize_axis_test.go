@@ -4,7 +4,7 @@ import (
 	"maps"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // edge identifies which side of a pane a resize drags.

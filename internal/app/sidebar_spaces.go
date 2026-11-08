@@ -1,8 +1,8 @@
 package app
 
 import (
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
-	"github.com/Gaurav-Gosain/tuios/internal/sessiontree"
+	"ofam.dev/mtmd/internal/overlay"
+	"ofam.dev/mtmd/internal/sessiontree"
 )
 
 // The rail's space headings.

@@ -11,9 +11,9 @@ import (
 
 	"charm.land/lipgloss/v2"
 	"charm.land/lipgloss/v2/table"
-	"github.com/Gaurav-Gosain/tuios/internal/pathroot"
-	"github.com/Gaurav-Gosain/tuios/internal/plural"
 	"github.com/spf13/cobra"
+	"ofam.dev/mtmd/internal/pathroot"
+	"ofam.dev/mtmd/internal/plural"
 )
 
 // This file holds the CLI half of the session stash: put a file in, list what is

@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/fuzz"
+	"ofam.dev/mtmd/internal/fuzz"
 )
 
 // The registry has to name exactly the rules the oracle can break, and nothing

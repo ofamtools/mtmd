@@ -6,9 +6,9 @@ import (
 	"time"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/sortx"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
-	"github.com/Gaurav-Gosain/tuios/pkg/applist"
+	"ofam.dev/mtmd/internal/sortx"
+	"ofam.dev/mtmd/internal/terminal"
+	"ofam.dev/mtmd/pkg/applist"
 )
 
 // PaletteCategoryRun is the category tag on the palette row that opens the

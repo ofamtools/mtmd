@@ -9,9 +9,9 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/Gaurav-Gosain/tuios/internal/gitstate"
-	"github.com/Gaurav-Gosain/tuios/internal/lazyre"
-	"github.com/Gaurav-Gosain/tuios/internal/winpath"
+	"ofam.dev/mtmd/internal/gitstate"
+	"ofam.dev/mtmd/internal/lazyre"
+	"ofam.dev/mtmd/internal/winpath"
 )
 
 // A session's place.

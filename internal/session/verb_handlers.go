@@ -16,12 +16,12 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/federation"
-	"github.com/Gaurav-Gosain/tuios/internal/harness"
-	"github.com/Gaurav-Gosain/tuios/internal/integration"
-	"github.com/Gaurav-Gosain/tuios/internal/transcriptview"
 	"github.com/google/uuid"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/federation"
+	"ofam.dev/mtmd/internal/harness"
+	"ofam.dev/mtmd/internal/integration"
+	"ofam.dev/mtmd/internal/transcriptview"
 	"tuios.dev/vt"
 )
 

@@ -12,7 +12,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/sockpath"
+	"ofam.dev/mtmd/internal/sockpath"
 )
 
 // These guard the security and liveness of the shared ssh master: a link

@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/testutil"
+	"ofam.dev/mtmd/internal/testutil"
 )
 
 // startTestDaemon starts a real daemon listening on an isolated unix socket in a

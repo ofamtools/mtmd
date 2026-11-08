@@ -6,7 +6,7 @@ import (
 	"slices"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // The agent switch: [agents] enabled = false.

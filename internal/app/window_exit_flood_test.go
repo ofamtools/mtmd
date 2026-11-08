@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // TestWindowExitFloodKeepsTheReadLoopAlive closes more panes at once than the

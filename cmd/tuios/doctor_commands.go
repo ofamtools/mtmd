@@ -8,10 +8,10 @@ import (
 	"slices"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/harness"
-	"github.com/Gaurav-Gosain/tuios/internal/integration"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
 	"github.com/spf13/cobra"
+	"ofam.dev/mtmd/internal/harness"
+	"ofam.dev/mtmd/internal/integration"
+	"ofam.dev/mtmd/internal/session"
 )
 
 func newDoctorCommand() *cobra.Command {

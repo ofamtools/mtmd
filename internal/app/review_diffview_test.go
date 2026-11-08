@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/review"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
 	"github.com/charmbracelet/colorprofile"
+	"ofam.dev/mtmd/internal/review"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // The benchmark here pins the cost of the diff drawing: a frame of the largest

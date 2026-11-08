@@ -15,13 +15,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/harness"
-	"github.com/Gaurav-Gosain/tuios/internal/plural"
-	"github.com/Gaurav-Gosain/tuios/internal/release"
-	"github.com/Gaurav-Gosain/tuios/internal/restartplan"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
 	"github.com/spf13/cobra"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/harness"
+	"ofam.dev/mtmd/internal/plural"
+	"ofam.dev/mtmd/internal/release"
+	"ofam.dev/mtmd/internal/restartplan"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // `tuios restart-server`: stop the daemon and start it again with the newest

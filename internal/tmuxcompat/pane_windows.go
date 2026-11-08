@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Gaurav-Gosain/tuios/internal/shimlink"
+	"ofam.dev/mtmd/internal/shimlink"
 )
 
 // holderSupported reports whether this platform runs pane holders. On

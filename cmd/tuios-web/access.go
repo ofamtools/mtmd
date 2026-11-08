@@ -13,7 +13,7 @@ import (
 	"unicode/utf8"
 
 	"github.com/Gaurav-Gosain/sip"
-	"github.com/Gaurav-Gosain/tuios/internal/netutil"
+	"ofam.dev/mtmd/internal/netutil"
 )
 
 // Who may open a session.

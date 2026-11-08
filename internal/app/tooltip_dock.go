@@ -2,7 +2,7 @@ package app
 
 import (
 	"charm.land/lipgloss/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // The dock's session controls are a glyph each, so the words that used to sit

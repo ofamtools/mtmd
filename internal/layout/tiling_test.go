@@ -3,7 +3,7 @@ package layout
 import (
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // outside reports the rectangles that leave the region, and overlapping reports

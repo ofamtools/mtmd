@@ -3,7 +3,7 @@ package app
 import (
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // sessionCloseInnerWidth is the dialog's preferred inner width, sized so the

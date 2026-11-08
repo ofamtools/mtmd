@@ -26,7 +26,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/lazyre"
+	"ofam.dev/mtmd/internal/lazyre"
 )
 
 // Runner runs a program and returns its standard output. Detect reaches the

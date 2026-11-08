@@ -6,9 +6,9 @@ import (
 	"path/filepath"
 	"sort"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
 	"github.com/adrg/xdg"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // The sidebar keeps the view preferences worth surviving a restart: the user's

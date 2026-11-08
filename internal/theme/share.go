@@ -8,8 +8,8 @@ import (
 	"image/color"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
 	tint "github.com/lrstanley/bubbletint/v2"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // A theme leaves the machine as the file a person would write: the id, the

@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/testutil"
+	"ofam.dev/mtmd/internal/testutil"
 )
 
 // The launch history lands in the XDG state directory, so this binary redirects

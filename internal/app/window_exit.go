@@ -3,7 +3,7 @@ package app
 import (
 	"sync"
 
-	"github.com/Gaurav-Gosain/tuios/internal/crashexit"
+	"ofam.dev/mtmd/internal/crashexit"
 )
 
 // windowExitQueue parks the window exits that did not fit in WindowExitChan.

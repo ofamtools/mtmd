@@ -5,8 +5,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
-	"github.com/Gaurav-Gosain/tuios/internal/sessiontree"
+	"ofam.dev/mtmd/internal/overlay"
+	"ofam.dev/mtmd/internal/sessiontree"
 )
 
 // accentInheritOS is a rail whose attached session has a colour of its own, so

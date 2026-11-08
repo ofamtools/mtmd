@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/gitstate"
+	"ofam.dev/mtmd/internal/gitstate"
 )
 
 // A session's place is what the rail labels an unnamed session with. These

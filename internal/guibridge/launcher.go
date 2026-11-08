@@ -6,8 +6,8 @@ import (
 
 	tea "charm.land/bubbletea/v2"
 
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/pkg/applist"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/pkg/applist"
 )
 
 // The launcher event: the programs tuios's launcher offers (the desktop

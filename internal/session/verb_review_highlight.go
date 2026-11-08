@@ -1,8 +1,8 @@
 package session
 
 import (
-	"github.com/Gaurav-Gosain/tuios/internal/diffview"
-	"github.com/Gaurav-Gosain/tuios/internal/review"
+	"ofam.dev/mtmd/internal/diffview"
+	"ofam.dev/mtmd/internal/review"
 )
 
 // reviewHighlight fills in the syntax colour (HL) and the changed part

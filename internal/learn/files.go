@@ -8,9 +8,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/review"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
-	"github.com/Gaurav-Gosain/tuios/internal/webshell"
+	"ofam.dev/mtmd/internal/review"
+	"ofam.dev/mtmd/internal/session"
+	"ofam.dev/mtmd/internal/webshell"
 )
 
 // The files, the review and the worktrees of the tour. The rail reads the

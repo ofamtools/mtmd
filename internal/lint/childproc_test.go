@@ -16,7 +16,7 @@ import (
 )
 
 const (
-	modulePath = "github.com/Gaurav-Gosain/tuios"
+	modulePath = "ofam.dev/mtmd"
 	allowExec  = "//tuios:allow-exec"
 )
 

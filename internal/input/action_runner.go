@@ -6,8 +6,8 @@ import (
 
 	tea "charm.land/bubbletea/v2"
 
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/internal/tape"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/internal/tape"
 )
 
 // The tape executor and run-command run actions by name through this, since

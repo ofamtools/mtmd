@@ -11,12 +11,12 @@ import (
 
 	"charm.land/lipgloss/v2"
 	"charm.land/lipgloss/v2/table"
-	"github.com/Gaurav-Gosain/tuios/internal/ghpr"
-	"github.com/Gaurav-Gosain/tuios/internal/harness"
-	"github.com/Gaurav-Gosain/tuios/internal/plural"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
-	"github.com/Gaurav-Gosain/tuios/internal/worktree"
 	"github.com/spf13/cobra"
+	"ofam.dev/mtmd/internal/ghpr"
+	"ofam.dev/mtmd/internal/harness"
+	"ofam.dev/mtmd/internal/plural"
+	"ofam.dev/mtmd/internal/session"
+	"ofam.dev/mtmd/internal/worktree"
 )
 
 // The worktree commands are thin: every decision is the daemon's, made in the

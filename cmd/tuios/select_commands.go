@@ -10,9 +10,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/plural"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
 	"golang.org/x/term"
+	"ofam.dev/mtmd/internal/plural"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // The CLI half of selectors: the look-then-write step a write addressed by

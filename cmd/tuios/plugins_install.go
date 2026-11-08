@@ -19,13 +19,13 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/herdrplugin"
-	"github.com/Gaurav-Gosain/tuios/internal/release"
-	"github.com/Gaurav-Gosain/tuios/internal/review"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
 	"github.com/spf13/cobra"
 	"golang.org/x/term"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/herdrplugin"
+	"ofam.dev/mtmd/internal/release"
+	"ofam.dev/mtmd/internal/review"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // tuios plugins install: fetch a plugin with the system git, pin the commit

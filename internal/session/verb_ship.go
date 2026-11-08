@@ -14,10 +14,10 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/Gaurav-Gosain/tuios/internal/childproc"
-	"github.com/Gaurav-Gosain/tuios/internal/ghpr"
-	"github.com/Gaurav-Gosain/tuios/internal/plural"
-	"github.com/Gaurav-Gosain/tuios/internal/worktree"
+	"ofam.dev/mtmd/internal/childproc"
+	"ofam.dev/mtmd/internal/ghpr"
+	"ofam.dev/mtmd/internal/plural"
+	"ofam.dev/mtmd/internal/worktree"
 )
 
 // Shipping: from an agent's worktree to a merged change.

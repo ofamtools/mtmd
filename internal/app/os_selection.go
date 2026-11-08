@@ -14,8 +14,8 @@ import (
 	"time"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
 	uv "github.com/charmbracelet/ultraviolet"
+	"ofam.dev/mtmd/internal/terminal"
 	"tuios.dev/vt"
 )
 

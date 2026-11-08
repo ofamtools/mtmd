@@ -12,8 +12,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/Gaurav-Gosain/tuios/internal/plural"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/plural"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // `tuios agent-log`: what the agent in a pane has been doing, read from the

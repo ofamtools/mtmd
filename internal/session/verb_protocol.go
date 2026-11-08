@@ -14,10 +14,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/agentproto"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/guestenv"
-	"github.com/Gaurav-Gosain/tuios/internal/harness"
+	"ofam.dev/mtmd/internal/agentproto"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/guestenv"
+	"ofam.dev/mtmd/internal/harness"
 )
 
 // This file implements the typed, line-delimited JSON verb protocol layered

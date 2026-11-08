@@ -5,9 +5,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/herdrcli"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
 	"github.com/spf13/cobra"
+	"ofam.dev/mtmd/internal/herdrcli"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // herdr's command line, answered by tuios. See internal/herdrcli.

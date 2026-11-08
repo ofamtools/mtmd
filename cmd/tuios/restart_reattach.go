@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/app"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
+	"ofam.dev/mtmd/internal/app"
 )
 
 // The way back after a restart from the app.

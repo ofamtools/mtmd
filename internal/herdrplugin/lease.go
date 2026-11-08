@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/winpath"
+	"ofam.dev/mtmd/internal/winpath"
 )
 
 // herdr 0.9.4 and later install a GitHub plugin into a folder of its own for

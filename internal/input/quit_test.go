@@ -3,8 +3,8 @@ package input
 import (
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // TestRequestQuitConfirmsOnlyWhenThereIsSomethingToLose pins the rule the three

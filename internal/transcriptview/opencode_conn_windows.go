@@ -6,7 +6,7 @@ import (
 
 	"golang.org/x/sys/windows"
 
-	"github.com/Gaurav-Gosain/tuios/internal/winacl"
+	"ofam.dev/mtmd/internal/winacl"
 )
 
 var procGetExtendedTCPTable = windows.NewLazySystemDLL("iphlpapi.dll").NewProc("GetExtendedTcpTable")

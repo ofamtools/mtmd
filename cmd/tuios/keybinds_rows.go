@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // keybindRow is one row of `tuios keybinds list`. The rows are built in

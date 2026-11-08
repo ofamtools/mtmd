@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/harness"
+	"ofam.dev/mtmd/internal/harness"
 )
 
 // TestUnhookedAgentLifecycleAnswersBlockedOrThinking walks a harness with no

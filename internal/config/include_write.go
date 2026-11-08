@@ -11,8 +11,8 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/pathroot"
 	"github.com/pelletier/go-toml/v2"
+	"ofam.dev/mtmd/internal/pathroot"
 )
 
 // Writing the config.

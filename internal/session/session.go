@@ -7,7 +7,7 @@ import (
 	"image/color"
 	"io"
 
-	"github.com/Gaurav-Gosain/tuios/internal/dnd"
+	"ofam.dev/mtmd/internal/dnd"
 
 	"log"
 	"maps"
@@ -25,12 +25,12 @@ import (
 	uv "github.com/charmbracelet/ultraviolet"
 	"github.com/google/uuid"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/guestenv"
-	"github.com/Gaurav-Gosain/tuios/internal/layout"
-	"github.com/Gaurav-Gosain/tuios/internal/memtrim"
-	"github.com/Gaurav-Gosain/tuios/internal/ptyspawn"
-	"github.com/Gaurav-Gosain/tuios/internal/serverscope"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/guestenv"
+	"ofam.dev/mtmd/internal/layout"
+	"ofam.dev/mtmd/internal/memtrim"
+	"ofam.dev/mtmd/internal/ptyspawn"
+	"ofam.dev/mtmd/internal/serverscope"
 	"tuios.dev/progstatus"
 	"tuios.dev/vt"
 	"tuios.dev/vt/snapshot"

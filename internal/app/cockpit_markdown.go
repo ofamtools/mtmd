@@ -8,9 +8,9 @@ import (
 
 	"github.com/charmbracelet/x/ansi"
 
-	"github.com/Gaurav-Gosain/tuios/internal/diffview"
-	"github.com/Gaurav-Gosain/tuios/internal/markdown"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
+	"ofam.dev/mtmd/internal/diffview"
+	"ofam.dev/mtmd/internal/markdown"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // An agent's words in the thread are Markdown: internal/markdown reads them

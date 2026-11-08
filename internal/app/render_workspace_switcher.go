@@ -4,7 +4,7 @@ import (
 	"image/color"
 	"strconv"
 
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 const (

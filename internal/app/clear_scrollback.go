@@ -4,7 +4,7 @@ import (
 	"time"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // clearScrollbackTimeout bounds the daemon's clear. The daemon waits for its

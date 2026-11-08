@@ -10,8 +10,8 @@ import (
 	uv "github.com/charmbracelet/ultraviolet"
 	"github.com/charmbracelet/x/ansi"
 
-	"github.com/Gaurav-Gosain/tuios/internal/composer"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
+	"ofam.dev/mtmd/internal/composer"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // The spawn sheet's drawing: a card over the dimmed cockpit, laid out as

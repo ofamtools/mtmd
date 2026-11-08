@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/gitstate"
+	"ofam.dev/mtmd/internal/gitstate"
 )
 
 // herdr's records of tuios's objects: the shapes of herdr's

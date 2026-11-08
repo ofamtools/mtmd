@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/linediff"
+	"ofam.dev/mtmd/internal/linediff"
 )
 
 // The Claude Code record, as far as a conversation needs it. A user record's

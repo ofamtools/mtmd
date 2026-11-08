@@ -3,8 +3,8 @@ package config
 import (
 	"sync/atomic"
 
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
+	"ofam.dev/mtmd/internal/overlay"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // agentMarkDefaults is each agent state's mark, and the ASCII form it takes on

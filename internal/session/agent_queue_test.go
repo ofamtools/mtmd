@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // queueFixture is a daemon whose queue looks at a pane 50 ms after it comes

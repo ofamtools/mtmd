@@ -5,13 +5,13 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/dnd"
+	"ofam.dev/mtmd/internal/dnd"
 
 	tea "charm.land/bubbletea/v2"
 	"charm.land/lipgloss/v2"
 
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/overlay"
+	"ofam.dev/mtmd/internal/terminal"
 	"tuios.dev/vt"
 )
 

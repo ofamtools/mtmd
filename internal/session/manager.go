@@ -8,9 +8,9 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/guestenv"
 	"github.com/google/uuid"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/guestenv"
 )
 
 // Manager manages all persistent sessions for a user.

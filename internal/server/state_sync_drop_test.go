@@ -5,10 +5,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
-	"github.com/Gaurav-Gosain/tuios/internal/testutil"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/session"
+	"ofam.dev/mtmd/internal/testutil"
 )
 
 // TestStateSyncFloodLeavesTheClientOnTheNewestSnapshot pushes more state updates

@@ -5,9 +5,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
 	"github.com/charmbracelet/x/ansi"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // renderMailPlain is the mailbox overlay as the person reads it.

@@ -4,7 +4,7 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/hints"
+	"ofam.dev/mtmd/internal/hints"
 )
 
 // find runs the matcher over the copied view and returns what it finds, in

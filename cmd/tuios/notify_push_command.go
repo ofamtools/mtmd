@@ -9,8 +9,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/session"
 	"github.com/spf13/cobra"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // newNotifyPushCommand is tuios notify push: the phones registered for Web

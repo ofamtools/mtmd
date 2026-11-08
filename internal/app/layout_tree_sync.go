@@ -4,8 +4,8 @@ import (
 	"maps"
 	"slices"
 
-	"github.com/Gaurav-Gosain/tuios/internal/layout"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/layout"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // The BSP trees as ops. See layout_tree.go in the session package for the

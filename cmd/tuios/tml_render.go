@@ -12,8 +12,8 @@ import (
 	"golang.org/x/term"
 	"tuios.dev/tml"
 
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
-	"github.com/Gaurav-Gosain/tuios/internal/tmldraw"
+	"ofam.dev/mtmd/internal/theme"
+	"ofam.dev/mtmd/internal/tmldraw"
 )
 
 // tmlRenderOptions is the `tuios tml render` command line.

@@ -6,7 +6,7 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/serverscope"
+	"ofam.dev/mtmd/internal/serverscope"
 )
 
 // A unix socket address is a fixed-size field in the kernel, not a string:

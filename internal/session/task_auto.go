@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/ghpr"
+	"ofam.dev/mtmd/internal/ghpr"
 )
 
 // Cards that move on their own, and the cards a fan works on.

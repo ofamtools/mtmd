@@ -1,7 +1,7 @@
 package app
 
 import (
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // renameDialogWidth is the micro-dialog's preferred inner width: a name and a

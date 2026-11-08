@@ -7,10 +7,10 @@ import (
 	"unicode/utf8"
 
 	"charm.land/lipgloss/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
-	"github.com/Gaurav-Gosain/tuios/internal/scrollback"
 	"github.com/charmbracelet/x/ansi"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/overlay"
+	"ofam.dev/mtmd/internal/scrollback"
 )
 
 // renderScrollbackBrowser renders the scrollback browser as a full-screen overlay.

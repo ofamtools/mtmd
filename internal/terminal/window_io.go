@@ -11,10 +11,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/crashexit"
-	"github.com/Gaurav-Gosain/tuios/internal/debuglog"
-	"github.com/Gaurav-Gosain/tuios/internal/memtrim"
-	"github.com/Gaurav-Gosain/tuios/internal/pool"
+	"ofam.dev/mtmd/internal/crashexit"
+	"ofam.dev/mtmd/internal/debuglog"
+	"ofam.dev/mtmd/internal/memtrim"
+	"ofam.dev/mtmd/internal/pool"
 	"tuios.dev/vt"
 )
 

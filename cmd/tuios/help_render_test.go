@@ -7,8 +7,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/fang"
 	"github.com/spf13/cobra"
+	"ofam.dev/mtmd/internal/fang"
 )
 
 // TestEveryHelpRenders runs --help through fang, the way main does, for every

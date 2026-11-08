@@ -13,7 +13,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/worktree"
+	"ofam.dev/mtmd/internal/worktree"
 )
 
 // bundle-worktree: a worktree's work, read out in pieces so it can cross a

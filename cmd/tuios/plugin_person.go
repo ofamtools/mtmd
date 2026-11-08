@@ -8,8 +8,8 @@ import (
 	"slices"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/serverscope"
-	"github.com/Gaurav-Gosain/tuios/internal/sockpath"
+	"ofam.dev/mtmd/internal/serverscope"
+	"ofam.dev/mtmd/internal/sockpath"
 )
 
 // liveDaemonSockets lists the sockets of this user's daemons that accept a

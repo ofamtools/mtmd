@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"charm.land/lipgloss/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/fuzz"
+	"ofam.dev/mtmd/internal/fuzz"
 )
 
 // TestZoomKeepsItsRegionWhenAPendingResizeDrains is the regression test for a

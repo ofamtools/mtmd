@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	"github.com/Gaurav-Gosain/sip"
-	"github.com/Gaurav-Gosain/tuios/internal/app"
+	"ofam.dev/mtmd/internal/app"
 )
 
 // browserPalette is the colours the browser terminal resolves palette indices

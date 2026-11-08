@@ -9,7 +9,7 @@ import (
 
 	tea "charm.land/bubbletea/v2"
 
-	"github.com/Gaurav-Gosain/tuios/internal/composer"
+	"ofam.dev/mtmd/internal/composer"
 )
 
 // Attaching an image to a reply.

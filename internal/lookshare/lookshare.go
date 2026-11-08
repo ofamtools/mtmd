@@ -22,8 +22,8 @@ import (
 
 	"github.com/adrg/xdg"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/ghpr"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/ghpr"
 )
 
 // DiscussionURL is the discussion that takes setups: "Show us your tuios

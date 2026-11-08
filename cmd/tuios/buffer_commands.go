@@ -11,10 +11,10 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/pastebuf"
-	"github.com/Gaurav-Gosain/tuios/internal/plural"
 	"github.com/spf13/cobra"
 	"golang.org/x/term"
+	"ofam.dev/mtmd/internal/pastebuf"
+	"ofam.dev/mtmd/internal/plural"
 )
 
 // The paste buffer commands, after tmux's: list-buffers, show-buffer,

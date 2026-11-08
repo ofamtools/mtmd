@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/sessiontree"
+	"ofam.dev/mtmd/internal/sessiontree"
 )
 
 // sessionRowY is the screen row a session's rail row was drawn on.

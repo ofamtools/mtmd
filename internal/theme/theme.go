@@ -8,9 +8,9 @@ import (
 	"sync"
 
 	"charm.land/lipgloss/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
 	"github.com/charmbracelet/x/ansi"
 	tint "github.com/lrstanley/bubbletint/v2"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 var enabled bool

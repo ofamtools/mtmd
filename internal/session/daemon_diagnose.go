@@ -9,7 +9,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/serverscope"
+	"ofam.dev/mtmd/internal/serverscope"
 )
 
 // This file answers one question precisely: why can this process not talk to a

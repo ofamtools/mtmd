@@ -10,9 +10,9 @@ import (
 
 	tea "charm.land/bubbletea/v2"
 
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/internal/learn"
-	"github.com/Gaurav-Gosain/tuios/internal/learn/lessons"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/internal/learn"
+	"ofam.dev/mtmd/internal/learn/lessons"
 )
 
 // screen is what the tutor shows. The lesson screen is tuios with the card

@@ -4,9 +4,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/fuzz"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
 	"github.com/charmbracelet/x/ansi"
+	"ofam.dev/mtmd/internal/fuzz"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // A fuzzer-generated payload is hostile by construction: a Guest action's text

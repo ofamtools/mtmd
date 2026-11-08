@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Gaurav-Gosain/tuios/internal/learn/lessons"
+	"ofam.dev/mtmd/internal/learn/lessons"
 )
 
 func main() {

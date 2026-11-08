@@ -4,8 +4,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/lazyre"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/lazyre"
 	"tuios.dev/vt"
 )
 

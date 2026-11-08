@@ -3,8 +3,8 @@ package app
 import (
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/listnav"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
+	"ofam.dev/mtmd/internal/listnav"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // The theme picker and the glyph-set picker are the same panel with a

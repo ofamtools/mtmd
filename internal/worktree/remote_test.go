@@ -7,7 +7,7 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/testutil"
+	"ofam.dev/mtmd/internal/testutil"
 )
 
 func TestNormalizeRemoteJoinsTheSpellingsOfOneRepository(t *testing.T) {

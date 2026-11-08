@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"runtime/debug"
 
-	"github.com/Gaurav-Gosain/tuios/internal/release"
+	"ofam.dev/mtmd/internal/release"
 	"tuios.dev/vt"
 )
 

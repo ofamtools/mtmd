@@ -10,9 +10,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/atomicfile"
-	"github.com/Gaurav-Gosain/tuios/internal/federation"
-	"github.com/Gaurav-Gosain/tuios/internal/plural"
+	"ofam.dev/mtmd/internal/atomicfile"
+	"ofam.dev/mtmd/internal/federation"
+	"ofam.dev/mtmd/internal/plural"
 )
 
 // Mail to a machine whose link is down.

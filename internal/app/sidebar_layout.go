@@ -4,7 +4,7 @@ import (
 	"slices"
 	"sync"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // The rail's layout: which sections it stacks, in what order, and the share of

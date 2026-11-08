@@ -6,8 +6,8 @@ import (
 	"slices"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/review"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/review"
 )
 
 // Staging from the review overlay: a stages the hunk under the cursor, d

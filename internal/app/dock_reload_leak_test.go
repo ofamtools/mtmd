@@ -6,7 +6,7 @@ import (
 	"time"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // dockReloadRuntime stands in for the Bubble Tea runtime, as far as the dock

@@ -5,9 +5,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/integration"
-	tlayout "github.com/Gaurav-Gosain/tuios/internal/layout"
-	"github.com/Gaurav-Gosain/tuios/internal/ptyspawn"
+	"ofam.dev/mtmd/internal/integration"
+	tlayout "ofam.dev/mtmd/internal/layout"
+	"ofam.dev/mtmd/internal/ptyspawn"
 )
 
 // herdr's pane navigation, zoom, process and agent start methods, and

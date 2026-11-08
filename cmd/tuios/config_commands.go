@@ -7,10 +7,10 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
 	"github.com/spf13/cobra"
 	"golang.org/x/term"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // newConfigCommand creates the config command for managing TUIOS configuration.

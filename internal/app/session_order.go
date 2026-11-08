@@ -7,8 +7,8 @@ import (
 	"sync"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/federation"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/federation"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // The session order is the daemon's (set-session-order), not this client's.

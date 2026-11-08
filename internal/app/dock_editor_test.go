@@ -4,7 +4,7 @@ import (
 	"slices"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // newDockEditorOS builds a model with the editor open on the default layout.

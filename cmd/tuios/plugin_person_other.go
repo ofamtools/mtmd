@@ -6,7 +6,7 @@ import (
 	"net"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // liveDaemonSockets is the default daemon's socket when it accepts a

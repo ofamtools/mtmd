@@ -5,8 +5,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
 	"github.com/shirou/gopsutil/v4/mem"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // GetCPUGraph returns a formatted string with CPU usage graph and percentage.

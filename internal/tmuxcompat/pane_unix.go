@@ -18,9 +18,9 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/procinfo"
-	"github.com/Gaurav-Gosain/tuios/internal/shimlink"
 	"golang.org/x/term"
+	"ofam.dev/mtmd/internal/procinfo"
+	"ofam.dev/mtmd/internal/shimlink"
 )
 
 // holderSupported reports whether this platform runs pane holders.

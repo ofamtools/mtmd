@@ -2,7 +2,7 @@ package input
 
 import (
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/app"
+	"ofam.dev/mtmd/internal/app"
 )
 
 // handleSettingsInput handles keyboard input while the settings overlay is open.

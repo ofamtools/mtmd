@@ -5,7 +5,7 @@ import (
 	"slices"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/sortx"
+	"ofam.dev/mtmd/internal/sortx"
 	"tuios.dev/progstatus"
 	"tuios.dev/vt"
 )

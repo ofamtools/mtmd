@@ -7,8 +7,8 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"github.com/Gaurav-Gosain/tuios/internal/integration"
-	"github.com/Gaurav-Gosain/tuios/internal/invisible"
+	"ofam.dev/mtmd/internal/integration"
+	"ofam.dev/mtmd/internal/invisible"
 )
 
 // The transcript: what the pane shows of the conversation.

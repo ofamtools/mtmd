@@ -3,7 +3,7 @@ package session
 import (
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/procinfo"
+	"ofam.dev/mtmd/internal/procinfo"
 )
 
 // AgentSource names where a window's agent state came from, and is the key its

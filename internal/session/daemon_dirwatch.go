@@ -10,7 +10,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/dirwatch"
+	"ofam.dev/mtmd/internal/dirwatch"
 )
 
 // Watching a listed folder for a client that cannot watch it itself.

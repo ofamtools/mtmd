@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"charm.land/lipgloss/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // A hovered sidebar row whose title overflows its columns scrolls the full text

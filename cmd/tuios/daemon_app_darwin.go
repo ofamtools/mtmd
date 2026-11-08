@@ -13,7 +13,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // daemonAppEnvFileFlag hands the launcher a file with the starting client's

@@ -6,7 +6,7 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/herdrplugin"
+	"ofam.dev/mtmd/internal/herdrplugin"
 )
 
 // The first-run approval of a native plugin.

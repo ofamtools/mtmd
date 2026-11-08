@@ -6,9 +6,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/testutil"
-	"github.com/Gaurav-Gosain/tuios/internal/worktree"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/testutil"
+	"ofam.dev/mtmd/internal/worktree"
 )
 
 func TestCheckTransferShapeRefusesWhatBundleWorktreeCannotSend(t *testing.T) {

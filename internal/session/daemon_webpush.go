@@ -13,10 +13,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/atomicfile"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/pushnotify"
-	"github.com/Gaurav-Gosain/tuios/internal/sortx"
+	"ofam.dev/mtmd/internal/atomicfile"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/pushnotify"
+	"ofam.dev/mtmd/internal/sortx"
 )
 
 // Web Push to the person's phones: the daemon's half.

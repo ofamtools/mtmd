@@ -10,7 +10,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/Gaurav-Gosain/tuios/internal/childproc"
+	"ofam.dev/mtmd/internal/childproc"
 )
 
 // Protocols the package speaks, by the name start-agent --protocol takes.

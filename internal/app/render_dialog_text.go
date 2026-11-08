@@ -4,7 +4,7 @@ import (
 	"image/color"
 
 	"charm.land/lipgloss/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // The text pieces the rail's small dialogs share: the rename micro-dialog, the

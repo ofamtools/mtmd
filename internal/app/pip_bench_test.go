@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // The picture-in-picture view's cost budget: nothing at idle, and a small

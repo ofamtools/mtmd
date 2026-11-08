@@ -12,8 +12,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/testutil"
 	"github.com/Gaurav-Gosain/tuitest"
+	"ofam.dev/mtmd/internal/testutil"
 )
 
 // The cockpit of DESIGN.md frame (a), built for real: twelve agents on three

@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/serverscope"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
-	"github.com/Gaurav-Gosain/tuios/skills"
 	tint "github.com/lrstanley/bubbletint/v2"
 	"github.com/spf13/cobra"
+	"ofam.dev/mtmd/internal/serverscope"
+	"ofam.dev/mtmd/internal/theme"
+	"ofam.dev/mtmd/skills"
 )
 
 // newRootCommandBase builds the root command and its own flags.

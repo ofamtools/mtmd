@@ -6,9 +6,9 @@ import (
 	"io"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/plural"
-	"github.com/Gaurav-Gosain/tuios/internal/sortx"
-	"github.com/Gaurav-Gosain/tuios/pkg/fuzzy"
+	"ofam.dev/mtmd/internal/plural"
+	"ofam.dev/mtmd/internal/sortx"
+	"ofam.dev/mtmd/pkg/fuzzy"
 )
 
 // The settings page searches its rows by name, key, value and description.

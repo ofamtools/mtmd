@@ -1,8 +1,8 @@
 package input
 
 import (
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/internal/listnav"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/internal/listnav"
 )
 
 // listKey moves a list when key is one of the movement keys, and reports

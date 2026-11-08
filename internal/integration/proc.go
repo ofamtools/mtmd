@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/procinfo"
+	"ofam.dev/mtmd/internal/procinfo"
 )
 
 // maxAncestors bounds the parent walk. A hook is rarely more than a handful of

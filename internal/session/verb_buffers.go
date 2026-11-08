@@ -12,7 +12,7 @@ import (
 	"time"
 	"unicode"
 
-	"github.com/Gaurav-Gosain/tuios/internal/pastebuf"
+	"ofam.dev/mtmd/internal/pastebuf"
 	"tuios.dev/vt"
 )
 

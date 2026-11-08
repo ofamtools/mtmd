@@ -5,8 +5,8 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"github.com/Gaurav-Gosain/tuios/internal/invisible"
 	"github.com/charmbracelet/x/ansi"
+	"ofam.dev/mtmd/internal/invisible"
 )
 
 // In-band alerts: bytes written into the same stream the frame is rendered

@@ -5,8 +5,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/worktree"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/worktree"
 )
 
 // Naming a repository to a daemon that may be on another machine.

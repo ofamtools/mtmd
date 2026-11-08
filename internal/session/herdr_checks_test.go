@@ -11,7 +11,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/herdrplugin"
+	"ofam.dev/mtmd/internal/herdrplugin"
 )
 
 // TestHerdrMethodsNameTheirCheck holds the herdr socket to the rule the JSON

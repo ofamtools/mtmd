@@ -4,9 +4,9 @@ import (
 	"maps"
 	"sync"
 
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
 	"github.com/lrstanley/go-nf/glyphs/fa"
+	"ofam.dev/mtmd/internal/overlay"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // BorderStyleGlyphs is the appearance.border_style value meaning "take the

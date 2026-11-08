@@ -10,8 +10,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/Gaurav-Gosain/tuios/internal/harness"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/harness"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // Peek and respond on the command line: read the prompt an agent is blocked

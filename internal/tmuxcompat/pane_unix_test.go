@@ -16,7 +16,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/procinfo"
+	"ofam.dev/mtmd/internal/procinfo"
 )
 
 // The holder tests run RunPane in a child process: this test binary run

@@ -3,8 +3,8 @@ package app
 import (
 	"image/color"
 
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
+	"ofam.dev/mtmd/internal/overlay"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // overlayUI is the palette this client draws its dialogs and panels with.

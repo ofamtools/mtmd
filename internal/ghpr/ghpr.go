@@ -21,7 +21,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/childproc"
+	"ofam.dev/mtmd/internal/childproc"
 )
 
 // PR states, lower case.

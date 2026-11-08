@@ -3,7 +3,7 @@ package session
 import (
 	"errors"
 
-	"github.com/Gaurav-Gosain/tuios/internal/hooks"
+	"ofam.dev/mtmd/internal/hooks"
 )
 
 // Settling an agent: the person puts it away on the agents view's Settled

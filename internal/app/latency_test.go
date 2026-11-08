@@ -34,8 +34,8 @@ import (
 
 	"github.com/charmbracelet/x/ansi"
 
-	"github.com/Gaurav-Gosain/tuios/internal/perf"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/perf"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 const (

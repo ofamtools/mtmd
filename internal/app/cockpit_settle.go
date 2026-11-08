@@ -3,8 +3,8 @@ package app
 import (
 	tea "charm.land/bubbletea/v2"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // Settling an agent from the agents view: D puts the agent under the cursor,

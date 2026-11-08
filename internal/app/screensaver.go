@@ -6,8 +6,8 @@ import (
 
 	tea "charm.land/bubbletea/v2"
 	tfx "github.com/Gaurav-Gosain/tuiffects"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/session"
 	"tuios.dev/shot"
 )
 

@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/federation"
+	"ofam.dev/mtmd/internal/federation"
 )
 
 // The machine's load, as this daemon's hello says it, so a daemon linked to

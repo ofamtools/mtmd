@@ -43,7 +43,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/atomicfile"
+	"ofam.dev/mtmd/internal/atomicfile"
 	"tuios.dev/vt"
 	"tuios.dev/vt/snapshot"
 )

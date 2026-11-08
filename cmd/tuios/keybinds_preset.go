@@ -5,7 +5,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // keybindsPreset prints the preset in use, or sets one. Setting a preset

@@ -10,7 +10,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/harness"
+	"ofam.dev/mtmd/internal/harness"
 )
 
 // Peek and respond: read the prompt an agent is blocked on, and answer it,

@@ -11,8 +11,8 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/plural"
-	"github.com/Gaurav-Gosain/tuios/internal/worktree"
+	"ofam.dev/mtmd/internal/plural"
+	"ofam.dev/mtmd/internal/worktree"
 )
 
 // tuios worktree pull HOST:SESSION: a worktree session's work on another

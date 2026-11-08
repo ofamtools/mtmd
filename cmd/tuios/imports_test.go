@@ -17,14 +17,14 @@ import (
 // one import added anywhere under internal/app pulls the lot back in, and a
 // human reading the diff would not see it.
 var forbidden = []string{
-	"github.com/Gaurav-Gosain/tuios/internal/fuzz",
-	"github.com/Gaurav-Gosain/tuios/internal/fuzz/vis",
-	"github.com/Gaurav-Gosain/tuios/internal/fuzz/apptarget",
+	"ofam.dev/mtmd/internal/fuzz",
+	"ofam.dev/mtmd/internal/fuzz/vis",
+	"ofam.dev/mtmd/internal/fuzz/apptarget",
 	"tuios.dev/vt/vtgen",
 }
 
 func TestShippedBinaryDoesNotLinkTheFuzzer(t *testing.T) {
-	deps := depsOf(t, "github.com/Gaurav-Gosain/tuios/cmd/tuios")
+	deps := depsOf(t, "ofam.dev/mtmd/cmd/tuios")
 	for _, bad := range forbidden {
 		if deps[bad] {
 			t.Errorf("the tuios binary imports %s\n\n%s", bad, why(t, bad))
@@ -36,7 +36,7 @@ func TestShippedBinaryDoesNotLinkTheFuzzer(t *testing.T) {
 // pass above means the split is working rather than that the packages have
 // quietly stopped existing.
 func TestFuzzBinaryLinksTheFuzzer(t *testing.T) {
-	deps := depsOf(t, "github.com/Gaurav-Gosain/tuios/cmd/tuios-fuzz")
+	deps := depsOf(t, "ofam.dev/mtmd/cmd/tuios-fuzz")
 	for _, want := range forbidden {
 		if !deps[want] {
 			t.Errorf("tuios-fuzz does not import %s, so this test proves nothing", want)
@@ -63,14 +63,14 @@ func why(t *testing.T, bad string) string {
 	t.Helper()
 	out, err := exec.Command("go", "list", "-f",
 		"{{.ImportPath}} imports {{join .Imports \" \"}}",
-		"github.com/Gaurav-Gosain/tuios/...").Output()
+		"ofam.dev/mtmd/...").Output()
 	if err != nil {
 		return ""
 	}
 	var hits []string
 	for l := range strings.SplitSeq(string(out), "\n") {
 		path, imports, ok := strings.Cut(l, " imports ")
-		if !ok || strings.HasPrefix(path, "github.com/Gaurav-Gosain/tuios/cmd/tuios-fuzz") {
+		if !ok || strings.HasPrefix(path, "ofam.dev/mtmd/cmd/tuios-fuzz") {
 			continue
 		}
 		for imp := range strings.FieldsSeq(imports) {
@@ -91,14 +91,14 @@ func why(t *testing.T, bad string) string {
 // its tests included, imports a tuios package. Nothing else would notice an
 // import of internal/overlay creeping back in.
 func TestComposerImportsNoTuiosPackage(t *testing.T) {
-	const self = "github.com/Gaurav-Gosain/tuios/internal/composer"
+	const self = "ofam.dev/mtmd/internal/composer"
 	out, err := exec.Command("go", "list", "-deps", "-test", "./../../internal/composer").Output()
 	if err != nil {
 		t.Fatalf("go list -deps -test internal/composer: %v", err)
 	}
 	for l := range strings.SplitSeq(string(out), "\n") {
 		pkg := strings.TrimSpace(l)
-		if !strings.HasPrefix(pkg, "github.com/Gaurav-Gosain/tuios/") || strings.HasPrefix(pkg, self) {
+		if !strings.HasPrefix(pkg, "ofam.dev/mtmd/") || strings.HasPrefix(pkg, self) {
 			continue
 		}
 		t.Errorf("internal/composer or its tests import %s", pkg)

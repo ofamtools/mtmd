@@ -15,10 +15,10 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/integration"
-	"github.com/Gaurav-Gosain/tuios/internal/procinfo"
-	"github.com/Gaurav-Gosain/tuios/internal/risk"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/integration"
+	"ofam.dev/mtmd/internal/procinfo"
+	"ofam.dev/mtmd/internal/risk"
 )
 
 // Approvals answered from the Inbox.

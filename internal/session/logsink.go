@@ -11,8 +11,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/serverscope"
 	"github.com/adrg/xdg"
+	"ofam.dev/mtmd/internal/serverscope"
 )
 
 // The daemon keeps two records of the same lines. The ring buffer answers

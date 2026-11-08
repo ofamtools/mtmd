@@ -4,7 +4,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // panicWriter panics on Write, standing in for any graphics-path failure that

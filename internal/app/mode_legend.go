@@ -1,8 +1,8 @@
 package app
 
 import (
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/overlay"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // The mode legend: what the keys do in the mode the keyboard is in.

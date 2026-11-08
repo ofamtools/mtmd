@@ -4,7 +4,7 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/pkg/fuzzy"
+	"ofam.dev/mtmd/pkg/fuzzy"
 )
 
 // The settings page is fourteen tabs and nearly two hundred rows, and without

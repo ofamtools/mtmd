@@ -10,8 +10,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/herdrplugin"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/herdrplugin"
 )
 
 // The herdr plugin host.

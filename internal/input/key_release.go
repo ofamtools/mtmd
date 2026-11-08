@@ -2,8 +2,8 @@ package input
 
 import (
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/app"
 	"github.com/charmbracelet/x/ansi"
+	"ofam.dev/mtmd/internal/app"
 	"tuios.dev/vt"
 )
 

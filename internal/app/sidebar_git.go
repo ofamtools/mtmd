@@ -9,8 +9,8 @@ import (
 	tea "charm.land/bubbletea/v2"
 	"charm.land/lipgloss/v2"
 
-	"github.com/Gaurav-Gosain/tuios/internal/gitstate"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
+	"ofam.dev/mtmd/internal/gitstate"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // The rail's git section: which repository the focused pane is in, which branch

@@ -11,10 +11,10 @@ import (
 	"text/tabwriter"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/plural"
-	"github.com/Gaurav-Gosain/tuios/internal/review"
-	"github.com/Gaurav-Gosain/tuios/internal/worktree"
 	"github.com/spf13/cobra"
+	"ofam.dev/mtmd/internal/plural"
+	"ofam.dev/mtmd/internal/review"
+	"ofam.dev/mtmd/internal/worktree"
 )
 
 // newCheckpointCommand builds `tuios checkpoint`: list the checkpoints the

@@ -3,8 +3,8 @@ package app
 import (
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/gitstate"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/gitstate"
 )
 
 // TestAReadingForAnAbandonedDirectoryIsDropped. A reading is taken on a

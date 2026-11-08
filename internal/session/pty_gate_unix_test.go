@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/ptyspawn"
 	"golang.org/x/sys/unix"
+	"ofam.dev/mtmd/internal/ptyspawn"
 )
 
 // TestReadGateNeverReportsOutputAfterAFailedWait holds the read gate to what

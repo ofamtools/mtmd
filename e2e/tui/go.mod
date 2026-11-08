@@ -1,4 +1,4 @@
-module github.com/Gaurav-Gosain/tuios/e2e/tui
+module ofam.dev/mtmd/e2e/tui
 
 go 1.26.8
 
@@ -43,7 +43,7 @@ require (
 )
 
 require (
-	github.com/Gaurav-Gosain/tuios v0.0.0
+	ofam.dev/mtmd v0.0.0
 	github.com/charmbracelet/colorprofile v0.4.3 // indirect
 	github.com/charmbracelet/ultraviolet v0.0.0-20260906173415-0277a179edd9
 	github.com/charmbracelet/x/ansi v0.11.8
@@ -65,4 +65,4 @@ require (
 	tuios.dev/shot v0.2.2-0.20261030111253-e3068c27991c
 )
 
-replace github.com/Gaurav-Gosain/tuios => ../..
+replace ofam.dev/mtmd => ../..

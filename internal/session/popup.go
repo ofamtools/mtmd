@@ -3,7 +3,7 @@ package session
 import (
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // A popup is a floating pane that runs one command and closes when the command

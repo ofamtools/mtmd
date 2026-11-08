@@ -13,10 +13,10 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/Gaurav-Gosain/tuios/internal/atomicfile"
-	"github.com/Gaurav-Gosain/tuios/internal/lazyre"
-	"github.com/Gaurav-Gosain/tuios/internal/risk"
-	"github.com/Gaurav-Gosain/tuios/internal/sortx"
+	"ofam.dev/mtmd/internal/atomicfile"
+	"ofam.dev/mtmd/internal/lazyre"
+	"ofam.dev/mtmd/internal/risk"
+	"ofam.dev/mtmd/internal/sortx"
 )
 
 // The Inbox: one daemon-owned queue of everything waiting for the person.

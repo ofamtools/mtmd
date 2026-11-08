@@ -1,7 +1,7 @@
 package config
 
 import (
-	"github.com/Gaurav-Gosain/tuios/internal/worktree"
+	"ofam.dev/mtmd/internal/worktree"
 )
 
 // WorktreeConfig is the [worktree] table: where tuios worktree new, the rail's

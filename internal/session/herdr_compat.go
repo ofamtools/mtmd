@@ -76,9 +76,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/herdrplugin"
-	"github.com/Gaurav-Gosain/tuios/internal/integration"
-	"github.com/Gaurav-Gosain/tuios/internal/procinfo"
+	"ofam.dev/mtmd/internal/herdrplugin"
+	"ofam.dev/mtmd/internal/integration"
+	"ofam.dev/mtmd/internal/procinfo"
 )
 
 // herdrMaxRequest bounds one request line, as herdr's 1 MiB cap does. A

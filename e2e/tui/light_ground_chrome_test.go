@@ -5,8 +5,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
 	"github.com/Gaurav-Gosain/tuitest"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // latteGround is catppuccin_latte's background, the ground the rail and the

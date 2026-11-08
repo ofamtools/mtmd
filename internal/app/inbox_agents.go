@@ -11,8 +11,8 @@ import (
 	tea "charm.land/bubbletea/v2"
 	"charm.land/lipgloss/v2"
 
-	"github.com/Gaurav-Gosain/tuios/internal/session"
-	"github.com/Gaurav-Gosain/tuios/pkg/fuzzy"
+	"ofam.dev/mtmd/internal/session"
+	"ofam.dev/mtmd/pkg/fuzzy"
 )
 
 // The agents view of the Inbox: every agent tuios knows of, in one list, with

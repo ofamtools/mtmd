@@ -33,8 +33,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/perf"
 	"github.com/Gaurav-Gosain/tuitest"
+	"ofam.dev/mtmd/internal/perf"
 )
 
 const (

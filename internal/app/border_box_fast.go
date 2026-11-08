@@ -5,9 +5,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
 	"github.com/charmbracelet/x/ansi"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // fastBoxDisabled sends every pane box back through lipgloss (TUIOS_NO_FASTBOX=1)

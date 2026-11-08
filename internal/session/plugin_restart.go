@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"log"
 
-	"github.com/Gaurav-Gosain/tuios/internal/herdrplugin"
+	"ofam.dev/mtmd/internal/herdrplugin"
 )
 
 // herdrPluginRestart is plugin.restart, which tuios plugins install calls

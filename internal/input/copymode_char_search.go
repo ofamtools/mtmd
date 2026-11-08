@@ -1,7 +1,7 @@
 package input
 
 import (
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // Character search-related functions for copy mode (f/F/t/T and ;/,)

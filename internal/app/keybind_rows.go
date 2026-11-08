@@ -4,7 +4,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // KeybindRow is one row of `tuios keybinds list`: one action in one scope,

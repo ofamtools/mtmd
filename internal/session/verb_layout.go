@@ -8,8 +8,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
 	"github.com/google/uuid"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // This file holds the verbs that arrange a session: where a window is, which

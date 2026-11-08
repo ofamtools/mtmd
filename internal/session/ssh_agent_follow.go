@@ -12,11 +12,11 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/federation"
-	"github.com/Gaurav-Gosain/tuios/internal/lazyre"
-	"github.com/Gaurav-Gosain/tuios/internal/sockpath"
 	"github.com/google/uuid"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/federation"
+	"ofam.dev/mtmd/internal/lazyre"
+	"ofam.dev/mtmd/internal/sockpath"
 )
 
 // Following the attached client's ssh agent.

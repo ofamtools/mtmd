@@ -10,8 +10,8 @@ import (
 	"strings"
 
 	"charm.land/tone"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
 	tint "github.com/lrstanley/bubbletint/v2"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // A Draft is a theme file being edited: the fields the file itself sets, over

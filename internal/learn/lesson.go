@@ -9,7 +9,7 @@ import (
 
 	tea "charm.land/bubbletea/v2"
 
-	"github.com/Gaurav-Gosain/tuios/internal/learn/lessons"
+	"ofam.dev/mtmd/internal/learn/lessons"
 )
 
 // Lesson events: what the lesson engine tells the page. See

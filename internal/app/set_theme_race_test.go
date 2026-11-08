@@ -4,8 +4,8 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
+	"ofam.dev/mtmd/internal/terminal"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // TestSetThemeWhileAPanePrints is a race regression. A pane's writer reads the

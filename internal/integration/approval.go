@@ -6,7 +6,7 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"github.com/Gaurav-Gosain/tuios/internal/invisible"
+	"ofam.dev/mtmd/internal/invisible"
 )
 
 // Answering a permission prompt from the Inbox.

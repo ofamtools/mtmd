@@ -3,8 +3,8 @@ package app
 import (
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/layout"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/layout"
 )
 
 // TestNewWorkspaceStartsWithTheConfiguredScheme: GetOrCreateBSPTree reads

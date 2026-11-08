@@ -17,9 +17,9 @@ import (
 	"github.com/adrg/xdg"
 	"golang.org/x/term"
 
-	"github.com/Gaurav-Gosain/tuios/internal/cellsize"
-	"github.com/Gaurav-Gosain/tuios/internal/lazyre"
-	"github.com/Gaurav-Gosain/tuios/internal/serverscope"
+	"ofam.dev/mtmd/internal/cellsize"
+	"ofam.dev/mtmd/internal/lazyre"
+	"ofam.dev/mtmd/internal/serverscope"
 )
 
 // HostCapabilities holds information about the host terminal's capabilities.

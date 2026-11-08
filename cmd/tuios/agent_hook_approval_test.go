@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // holdDaemon is a fakeDaemon that also answers request-approval.

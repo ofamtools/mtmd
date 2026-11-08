@@ -8,11 +8,11 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/hints"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
-	"github.com/Gaurav-Gosain/tuios/internal/sortx"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
-	"github.com/Gaurav-Gosain/tuios/internal/worktree"
+	"ofam.dev/mtmd/internal/hints"
+	"ofam.dev/mtmd/internal/overlay"
+	"ofam.dev/mtmd/internal/sortx"
+	"ofam.dev/mtmd/internal/theme"
+	"ofam.dev/mtmd/internal/worktree"
 )
 
 // Option describes one settable configuration path.

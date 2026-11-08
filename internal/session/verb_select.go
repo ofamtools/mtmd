@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/plural"
+	"ofam.dev/mtmd/internal/plural"
 )
 
 var itoa = strconv.Itoa

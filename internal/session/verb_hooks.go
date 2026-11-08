@@ -3,8 +3,8 @@ package session
 import (
 	"encoding/json"
 
-	"github.com/Gaurav-Gosain/tuios/internal/hooks"
 	"github.com/google/uuid"
+	"ofam.dev/mtmd/internal/hooks"
 )
 
 // list-hooks answers the one question the oldest extension point in tuios could

@@ -11,8 +11,8 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/Gaurav-Gosain/tuios/internal/sockpath"
 	"golang.org/x/term"
+	"ofam.dev/mtmd/internal/sockpath"
 )
 
 // One user on one machine reaches one daemon. sockpath.Dir picks the same

@@ -5,7 +5,7 @@ import (
 
 	tea "charm.land/bubbletea/v2"
 
-	"github.com/Gaurav-Gosain/tuios/internal/textedit"
+	"ofam.dev/mtmd/internal/textedit"
 )
 
 // editFilterQuery applies the type-to-filter edit rule to an overlay's query.

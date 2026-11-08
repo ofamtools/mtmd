@@ -6,8 +6,8 @@ import (
 	"slices"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/integration"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/integration"
 )
 
 // Some chrome only means something to a person who runs agents: the prefix

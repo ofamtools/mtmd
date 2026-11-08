@@ -11,13 +11,13 @@ import (
 	"time"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/debuglog"
-	"github.com/Gaurav-Gosain/tuios/internal/input"
-	"github.com/Gaurav-Gosain/tuios/internal/server"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/debuglog"
+	"ofam.dev/mtmd/internal/input"
+	"ofam.dev/mtmd/internal/server"
+	"ofam.dev/mtmd/internal/session"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // loadAndApplyConfig loads the user config (falling back to defaults on error),

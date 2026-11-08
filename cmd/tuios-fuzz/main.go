@@ -23,10 +23,10 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/fuzz"
-	"github.com/Gaurav-Gosain/tuios/internal/fuzz/apptarget"
-	"github.com/Gaurav-Gosain/tuios/internal/fuzz/vis"
 	"golang.org/x/term"
+	"ofam.dev/mtmd/internal/fuzz"
+	"ofam.dev/mtmd/internal/fuzz/apptarget"
+	"ofam.dev/mtmd/internal/fuzz/vis"
 )
 
 func main() {

@@ -1,6 +1,6 @@
 package app
 
-import "github.com/Gaurav-Gosain/tuios/internal/config"
+import "ofam.dev/mtmd/internal/config"
 
 // sidebarEdge identifies the screen edge a rail is drawn on. Keeping the edge
 // explicit in the geometry prevents a second rail from inheriting the legacy

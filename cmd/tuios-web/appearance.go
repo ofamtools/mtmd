@@ -5,8 +5,8 @@ import (
 	"encoding/base64"
 
 	"github.com/Gaurav-Gosain/sip"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
 	tint "github.com/lrstanley/bubbletint/v2"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // webTitle is what the browser tab says before a session names itself.

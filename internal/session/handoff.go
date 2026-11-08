@@ -11,7 +11,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/ptyspawn"
+	"ofam.dev/mtmd/internal/ptyspawn"
 	"tuios.dev/vt"
 )
 

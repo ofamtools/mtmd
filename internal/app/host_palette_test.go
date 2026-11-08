@@ -3,8 +3,8 @@ package app
 import (
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/capture"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
+	"ofam.dev/mtmd/internal/capture"
+	"ofam.dev/mtmd/internal/theme"
 	"tuios.dev/shot"
 )
 

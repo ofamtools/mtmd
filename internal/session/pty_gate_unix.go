@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Gaurav-Gosain/tuios/internal/ptyspawn"
 	"golang.org/x/sys/unix"
+	"ofam.dev/mtmd/internal/ptyspawn"
 )
 
 // readGate lets a pane's reader wait for output without holding the read lock.

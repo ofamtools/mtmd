@@ -17,8 +17,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/federation"
-	"github.com/Gaurav-Gosain/tuios/internal/testutil"
+	"ofam.dev/mtmd/internal/federation"
+	"ofam.dev/mtmd/internal/testutil"
 )
 
 // The helper process these tests start: this test binary, run again with

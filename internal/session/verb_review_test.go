@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/review"
-	"github.com/Gaurav-Gosain/tuios/internal/testutil"
+	"ofam.dev/mtmd/internal/review"
+	"ofam.dev/mtmd/internal/testutil"
 )
 
 // reviewFixture is a daemon whose panes start in a throwaway repository, with

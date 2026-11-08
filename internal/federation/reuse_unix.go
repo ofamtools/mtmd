@@ -8,7 +8,7 @@ import (
 	"strings"
 	"syscall"
 
-	"github.com/Gaurav-Gosain/tuios/internal/sockpath"
+	"ofam.dev/mtmd/internal/sockpath"
 )
 
 // SharedMasterDir is where a client that can ask the person for a secret

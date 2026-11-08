@@ -4,9 +4,9 @@ import (
 	"image/color"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/overlay"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // TestAccentPickerOpensOnOneAnswer pins the state the audit found incoherent:

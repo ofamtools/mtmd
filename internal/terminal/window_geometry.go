@@ -3,7 +3,7 @@ package terminal
 import (
 	"sync/atomic"
 
-	"github.com/Gaurav-Gosain/tuios/internal/ptyspawn"
+	"ofam.dev/mtmd/internal/ptyspawn"
 )
 
 // PixelInsets is the room a pixel renderer keeps around each pane's text for

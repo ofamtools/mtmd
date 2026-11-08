@@ -5,9 +5,9 @@ import (
 	"image/color"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
 	uv "github.com/charmbracelet/ultraviolet"
+	"ofam.dev/mtmd/internal/overlay"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // The hints frame is a pass over the composed canvas, the way the scrim is,

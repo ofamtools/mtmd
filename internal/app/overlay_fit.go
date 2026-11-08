@@ -1,6 +1,6 @@
 package app
 
-import "github.com/Gaurav-Gosain/tuios/internal/overlay"
+import "ofam.dev/mtmd/internal/overlay"
 
 // Overlay panels are laid out at a preferred size that suits a desktop terminal
 // and then fitted to the screen they are actually drawn on. A small terminal,

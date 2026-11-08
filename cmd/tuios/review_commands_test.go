@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/review"
+	"ofam.dev/mtmd/internal/review"
 )
 
 func TestParseNoteTarget(t *testing.T) {

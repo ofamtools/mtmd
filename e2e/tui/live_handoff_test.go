@@ -14,7 +14,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // The live handoff: the daemon execs a new image in place, and every pane's

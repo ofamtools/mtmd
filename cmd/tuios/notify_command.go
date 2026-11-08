@@ -7,9 +7,9 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/pushnotify"
 	"github.com/spf13/cobra"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/pushnotify"
 )
 
 // newNotifyCommand is tuios notify: the [notify] push notifications.

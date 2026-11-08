@@ -7,7 +7,7 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/harness"
+	"ofam.dev/mtmd/internal/harness"
 )
 
 // The fixtures carry the record shape of a real Claude Code transcript with

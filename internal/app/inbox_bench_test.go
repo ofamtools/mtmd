@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // benchInboxItems is a sixteen-way fan waiting on the person: one of each

@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	"charm.land/lipgloss/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // The all-windows overlay is a jump-to-window picker, so it is drawn as one:

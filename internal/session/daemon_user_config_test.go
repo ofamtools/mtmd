@@ -4,8 +4,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/risk"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/risk"
 )
 
 // TestEveryDaemonKeyReachesTheDaemon walks the [daemon] section by reflection

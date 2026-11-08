@@ -16,8 +16,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/childproc"
-	"github.com/Gaurav-Gosain/tuios/internal/release"
+	"ofam.dev/mtmd/internal/childproc"
+	"ofam.dev/mtmd/internal/release"
 )
 
 // Where `tuios hosts sync` gets its binaries: the release that matches this

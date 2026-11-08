@@ -3,7 +3,7 @@ package config
 import (
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // Settings is every appearance and behaviour value a running session reads.

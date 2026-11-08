@@ -16,9 +16,9 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/crashexit"
-	"github.com/Gaurav-Gosain/tuios/internal/invisible"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/crashexit"
+	"ofam.dev/mtmd/internal/invisible"
 )
 
 // The dock's refresh engine.

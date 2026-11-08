@@ -3,8 +3,8 @@ package input
 import (
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
 	uv "github.com/charmbracelet/ultraviolet"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // Visual selection-related functions for copy mode (v/V/y and text extraction)

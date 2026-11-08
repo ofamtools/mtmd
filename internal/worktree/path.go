@@ -8,9 +8,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/childproc"
-	"github.com/Gaurav-Gosain/tuios/internal/lazyre"
 	"github.com/adrg/xdg"
+	"ofam.dev/mtmd/internal/childproc"
+	"ofam.dev/mtmd/internal/lazyre"
 )
 
 // DefaultDir is where tuios puts the worktrees it creates when no path

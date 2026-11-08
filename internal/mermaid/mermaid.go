@@ -15,7 +15,7 @@ import (
 
 	"tuios.dev/sketch"
 
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // Theme is the sketch theme of a tuios palette, for a diagram drawn on the

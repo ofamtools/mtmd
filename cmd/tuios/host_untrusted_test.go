@@ -12,7 +12,7 @@ import (
 	"syscall"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // TestAStyledCaptureFromAHostKeepsOnlySGR: --ansi or --resolved from another

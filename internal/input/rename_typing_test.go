@@ -5,8 +5,8 @@ import (
 	"unicode/utf8"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // typeInto plays a string into the open rename editor one keypress at a time,

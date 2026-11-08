@@ -2,7 +2,7 @@
 
 package herdrcli
 
-import "github.com/Gaurav-Gosain/tuios/internal/shimlink"
+import "ofam.dev/mtmd/internal/shimlink"
 
 // LinkName is the name a link to tuios must have for tuios to run as herdr.
 const LinkName = "herdr"

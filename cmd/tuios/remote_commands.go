@@ -16,15 +16,15 @@ import (
 
 	"charm.land/lipgloss/v2"
 	"charm.land/lipgloss/v2/table"
-	"github.com/Gaurav-Gosain/tuios/internal/capture"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/harness"
-	"github.com/Gaurav-Gosain/tuios/internal/plural"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
-	"github.com/Gaurav-Gosain/tuios/internal/sortx"
-	"github.com/Gaurav-Gosain/tuios/internal/tape"
 	"github.com/google/uuid"
 	"github.com/spf13/cobra"
+	"ofam.dev/mtmd/internal/capture"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/harness"
+	"ofam.dev/mtmd/internal/plural"
+	"ofam.dev/mtmd/internal/session"
+	"ofam.dev/mtmd/internal/sortx"
+	"ofam.dev/mtmd/internal/tape"
 	"tuios.dev/shot"
 )
 

@@ -3,7 +3,7 @@ package session
 import (
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/harness"
+	"ofam.dev/mtmd/internal/harness"
 )
 
 // A question shown as the asking pane's agent state.

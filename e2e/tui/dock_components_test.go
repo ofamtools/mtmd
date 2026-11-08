@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
 	"github.com/Gaurav-Gosain/tuitest"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // dockRowText is the dock's content row, found by the workspace readout the bar

@@ -3,7 +3,7 @@ package config_test
 import (
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // TestLayoutPrefixDefaultsYieldToUserKeys is config pipeline behaviour: the

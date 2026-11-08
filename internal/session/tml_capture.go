@@ -5,8 +5,8 @@ import (
 
 	"tuios.dev/loom"
 
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
-	"github.com/Gaurav-Gosain/tuios/internal/tmldraw"
+	"ofam.dev/mtmd/internal/theme"
+	"ofam.dev/mtmd/internal/tmldraw"
 )
 
 // capture-pane on a TML window. The window's PTY runs only the placeholder

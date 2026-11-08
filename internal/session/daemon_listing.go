@@ -3,7 +3,7 @@ package session
 import (
 	"cmp"
 
-	"github.com/Gaurav-Gosain/tuios/internal/sortx"
+	"ofam.dev/mtmd/internal/sortx"
 )
 
 // listClients snapshots daemon connections and their current sessions. The

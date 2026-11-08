@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/testutil"
+	"ofam.dev/mtmd/internal/testutil"
 )
 
 // The matcher itself reads nothing from disk, but every test binary in this

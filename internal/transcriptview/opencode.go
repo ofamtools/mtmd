@@ -20,8 +20,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/childproc"
-	"github.com/Gaurav-Gosain/tuios/internal/transcript"
+	"ofam.dev/mtmd/internal/childproc"
+	"ofam.dev/mtmd/internal/transcript"
 )
 
 // FormatOpenCode is opencode 2.x, which keeps its sessions in a database and

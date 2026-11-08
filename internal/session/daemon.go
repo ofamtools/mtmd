@@ -16,14 +16,14 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/federation"
-	"github.com/Gaurav-Gosain/tuios/internal/herdrcli"
-	"github.com/Gaurav-Gosain/tuios/internal/hooks"
-	"github.com/Gaurav-Gosain/tuios/internal/memtrim"
-	"github.com/Gaurav-Gosain/tuios/internal/pastebuf"
-	"github.com/Gaurav-Gosain/tuios/internal/procinfo"
 	"github.com/google/uuid"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/federation"
+	"ofam.dev/mtmd/internal/herdrcli"
+	"ofam.dev/mtmd/internal/hooks"
+	"ofam.dev/mtmd/internal/memtrim"
+	"ofam.dev/mtmd/internal/pastebuf"
+	"ofam.dev/mtmd/internal/procinfo"
 )
 
 // Daemon manages the persistent TUIOS server process.

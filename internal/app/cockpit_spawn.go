@@ -17,15 +17,15 @@ import (
 
 	tea "charm.land/bubbletea/v2"
 
-	"github.com/Gaurav-Gosain/tuios/internal/childproc"
-	"github.com/Gaurav-Gosain/tuios/internal/composer"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/federation"
-	"github.com/Gaurav-Gosain/tuios/internal/gitstate"
-	"github.com/Gaurav-Gosain/tuios/internal/harness"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
-	"github.com/Gaurav-Gosain/tuios/internal/sortx"
-	"github.com/Gaurav-Gosain/tuios/internal/worktree"
+	"ofam.dev/mtmd/internal/childproc"
+	"ofam.dev/mtmd/internal/composer"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/federation"
+	"ofam.dev/mtmd/internal/gitstate"
+	"ofam.dev/mtmd/internal/harness"
+	"ofam.dev/mtmd/internal/session"
+	"ofam.dev/mtmd/internal/sortx"
+	"ofam.dev/mtmd/internal/worktree"
 )
 
 // The spawn sheet (DESIGN.md 3.3, frame d): n and the New agent button open

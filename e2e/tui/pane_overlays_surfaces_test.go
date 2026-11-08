@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
 	"github.com/Gaurav-Gosain/tuitest"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // The three surfaces the first pass of pane-styled overlays left on the

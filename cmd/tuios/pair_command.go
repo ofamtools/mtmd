@@ -37,10 +37,10 @@ import (
 	"golang.org/x/term"
 	"rsc.io/qr"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/federation"
-	"github.com/Gaurav-Gosain/tuios/internal/pathroot"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/federation"
+	"ofam.dev/mtmd/internal/pathroot"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // tuios pair: a phone adds this machine by scanning a QR code.

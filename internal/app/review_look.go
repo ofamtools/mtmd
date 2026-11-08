@@ -4,10 +4,10 @@ import (
 	"image/color"
 	"strconv"
 
-	"github.com/Gaurav-Gosain/tuios/internal/diffview"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
-	"github.com/Gaurav-Gosain/tuios/internal/review"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
+	"ofam.dev/mtmd/internal/diffview"
+	"ofam.dev/mtmd/internal/overlay"
+	"ofam.dev/mtmd/internal/review"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // The review overlay's colours, and what it keeps of a diff between frames.

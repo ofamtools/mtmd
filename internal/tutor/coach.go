@@ -6,7 +6,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/Gaurav-Gosain/tuios/internal/learn/lessons"
+	"ofam.dev/mtmd/internal/learn/lessons"
 )
 
 // The coach (Tilly, on the page) says one short line when a step is done.

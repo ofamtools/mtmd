@@ -3,7 +3,7 @@ package session
 import (
 	"sync"
 
-	"github.com/Gaurav-Gosain/tuios/internal/dnd"
+	"ofam.dev/mtmd/internal/dnd"
 )
 
 // The drag and drop protocol (OSC 72) on the daemon's side.

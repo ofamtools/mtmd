@@ -7,8 +7,8 @@ import (
 	tea "charm.land/bubbletea/v2"
 	"tuios.dev/swatch"
 
-	"github.com/Gaurav-Gosain/tuios/internal/crashexit"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
+	"ofam.dev/mtmd/internal/crashexit"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // Following the Omarchy theme while tuios runs.

@@ -4,8 +4,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/session"
-	"github.com/Gaurav-Gosain/tuios/skills"
+	"ofam.dev/mtmd/internal/session"
+	"ofam.dev/mtmd/skills"
 )
 
 // TestSkillKeyTableListsEveryKeyName holds the key table in the panes topic to

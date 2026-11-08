@@ -6,7 +6,7 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"github.com/Gaurav-Gosain/tuios/internal/linediff"
+	"ofam.dev/mtmd/internal/linediff"
 )
 
 // A read-only file viewer that behaves enough like less and vim for a tour:

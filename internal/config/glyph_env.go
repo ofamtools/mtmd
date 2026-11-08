@@ -3,7 +3,7 @@ package config
 import (
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // GlyphEnv is what the terminal tuios draws on can show, as far as its

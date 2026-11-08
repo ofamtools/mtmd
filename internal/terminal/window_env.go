@@ -7,8 +7,8 @@ import (
 
 	"golang.org/x/term"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/guestenv"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/guestenv"
 )
 
 // Graphics capabilities of the host terminal, set by the app once passthrough

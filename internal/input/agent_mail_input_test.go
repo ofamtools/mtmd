@@ -3,8 +3,8 @@ package input
 import (
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // mailThreadOS is a two-pane window-mode model attached to a daemon session

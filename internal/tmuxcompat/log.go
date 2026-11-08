@@ -8,7 +8,7 @@ import (
 
 	"github.com/adrg/xdg"
 
-	"github.com/Gaurav-Gosain/tuios/internal/serverscope"
+	"ofam.dev/mtmd/internal/serverscope"
 )
 
 // Environment variables the launcher sets for the shim's log.

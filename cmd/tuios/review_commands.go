@@ -10,9 +10,9 @@ import (
 	"strings"
 	"text/tabwriter"
 
-	"github.com/Gaurav-Gosain/tuios/internal/plural"
-	"github.com/Gaurav-Gosain/tuios/internal/review"
 	"github.com/spf13/cobra"
+	"ofam.dev/mtmd/internal/plural"
+	"ofam.dev/mtmd/internal/review"
 )
 
 // newReviewCommand builds `tuios review`: read what the agent in a pane

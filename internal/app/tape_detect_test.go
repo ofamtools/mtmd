@@ -6,9 +6,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/tape/trust"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/tape/trust"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // newDetectOS builds an OS in the given autorun mode with a trust store backed

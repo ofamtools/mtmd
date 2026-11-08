@@ -3,8 +3,8 @@ package session
 import (
 	"encoding/json"
 
-	"github.com/Gaurav-Gosain/tuios/internal/herdrplugin"
-	"github.com/Gaurav-Gosain/tuios/internal/procinfo"
+	"ofam.dev/mtmd/internal/herdrplugin"
+	"ofam.dev/mtmd/internal/procinfo"
 )
 
 // Grants per plugin: what a native plugin's processes may do through tuios.

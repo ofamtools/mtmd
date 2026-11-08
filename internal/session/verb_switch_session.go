@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/federation"
 	"github.com/google/uuid"
+	"ofam.dev/mtmd/internal/federation"
 )
 
 // switch-session moves an attached client to another session in place, the

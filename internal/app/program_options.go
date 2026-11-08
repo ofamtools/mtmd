@@ -8,8 +8,8 @@ import (
 
 	tea "charm.land/bubbletea/v2"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/debuglog"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/debuglog"
 )
 
 // ProgramOptions is the one list of Bubble Tea options a tuios client runs

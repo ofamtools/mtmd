@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
 	"github.com/charmbracelet/colorprofile"
+	"ofam.dev/mtmd/internal/theme"
 	"tuios.dev/shot/mosaic"
 )
 

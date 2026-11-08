@@ -1,8 +1,8 @@
 package app
 
 import (
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/listnav"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/listnav"
 )
 
 // listWraps reports whether a single step off the end of a list wraps to the

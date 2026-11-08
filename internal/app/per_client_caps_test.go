@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // TestTwoSessionsKeepTheirOwnTerminal is the per-connection guarantee for

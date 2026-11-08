@@ -6,7 +6,7 @@ import (
 	"os/exec"
 	"syscall"
 
-	"github.com/Gaurav-Gosain/tuios/internal/procinfo"
+	"ofam.dev/mtmd/internal/procinfo"
 )
 
 // detach gives the command a session of its own: no controlling terminal,

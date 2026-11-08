@@ -3,8 +3,8 @@ package app
 import (
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/hooks"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/hooks"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // Focusing a window on another workspace switches there first. The switch used to

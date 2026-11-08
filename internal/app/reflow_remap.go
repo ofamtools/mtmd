@@ -1,6 +1,6 @@
 package app
 
-import "github.com/Gaurav-Gosain/tuios/internal/terminal"
+import "ofam.dev/mtmd/internal/terminal"
 
 // setupReflowRemap moves a pane's kitty image placements and text-sizing
 // placements with their rows when the pane's emulator reflows on a resize.

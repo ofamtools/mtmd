@@ -3,9 +3,9 @@ package main
 import (
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/session"
-	"github.com/Gaurav-Gosain/tuios/internal/testutil"
 	"github.com/adrg/xdg"
+	"ofam.dev/mtmd/internal/session"
+	"ofam.dev/mtmd/internal/testutil"
 )
 
 // startSubscribeDaemon runs a real daemon in this process, on its own socket

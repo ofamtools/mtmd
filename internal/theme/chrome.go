@@ -6,8 +6,8 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
 	tint "github.com/lrstanley/bubbletint/v2"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // A theme's own colours for tuios's furniture, separate from the sixteen the

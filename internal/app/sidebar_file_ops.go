@@ -12,9 +12,9 @@ import (
 	"unicode/utf8"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/listnav"
-	"github.com/Gaurav-Gosain/tuios/internal/textedit"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/listnav"
+	"ofam.dev/mtmd/internal/textedit"
 )
 
 // # File actions on the rail

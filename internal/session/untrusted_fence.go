@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/invisible"
+	"ofam.dev/mtmd/internal/invisible"
 )
 
 // UntrustedOpen and UntrustedClose fence text another program wrote: a mail

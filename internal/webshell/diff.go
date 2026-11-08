@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/linediff"
+	"ofam.dev/mtmd/internal/linediff"
 )
 
 // diffOp is one line of a line diff: kept, removed from a, or added from b.

@@ -17,10 +17,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/federation"
-	"github.com/Gaurav-Gosain/tuios/internal/plural"
-	"github.com/Gaurav-Gosain/tuios/internal/sockpath"
-	"github.com/Gaurav-Gosain/tuios/internal/sortx"
+	"ofam.dev/mtmd/internal/federation"
+	"ofam.dev/mtmd/internal/plural"
+	"ofam.dev/mtmd/internal/sockpath"
+	"ofam.dev/mtmd/internal/sortx"
 )
 
 // Tailscale SSH in check mode, for the commands that run ssh on a host.

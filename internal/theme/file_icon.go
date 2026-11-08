@@ -5,7 +5,7 @@ import (
 	"sync"
 
 	"charm.land/lipgloss/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // The ink a per-type file icon burns on the rail.

@@ -7,7 +7,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/Gaurav-Gosain/tuios/internal/serverscope"
+	"ofam.dev/mtmd/internal/serverscope"
 )
 
 // GetSocketPath returns the path to the daemon socket. It refuses when

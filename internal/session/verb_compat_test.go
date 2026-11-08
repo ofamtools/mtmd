@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/testutil"
+	"ofam.dev/mtmd/internal/testutil"
 )
 
 // legacyDaemon is a faithful stand-in for a daemon built before the JSON verb

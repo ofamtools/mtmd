@@ -10,7 +10,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/Gaurav-Gosain/tuios/skills/internal/tmlref"
+	"ofam.dev/mtmd/skills/internal/tmlref"
 )
 
 func main() {

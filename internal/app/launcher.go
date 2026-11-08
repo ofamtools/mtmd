@@ -4,9 +4,9 @@ import (
 	"time"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/listnav"
-	"github.com/Gaurav-Gosain/tuios/pkg/applist"
-	"github.com/Gaurav-Gosain/tuios/pkg/fuzzy"
+	"ofam.dev/mtmd/internal/listnav"
+	"ofam.dev/mtmd/pkg/applist"
+	"ofam.dev/mtmd/pkg/fuzzy"
 )
 
 // The launcher is its own overlay rather than a tier inside the command

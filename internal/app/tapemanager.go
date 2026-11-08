@@ -11,13 +11,13 @@ import (
 	"unicode/utf8"
 
 	"charm.land/lipgloss/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/listnav"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
-	"github.com/Gaurav-Gosain/tuios/internal/plural"
-	"github.com/Gaurav-Gosain/tuios/internal/tape"
-	"github.com/Gaurav-Gosain/tuios/internal/textedit"
-	"github.com/Gaurav-Gosain/tuios/internal/units"
 	"github.com/adrg/xdg"
+	"ofam.dev/mtmd/internal/listnav"
+	"ofam.dev/mtmd/internal/overlay"
+	"ofam.dev/mtmd/internal/plural"
+	"ofam.dev/mtmd/internal/tape"
+	"ofam.dev/mtmd/internal/textedit"
+	"ofam.dev/mtmd/internal/units"
 )
 
 // tapeManagerVisibleRows is the number of tape files shown at once in the list.

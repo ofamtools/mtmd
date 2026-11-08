@@ -11,7 +11,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/testutil"
+	"ofam.dev/mtmd/internal/testutil"
 )
 
 // Native plugins: a tuios-plugin.toml asks for pane grants, and its

@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/pastebuf"
+	"ofam.dev/mtmd/internal/pastebuf"
 )
 
 // TestBufferUploadsHoldBoundedMemory is a security boundary: any process

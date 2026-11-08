@@ -5,7 +5,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // cmdTuios is the tuios command inside the demo. tape play hands a tape to

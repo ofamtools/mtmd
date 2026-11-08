@@ -3,7 +3,7 @@ package vis
 import (
 	"slices"
 
-	"github.com/Gaurav-Gosain/tuios/internal/fuzz"
+	"ofam.dev/mtmd/internal/fuzz"
 )
 
 // The tape shows one cell per action and the cell has one glyph, so the

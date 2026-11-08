@@ -11,8 +11,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/pastebuf"
-	"github.com/Gaurav-Gosain/tuios/internal/testutil"
+	"ofam.dev/mtmd/internal/pastebuf"
+	"ofam.dev/mtmd/internal/testutil"
 )
 
 // This file answers for the socket what the reachability table answers for the

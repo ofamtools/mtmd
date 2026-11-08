@@ -6,8 +6,8 @@ import (
 	"maps"
 	"slices"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/layout"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/layout"
 )
 
 // The master-stack shape of a workspace as an op.

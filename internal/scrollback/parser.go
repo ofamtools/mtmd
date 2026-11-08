@@ -7,9 +7,9 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/Gaurav-Gosain/tuios/internal/lazyre"
 	uv "github.com/charmbracelet/ultraviolet"
 	"github.com/charmbracelet/x/ansi"
+	"ofam.dev/mtmd/internal/lazyre"
 	"tuios.dev/vt"
 )
 

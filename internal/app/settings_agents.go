@@ -11,9 +11,9 @@ import (
 
 	tea "charm.land/bubbletea/v2"
 
-	"github.com/Gaurav-Gosain/tuios/internal/integration"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
-	"github.com/Gaurav-Gosain/tuios/internal/sortx"
+	"ofam.dev/mtmd/internal/integration"
+	"ofam.dev/mtmd/internal/overlay"
+	"ofam.dev/mtmd/internal/sortx"
 )
 
 // The Agents section of the settings page.

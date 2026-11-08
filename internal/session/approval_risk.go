@@ -10,9 +10,9 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/harness"
-	"github.com/Gaurav-Gosain/tuios/internal/integration"
-	"github.com/Gaurav-Gosain/tuios/internal/risk"
+	"ofam.dev/mtmd/internal/harness"
+	"ofam.dev/mtmd/internal/integration"
+	"ofam.dev/mtmd/internal/risk"
 )
 
 // Risky approvals and plans: the daemon's half.

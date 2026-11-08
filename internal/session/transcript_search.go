@@ -5,8 +5,8 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/harness"
-	"github.com/Gaurav-Gosain/tuios/internal/transcriptview"
+	"ofam.dev/mtmd/internal/harness"
+	"ofam.dev/mtmd/internal/transcriptview"
 )
 
 // The hookless join for the formats other than Claude Code's (Codex, Gemini

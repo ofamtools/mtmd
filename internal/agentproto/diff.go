@@ -5,7 +5,7 @@ import (
 	"hash/fnv"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/linediff"
+	"ofam.dev/mtmd/internal/linediff"
 )
 
 // Diffs in the transcript. Codex sends a unified diff, which is shown as it is;

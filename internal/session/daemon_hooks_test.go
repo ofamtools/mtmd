@@ -6,9 +6,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/hooks"
-	"github.com/Gaurav-Gosain/tuios/internal/testutil"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/hooks"
+	"ofam.dev/mtmd/internal/testutil"
 )
 
 // Hooks used to be wired entirely into the client, so a session running

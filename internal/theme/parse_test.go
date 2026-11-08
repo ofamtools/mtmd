@@ -5,9 +5,9 @@ import (
 	"testing"
 
 	"charm.land/lipgloss/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
 	"github.com/charmbracelet/colorprofile"
 	"github.com/charmbracelet/x/ansi"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // The ways the colour parser can go wrong, and the test that holds each:

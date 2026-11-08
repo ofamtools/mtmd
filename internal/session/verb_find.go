@@ -10,8 +10,8 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/Gaurav-Gosain/tuios/internal/sortx"
 	uv "github.com/charmbracelet/ultraviolet"
+	"ofam.dev/mtmd/internal/sortx"
 	"tuios.dev/vt"
 )
 

@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/winacl"
+	"ofam.dev/mtmd/internal/winacl"
 )
 
 // TestPasswordFileDACL: on Windows the owner and the DACL decide who can read

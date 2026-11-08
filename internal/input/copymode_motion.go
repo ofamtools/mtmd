@@ -1,8 +1,8 @@
 package input
 
 import (
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
 	uv "github.com/charmbracelet/ultraviolet"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // Motion-related functions for copy mode (hjkl, page navigation, jumps, etc.)

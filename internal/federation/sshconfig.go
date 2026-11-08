@@ -10,7 +10,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/childproc"
+	"ofam.dev/mtmd/internal/childproc"
 )
 
 // SSHConfig is what ssh -G says it would use for a host: the options of the

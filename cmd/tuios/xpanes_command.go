@@ -12,12 +12,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/internal/layout"
-	"github.com/Gaurav-Gosain/tuios/internal/lazyre"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
 	"github.com/spf13/cobra"
 	"golang.org/x/term"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/internal/layout"
+	"ofam.dev/mtmd/internal/lazyre"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // tuios xpanes, after greymd/tmux-xpanes (discussion #273): one pane per item

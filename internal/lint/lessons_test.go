@@ -13,9 +13,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/learn"
-	"github.com/Gaurav-Gosain/tuios/internal/learn/lessons"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/learn"
+	"ofam.dev/mtmd/internal/learn/lessons"
 )
 
 // TestLessonsMatchTheApp checks the lessons in internal/learn/lessons against

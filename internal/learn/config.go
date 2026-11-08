@@ -1,6 +1,6 @@
 package learn
 
-import "github.com/Gaurav-Gosain/tuios/internal/config"
+import "ofam.dev/mtmd/internal/config"
 
 // Config is the configuration the tour runs with: the shipped defaults, so
 // the tour shows the screen a person sees after installing tuios. The

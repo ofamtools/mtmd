@@ -5,7 +5,7 @@ import (
 	"math"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // AnimationType represents the type of animation being performed.

@@ -6,11 +6,11 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/explore"
-	"github.com/Gaurav-Gosain/tuios/internal/sortx"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/explore"
+	"ofam.dev/mtmd/internal/sortx"
 )
 
 // The opt-in explorers: tuios help -i, tuios config browse and tuios keybinds

@@ -4,8 +4,8 @@ import (
 	"image/color"
 
 	"charm.land/tone"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
 	"github.com/charmbracelet/x/ansi"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // Palette is what a Theme is built from: the ground the diff is drawn on,

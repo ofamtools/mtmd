@@ -6,7 +6,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/Gaurav-Gosain/tuios/internal/lazyre"
+	"ofam.dev/mtmd/internal/lazyre"
 )
 
 // Opening a session on another machine, the way a person does it by hand.

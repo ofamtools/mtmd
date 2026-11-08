@@ -16,7 +16,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/release"
+	"ofam.dev/mtmd/internal/release"
 )
 
 // Nothing here touches the network. The release lookup is behind

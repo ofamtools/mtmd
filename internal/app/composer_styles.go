@@ -3,8 +3,8 @@ package app
 import (
 	"image/color"
 
-	"github.com/Gaurav-Gosain/tuios/internal/composer"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
+	"ofam.dev/mtmd/internal/composer"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // composerStyles is the composer's look in pal. The composer takes no colour

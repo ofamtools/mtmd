@@ -1,6 +1,6 @@
 package ptyspawn
 
-import "github.com/Gaurav-Gosain/tuios/internal/cellsize"
+import "ofam.dev/mtmd/internal/cellsize"
 
 // WinsizeSetter is a pty that can take its size in cells and in pixels in one
 // call. xpty.UnixPty is one; ConPTY and a pane whose bytes come from another

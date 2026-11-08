@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // ckCompareColMin is the narrowest an attempt's column is drawn. Fewer

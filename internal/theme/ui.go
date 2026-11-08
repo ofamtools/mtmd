@@ -5,8 +5,8 @@ import (
 	"sync"
 
 	"charm.land/tone"
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
 	tint "github.com/lrstanley/bubbletint/v2"
+	"ofam.dev/mtmd/internal/overlay"
 )
 
 // The contrast math lives in the overlay package, which owns the palette these

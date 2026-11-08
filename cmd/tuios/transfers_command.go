@@ -9,11 +9,11 @@ import (
 
 	"charm.land/lipgloss/v2"
 	"charm.land/lipgloss/v2/table"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
-	"github.com/Gaurav-Gosain/tuios/internal/units"
 	"github.com/charmbracelet/colorprofile"
 	"github.com/spf13/cobra"
+	"ofam.dev/mtmd/internal/session"
+	"ofam.dev/mtmd/internal/theme"
+	"ofam.dev/mtmd/internal/units"
 )
 
 // tuios transfers: the copies the daemon runs, and control of them.

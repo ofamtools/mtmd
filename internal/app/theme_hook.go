@@ -1,8 +1,8 @@
 package app
 
 import (
-	"github.com/Gaurav-Gosain/tuios/internal/hooks"
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
+	"ofam.dev/mtmd/internal/hooks"
+	"ofam.dev/mtmd/internal/theme"
 	"tuios.dev/vt"
 )
 

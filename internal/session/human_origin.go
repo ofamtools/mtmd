@@ -4,8 +4,8 @@ import (
 	"net"
 	"os"
 
-	"github.com/Gaurav-Gosain/tuios/internal/herdrplugin"
-	"github.com/Gaurav-Gosain/tuios/internal/procinfo"
+	"ofam.dev/mtmd/internal/herdrplugin"
+	"ofam.dev/mtmd/internal/procinfo"
 )
 
 // peerPID is the pid of the process on the other end of a unix socket, or 0

@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/internal/layout"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/internal/layout"
 )
 
 // The split trees in the state, and the layout commands that edit them.

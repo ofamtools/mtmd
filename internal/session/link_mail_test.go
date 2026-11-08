@@ -3,7 +3,7 @@ package session
 import (
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // Mail from a machine whose link policy holds it. See hold_mail in

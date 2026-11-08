@@ -6,8 +6,8 @@ import (
 
 	tea "charm.land/bubbletea/v2"
 	tfx "github.com/Gaurav-Gosain/tuiffects"
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/pkg/fuzzy"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/pkg/fuzzy"
 )
 
 // The effect picker is the theme picker's third sibling. screensaver.effect

@@ -6,9 +6,9 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/internal/hints"
-	"github.com/Gaurav-Gosain/tuios/internal/terminal"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/hints"
+	"ofam.dev/mtmd/internal/terminal"
 )
 
 // Pane labels, after tmux's display-panes.

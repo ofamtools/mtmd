@@ -12,7 +12,7 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/Gaurav-Gosain/tuios/internal/mermaid"
+	"ofam.dev/mtmd/internal/mermaid"
 )
 
 // TestMermaidWritesNoTerminalControls runs tuios mermaid on diagrams whose

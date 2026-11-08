@@ -3,7 +3,7 @@ package app
 import (
 	"slices"
 
-	"github.com/Gaurav-Gosain/tuios/internal/federation"
+	"ofam.dev/mtmd/internal/federation"
 )
 
 // Stepping between machines: next_host and prev_host.

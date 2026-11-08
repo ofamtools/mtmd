@@ -10,10 +10,10 @@ import (
 
 	tea "charm.land/bubbletea/v2"
 
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/internal/harness"
-	"github.com/Gaurav-Gosain/tuios/internal/session"
-	"github.com/Gaurav-Gosain/tuios/internal/webshell"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/internal/harness"
+	"ofam.dev/mtmd/internal/session"
+	"ofam.dev/mtmd/internal/webshell"
 )
 
 // The fleet stands in for the daemon behind the agents view (ctrl+b i). The

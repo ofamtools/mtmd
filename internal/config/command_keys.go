@@ -7,7 +7,7 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/Gaurav-Gosain/tuios/internal/herdrplugin"
+	"ofam.dev/mtmd/internal/herdrplugin"
 )
 
 // Command keybindings: [[keybindings.command]] entries that bind a key to a

@@ -12,7 +12,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/transcript"
+	"ofam.dev/mtmd/internal/transcript"
 )
 
 // FormatPi is Pi's v2/v3 session tree. Checked against Pi 1.3.0's

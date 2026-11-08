@@ -1,6 +1,6 @@
 package app
 
-import "github.com/Gaurav-Gosain/tuios/internal/config"
+import "ofam.dev/mtmd/internal/config"
 
 // Lock mode: zellij's locked mode, as keybindings.lock.
 //

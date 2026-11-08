@@ -5,8 +5,8 @@ import (
 	"slices"
 	"sort"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
-	"github.com/Gaurav-Gosain/tuios/pkg/applist"
+	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/pkg/applist"
 )
 
 // What the GUI bridge (internal/guibridge) reads off the model for a native

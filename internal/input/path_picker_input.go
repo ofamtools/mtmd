@@ -2,8 +2,8 @@ package input
 
 import (
 	tea "charm.land/bubbletea/v2"
-	"github.com/Gaurav-Gosain/tuios/internal/app"
-	"github.com/Gaurav-Gosain/tuios/internal/textedit"
+	"ofam.dev/mtmd/internal/app"
+	"ofam.dev/mtmd/internal/textedit"
 )
 
 // handleOpenPathPicker is the pick_path action: alt+; in terminal mode, and

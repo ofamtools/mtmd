@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // The machines the renderer shows (plan 9, remote-files 3.3): every host in

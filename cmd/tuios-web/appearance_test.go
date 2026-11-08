@@ -3,8 +3,8 @@ package main
 import (
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/theme"
 	tint "github.com/lrstanley/bubbletint/v2"
+	"ofam.dev/mtmd/internal/theme"
 )
 
 // TestEveryThemeReachesTheBrowser runs the whole roster through. A colour sip

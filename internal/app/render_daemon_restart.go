@@ -4,8 +4,8 @@ import (
 	"image/color"
 	"strings"
 
-	"github.com/Gaurav-Gosain/tuios/internal/overlay"
-	"github.com/Gaurav-Gosain/tuios/internal/restartplan"
+	"ofam.dev/mtmd/internal/overlay"
+	"ofam.dev/mtmd/internal/restartplan"
 )
 
 // overlayKindRestart is the restart dialog's overlay kind.

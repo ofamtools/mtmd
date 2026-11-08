@@ -8,8 +8,8 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/Gaurav-Gosain/tuios/internal/fuzz"
-	"github.com/Gaurav-Gosain/tuios/internal/testutil"
+	"ofam.dev/mtmd/internal/fuzz"
+	"ofam.dev/mtmd/internal/testutil"
 )
 
 // The whole binary runs against a throwaway XDG tree, so nothing here can reach

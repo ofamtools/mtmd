@@ -5,7 +5,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 
-	"github.com/Gaurav-Gosain/tuios/internal/herdrplugin"
+	"ofam.dev/mtmd/internal/herdrplugin"
 )
 
 // Plugin tokens: a second way for a process to say which native plugin it

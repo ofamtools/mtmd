@@ -14,9 +14,9 @@ import (
 	"text/tabwriter"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/config"
 	"github.com/spf13/cobra"
 	"golang.org/x/term"
+	"ofam.dev/mtmd/internal/config"
 )
 
 // lookFetchTimeout bounds a look download, start to end.

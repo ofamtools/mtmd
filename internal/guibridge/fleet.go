@@ -6,7 +6,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/Gaurav-Gosain/tuios/internal/session"
+	"ofam.dev/mtmd/internal/session"
 )
 
 // Fleet is every session on the daemon and every pane's agent state, for

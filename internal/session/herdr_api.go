@@ -9,7 +9,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/Gaurav-Gosain/tuios/internal/worktree"
+	"ofam.dev/mtmd/internal/worktree"
 )
 
 // herdr's socket API, answered by tuios.
