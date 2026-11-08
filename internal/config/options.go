@@ -1193,6 +1193,16 @@ var optionSpecs = []Option{
 		Description: "Days the log of a closed pane or a killed session is kept before it is deleted. 0 deletes at close.",
 		Default:     strconv.Itoa(ScrollbackGraceDaysDefault), Min: 0, Max: 365,
 	},
+	{
+		Path: "daemon.scrollback_hot_idle_seconds", Type: OptionInt, Section: "daemon",
+		Description: "Seconds a pane may print nothing and still count as in use for scrollback_hot_when. A change applies at the next sweep.",
+		Default:     strconv.Itoa(ScrollbackHotIdleSecondsDefault), Min: 0, Max: 86400,
+	},
+	{
+		Path: "daemon.scrollback_cold_ring_rows", Type: OptionInt, Section: "daemon",
+		Description: "Rows of history a pane that is not in use keeps in memory (never below 5000); the older rows stay in its log on disk. A pane in use keeps appearance.scrollback_lines, but only rows printed while it was in use come back to memory. A change applies at the next sweep.",
+		Default:     strconv.Itoa(ScrollbackColdRingRowsDefault), Min: ScrollbackColdRingRowsFloor, Max: 10000000,
+	},
 
 	// [notifications]
 	{

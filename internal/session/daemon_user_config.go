@@ -50,6 +50,7 @@ func DaemonConfigFromUser(uc *config.UserConfig) *DaemonConfig {
 	cfg.Display = uc.Daemon.Display
 	cfg.History = ResolveHistoryPolicy(uc.Daemon.PersistScrollback, uc.Daemon.PersistScrollbackLines, uc.Daemon.PersistScrollbackKB)
 	cfg.Cold = ResolveColdPolicy(uc.Daemon.ScrollbackDisk, uc.Daemon.ScrollbackDiskRowsPerPane, uc.Daemon.ScrollbackDiskMBPerPane, uc.Daemon.ScrollbackDiskMBTotal, uc.Daemon.ScrollbackGraceDays)
+	cfg.Cold.Tier = ResolveTierPolicy(uc.Daemon.ScrollbackHotWhen, uc.Daemon.ScrollbackHotIdleSeconds, uc.Daemon.ScrollbackColdRingRows)
 	cfg.Hosts = HostsFromConfig(uc)
 	// The same table says what each machine linked to this one may do here.
 	cfg.LinkPolicies = uc.Hosts

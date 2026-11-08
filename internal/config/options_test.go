@@ -14,6 +14,7 @@ import (
 var optionWalkSkips = map[string]string{
 	"keybindings":                      "maps of action to keys, not scalar paths",
 	"hooks":                            "a free-form map of event to command",
+	"daemon.scrollback_hot_when":       "a list of signal names, which a value arriving as one string cannot spell",
 	"daemon.agent_binaries":            "a list, which a value arriving as one string cannot spell",
 	"appearance.scroll_column_presets": "a list of percents, which a value arriving as one string cannot spell",
 	"daemon.respond_from_shell":        "a grant to act as the person, which set-option, a verb any pane can call, must not be able to switch",

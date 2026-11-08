@@ -2397,6 +2397,7 @@ func (d *Daemon) cleanupOnce() bool {
 	const pendingRequestTTL = 2 * time.Minute
 
 	d.releaseAltScreens()
+	tiering := d.tierScrollback(time.Now())
 	// Expire stale pending requests whose TUI result never arrived so
 	// they do not pin the requester's connState forever.
 	now := time.Now()
@@ -2418,7 +2419,7 @@ func (d *Daemon) cleanupOnce() bool {
 	// peak heap goal behind, and an idle daemon runs no collection to
 	// lower either. memtrim trims only when the daemon is quiet.
 	memtrim.Request()
-	return waiting
+	return waiting || tiering
 }
 
 // resolveAgentStallTimeout picks the stall heuristic's silence window: an
