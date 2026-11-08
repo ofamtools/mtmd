@@ -190,6 +190,20 @@ type coldIndex struct {
 
 func (c *coldLines) index() coldIndex {
 	var ix coldIndex
+	if !c.unwrap {
+		// Every row is a line, so where lines start is known without reading
+		// a row (reading them all took 0.25 us a row: 370 ms for 1.5M rows).
+		// Only a lost run is one line for many ids.
+		for id := c.first; id < c.end; {
+			ix.starts = append(ix.starts, id)
+			if n := c.gapAt(id); n > 0 {
+				id += n
+				continue
+			}
+			id++
+		}
+		return ix
+	}
 	c.walk(c.first, c.end, false, func(start, _ uint64, _ string, open bool) bool {
 		ix.starts = append(ix.starts, start)
 		ix.open = open

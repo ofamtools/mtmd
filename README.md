@@ -11,6 +11,49 @@ This is a modified fork. It is local to the o-family and is not published. See
 [FORK.md](FORK.md) for what was changed, how upstream is tracked, and how to
 merge a new upstream release.
 
+## Scrollback on disk
+
+A pane keeps its newest rows of history in memory (`appearance.scrollback_lines`)
+and writes the rows that leave memory to a compressed, append-only log on disk
+under the state directory (`<session>/<window-id>.cold`). Capture and search
+read through the log, so a pane's history is as deep as its log, not its ring.
+A pane that nobody is using (not displayed, not focused, silent for a while)
+shrinks its in-memory ring and lets the log hold the rest. A log outlives a
+daemon restart and a live upgrade, and the log of a closed pane is kept for a
+grace period. The pure Go emulator only: panes on the libghostty backend have
+no log and keep today's behaviour.
+
+Settings (`[daemon]` in config.toml; each is also in the option table):
+
+| Setting | Default | Meaning |
+|---|---|---|
+| `scrollback_disk` | `true` | Write evicted rows to a log. `false` turns it off and deletes the logs when the daemon next starts. |
+| `scrollback_disk_rows_per_pane` | 2000000 | Most rows one log keeps, oldest segment first. 0 = no limit. |
+| `scrollback_disk_mb_per_pane` | 128 | Most MiB one log takes. |
+| `scrollback_disk_mb_total` | 2048 | Most MiB all logs take together; closed logs go first. |
+| `scrollback_grace_days` | 3 | Days a closed pane's log is kept. 0 deletes at close. |
+| `scrollback_hot_when` | `["displayed","focused","output"]` | Reasons a pane counts as in use. `[]` = always cold. |
+| `scrollback_hot_idle_seconds` | 300 | How long a silent pane still counts as in use by `output`. |
+| `scrollback_cold_ring_rows` | 10000 | Rows a pane that is not in use keeps in memory (floor 5000). |
+
+To keep today's memory behaviour with the log as a backup, set
+`scrollback_hot_when = ["displayed","focused","output"]` and a large
+`scrollback_cold_ring_rows`; to have no logs at all, `scrollback_disk = false`.
+
+Verbs (wire, over the daemon socket; `serve` hosts relay them):
+
+- `list-history-logs {state: all|live|orphaned}`, `show-history-log {log}`: what
+  logs exist (id is `session/window`), rows, bytes, gaps, for an orphan the days left.
+- `keep-history-log {log}` / `unkeep-history-log {log}`: exempt an orphan from the
+  grace purge and the total cap, or not.
+- `adopt-history-log {log, session, window}` (alias `adopt-history`): a pane takes an
+  orphan's log over; its new output follows the old rows.
+- `purge-history-logs {log | all_orphaned, dry_run, confirm}`: delete orphans. Run it
+  with `dry_run` first; the reply's `confirm` token is what the real run needs.
+  Adopt and a real purge need a person's connection.
+- `capture-pane` (`source=recent`) and `search-panes` read the disk rows too;
+  `history_rows_disk` and `complete` say what was reached.
+
 ## Credit
 
 **All of the code in this repository is the work of

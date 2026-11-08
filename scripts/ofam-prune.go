@@ -61,7 +61,7 @@ var platforms = []string{"linux", "darwin", "windows"}
 // rootKeep are the files at the module root that stay. LICENSE is upstream's
 // and must travel with every copy; NOTICE and README carry the credit.
 var rootKeep = map[string]bool{
-	"LICENSE": true, "NOTICE": true, "README.md": true, "FORK.md": true, "THIRD_PARTY.md": true,
+	"LICENSE": true, "NOTICE": true, "README.md": true, "FORK.md": true, "CHANGELOG.md": true, "THIRD_PARTY.md": true,
 	"go.mod": true, "go.sum": true, ".gitignore": true, ".gitattributes": true,
 }
 
