@@ -26,7 +26,9 @@
 //     still links (tuios.dev/vt, sketch, ...) are copied from the module
 //     cache into third_party/MODULE/ before their in-tree copies go, so
 //     every notice that applies to code the daemon links stays in the tree.
-//  4. The fork's own root files are kept by name (rootKeep) and so are
+//  4. A file that Go code of a kept package names by a "../"-relative string
+//     literal (a test reading ../../docs/CLI_REFERENCE.md) is kept too.
+//  5. The fork's own root files are kept by name (rootKeep) and so are
 //     scripts/ofam-*.go, and third_party/ is generated. Everything else is deleted, including every nested
 //     module (vt, sketch, loom, ...: go.mod pins them at published versions
 //     that are identical to the in-tree copies), go.work and the docs.
@@ -135,8 +137,12 @@ func main() {
 		}
 	}
 	sort.Strings(stale)
+	named := namedFiles(keptDirs)
 	var doomed []string
 	for _, f := range files {
+		if named[f] {
+			continue
+		}
 		if strings.HasPrefix(f, "third_party/") {
 			if _, ok := tp[f]; !ok {
 				doomed = append(doomed, f) // a notice of a module no longer linked
@@ -310,4 +316,34 @@ func thirdParty() (map[string]string, error) {
 		}
 	}
 	return res, nil
+}
+
+var relLiteral = regexp.MustCompile(`"((?:\.\./)+[A-Za-z0-9_][A-Za-z0-9_./-]*)"`)
+
+// namedFiles are the existing files that the Go files of kept packages name by
+// a "../"-relative string literal, resolved from the package directory.
+func namedFiles(keptDirs map[string]bool) map[string]bool {
+	out := map[string]bool{}
+	for dir := range keptDirs {
+		ents, err := os.ReadDir(dir)
+		if err != nil {
+			continue
+		}
+		for _, e := range ents {
+			if e.IsDir() || !strings.HasSuffix(e.Name(), ".go") {
+				continue
+			}
+			src, err := os.ReadFile(filepath.Join(dir, e.Name()))
+			if err != nil {
+				continue
+			}
+			for _, m := range relLiteral.FindAllSubmatch(src, -1) {
+				p := filepath.ToSlash(filepath.Clean(filepath.Join(dir, string(m[1]))))
+				if st, err := os.Stat(p); err == nil && !st.IsDir() && !strings.HasPrefix(p, "../") {
+					out[p] = true
+				}
+			}
+		}
+	}
+	return out
 }
