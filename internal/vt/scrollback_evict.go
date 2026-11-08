@@ -38,7 +38,10 @@ func (r EncodedRow) Padded() bool { return rowFlag(r.Flags)&rowPadded != 0 }
 // oldest line of a full ring (called just before it is overwritten), and for
 // each line SetMaxLines drops when it shrinks the ring (oldest first, before
 // the ring changes). It is called under the caller's emulator lock, so it must
-// not block or call back into the emulator.
+// not call back into the emulator. It should return quickly; it may wait (a
+// shrink hands it up to a whole ring of lines, and a consumer with a bounded
+// queue can make the shrink wait on it rather than drop lines), but the
+// emulator is stalled for as long as it does.
 //
 // Clear, Discard and a reflow taking back the newest lines are not evictions.
 // A nil fn removes the hook; with none set a push costs one nil check.

@@ -29,6 +29,7 @@ type Options struct {
 	SegmentRows   int           // rows after which a segment is sealed (4096)
 	SegmentBytes  int64         // raw bytes after which a segment is sealed (8 MiB)
 	FlushInterval time.Duration // longest a row waits in the open block (1s)
+	IdleRelease   time.Duration // idle time after which the writer frees its gzip state and buffer (10s)
 	GzipLevel     int           // gzip.DefaultCompression
 	CacheBlocks   int           // decoded blocks kept for reads (8)
 	MaxRows       int64         // per-log row cap, oldest whole segment first; 0 = none
@@ -59,6 +60,9 @@ func (o *Options) defaults() {
 	}
 	if o.FlushInterval <= 0 {
 		o.FlushInterval = time.Second
+	}
+	if o.IdleRelease <= 0 {
+		o.IdleRelease = 10 * time.Second
 	}
 	if o.GzipLevel == 0 {
 		o.GzipLevel = gzip.DefaultCompression
@@ -95,6 +99,7 @@ type Log struct {
 	ix   *index
 
 	mu      sync.Mutex // guards the producer side below
+	space   *sync.Cond // signalled (on mu) when the writer takes the queue, or the log stops
 	q       []item
 	pending uint64 // rows dropped since the last queued item
 	slab    []byte
@@ -110,15 +115,17 @@ type Log struct {
 	flushedNext atomic.Uint64
 
 	// Writer-goroutine state.
-	comp    *compressor
-	f       File
-	cur     *segment // open segment, also in ix.segs
-	curRaw  int64
-	raw     []byte // the open block's row records
-	blkRows int
-	blkID   uint64 // id of the open block's first row
-	nextID  uint64
-	blkAge  time.Time
+	comp      *compressor // made on the first block, dropped when the log is idle
+	lastWrite time.Time
+	released  atomic.Bool // comp is dropped (read by tests)
+	f         File
+	cur       *segment // open segment, also in ix.segs
+	curRaw    int64
+	raw       []byte // the open block's row records
+	blkRows   int
+	blkID     uint64 // id of the open block's first row
+	nextID    uint64
+	blkAge    time.Time
 }
 
 // OpenLog opens (creating it) the log in dir for writing: it takes the
@@ -149,6 +156,7 @@ func OpenLog(dir string, opt Options) (*Log, error) {
 	}
 	_ = ClearMarker(dir) // a log with a writer is live again
 	l.retain()
+	l.space = sync.NewCond(&l.mu)
 	l.wake = make(chan struct{}, 1)
 	l.finish = make(chan struct{})
 	go l.run()
@@ -175,8 +183,19 @@ func (l *Log) Dropped() uint64 { return l.dropped.Load() }
 // Append queues a copy of r for the writer. It never blocks and never fails:
 // with the queue full, or the log disabled, the row is counted as dropped and
 // leaves a gap of one id.
-func (l *Log) Append(r vt.EncodedRow) {
+func (l *Log) Append(r vt.EncodedRow) { l.append(r, false) }
+
+// AppendWait is Append for a producer that hands over many rows at once (a
+// shrinking ring) and would rather wait than lose them: with the queue full it
+// waits until the writer has taken the queue. A log that is disabled or closed
+// drops the row as Append does, so the wait ends.
+func (l *Log) AppendWait(r vt.EncodedRow) { l.append(r, true) }
+
+func (l *Log) append(r vt.EncodedRow, wait bool) {
 	l.mu.Lock()
+	for wait && !l.closed && !l.disabled.Load() && len(l.q) >= l.opt.QueueRows {
+		l.space.Wait()
+	}
 	if l.closed || l.disabled.Load() {
 		l.mu.Unlock()
 		l.dropped.Add(1)
@@ -220,6 +239,7 @@ func (l *Log) control(kind uint8) {
 	}
 	if kind == kindClose {
 		l.closed = true
+		l.space.Broadcast()
 	}
 	l.q = append(l.q, item{kind: kind, gap: l.pending, done: done})
 	l.pending = 0
@@ -277,9 +297,11 @@ func (l *Log) run() {
 			if l.blkRows > 0 && time.Since(l.blkAge) >= l.opt.FlushInterval {
 				l.flushBlock()
 			}
+			l.releaseIdle()
 		}
 		l.mu.Lock()
 		batch, l.q = l.q, batch[:0]
+		l.space.Broadcast()
 		l.mu.Unlock()
 		for i := range batch {
 			it := &batch[i]
@@ -289,8 +311,26 @@ func (l *Log) run() {
 			}
 			batch[i] = item{}
 		}
+		if cap(batch) > keepQueueItems {
+			// A flood grew the queue to its limit (16384 items, about 1 MB a
+			// pane, two arrays of them); an idle log should not keep that.
+			batch = nil
+		}
 	}
 }
+
+// releaseIdle gives back the gzip state and the block buffer (about 0.8 MB and
+// the buffer's size a pane) of a log that has written nothing for
+// Options.IdleRelease; the next block makes them again.
+func (l *Log) releaseIdle() {
+	if l.comp != nil && l.blkRows == 0 && !l.lastWrite.IsZero() && time.Since(l.lastWrite) >= l.opt.IdleRelease {
+		l.comp, l.raw = nil, nil
+		l.released.Store(true)
+	}
+}
+
+// keepQueueItems is the largest queue array the writer keeps between batches.
+const keepQueueItems = 1024
 
 // drainRest finishes controls queued behind a close so nobody waits forever.
 func (l *Log) drainRest(rest []item) {
@@ -353,6 +393,9 @@ func (l *Log) fail(err error) {
 	if l.disabled.Swap(true) {
 		return
 	}
+	l.mu.Lock()
+	l.space.Broadcast() // a producer waiting for room must see the log stop
+	l.mu.Unlock()
 	l.errv.Store(&err)
 	if l.f != nil {
 		_ = l.f.Close()
@@ -379,6 +422,16 @@ func (l *Log) flushBlock() {
 			return
 		}
 	}
+	if l.comp == nil {
+		c, err := newCompressor(l.opt.GzipLevel)
+		if err != nil {
+			l.fail(err)
+			return
+		}
+		l.comp = c
+		l.released.Store(false)
+	}
+	l.lastWrite = time.Now()
 	payload, err := l.comp.compress(l.raw)
 	if err != nil {
 		l.fail(err)

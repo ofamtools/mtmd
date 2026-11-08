@@ -1,6 +1,6 @@
 diff -ruN a/emulator.go b/emulator.go
---- a/emulator.go	2026-11-08 16:38:14
-+++ b/emulator.go	2026-11-08 16:38:14
+--- a/emulator.go	2026-11-08 17:01:08
++++ b/emulator.go	2026-11-08 17:01:08
 @@ -737,6 +737,24 @@
  	e.scrs[0].SetScrollbackMaxLines(maxLines)
  }
@@ -27,8 +27,8 @@ diff -ruN a/emulator.go b/emulator.go
  //
  // It is always grapheme width, because that is what handleGrapheme measures
 diff -ruN a/scrollback.go b/scrollback.go
---- a/scrollback.go	2026-11-08 16:38:14
-+++ b/scrollback.go	2026-11-08 16:38:14
+--- a/scrollback.go	2026-11-08 17:01:08
++++ b/scrollback.go	2026-11-08 17:01:08
 @@ -63,6 +63,11 @@
  	heldTrims int
  	// discard drops every line pushed, before it is encoded. See Discard.
@@ -76,10 +76,44 @@ diff -ruN a/scrollback.go b/scrollback.go
  	var newLines [][]byte
  	var newWraps []rowFlag
  	if newLen > 0 {
+@@ -937,9 +956,30 @@
+ 		newWraps = make([]rowFlag, newLen)
+ 	}
+ 	startIndex := oldLen - newLen // drop the oldest when shrinking
+-	for i := range newLen {
+-		newLines[i] = sb.lines[sb.slot(startIndex+i)]
+-		newWraps[i] = sb.wraps[sb.slot(startIndex+i)]
++	if newLen < oldLen {
++		// A shrink exists to give memory back. The kept lines were allocated
++		// one by one among the lines of other rings and other work, so a span
++		// holding one of them stays resident for its sake. Copy them into one
++		// array (each line capped, so a later in-place push of a longer line
++		// allocates its own storage rather than writing into its neighbour)
++		// and every span they sat in can be freed whole.
++		total := 0
++		for i := range newLen {
++			total += len(sb.lines[sb.slot(startIndex+i)])
++		}
++		arena := make([]byte, 0, total)
++		for i := range newLen {
++			ln := sb.lines[sb.slot(startIndex+i)]
++			at := len(arena)
++			arena = append(arena, ln...)
++			newLines[i] = arena[at:len(arena):len(arena)]
++			newWraps[i] = sb.wraps[sb.slot(startIndex+i)]
++		}
++	} else {
++		for i := range newLen {
++			newLines[i] = sb.lines[sb.slot(startIndex+i)]
++			newWraps[i] = sb.wraps[sb.slot(startIndex+i)]
++		}
+ 	}
+ 
+ 	sb.lines = newLines
 diff -ruN a/scrollback_evict.go b/scrollback_evict.go
 --- a/scrollback_evict.go	1969-12-31 19:00:00
-+++ b/scrollback_evict.go	2026-11-08 16:38:14
-@@ -0,0 +1,100 @@
++++ b/scrollback_evict.go	2026-11-08 17:01:08
+@@ -0,0 +1,103 @@
 +package vt
 +
 +import (
@@ -120,7 +154,10 @@ diff -ruN a/scrollback_evict.go b/scrollback_evict.go
 +// oldest line of a full ring (called just before it is overwritten), and for
 +// each line SetMaxLines drops when it shrinks the ring (oldest first, before
 +// the ring changes). It is called under the caller's emulator lock, so it must
-+// not block or call back into the emulator.
++// not call back into the emulator. It should return quickly; it may wait (a
++// shrink hands it up to a whole ring of lines, and a consumer with a bounded
++// queue can make the shrink wait on it rather than drop lines), but the
++// emulator is stalled for as long as it does.
 +//
 +// Clear, Discard and a reflow taking back the newest lines are not evictions.
 +// A nil fn removes the hook; with none set a push costs one nil check.
@@ -182,8 +219,8 @@ diff -ruN a/scrollback_evict.go b/scrollback_evict.go
 +}
 diff -ruN a/scrollback_evict_test.go b/scrollback_evict_test.go
 --- a/scrollback_evict_test.go	1969-12-31 19:00:00
-+++ b/scrollback_evict_test.go	2026-11-08 16:38:14
-@@ -0,0 +1,230 @@
++++ b/scrollback_evict_test.go	2026-11-08 17:01:08
+@@ -0,0 +1,259 @@
 +package vt
 +
 +import (
@@ -414,3 +451,32 @@ diff -ruN a/scrollback_evict_test.go b/scrollback_evict_test.go
 +
 +func BenchmarkFloodHookNil(b *testing.B)  { benchFlood(b, nil) }
 +func BenchmarkFloodHookNoop(b *testing.B) { benchFlood(b, func(EncodedRow) {}) }
++
++// A shrink copies the kept lines into one array. Lines pushed after it must
++// not write into a neighbour's bytes (each kept line is capped), and the kept
++// lines must read the same as before.
++func TestSetMaxLinesShrinkKeepsLinesIntact(t *testing.T) {
++	e := NewEmulator(40, 4)
++	e.SetScrollbackMaxLines(200)
++	e.Write([]byte(numbered(150)))
++	before := ringTexts(e)
++	e.SetScrollbackMaxLines(30)
++	after := ringTexts(e)
++	if len(after) != 30 || !slices.Equal(after, before[len(before)-30:]) {
++		t.Fatalf("kept lines changed: got %d lines", len(after))
++	}
++	// Wrap the small ring several times: in-place pushes of longer lines than
++	// the ones they replace must allocate, not spill into the next line.
++	for i := range 100 {
++		e.Write([]byte(fmt.Sprintf("%s %d\r\n", strings.Repeat("x", 30), i)))
++	}
++	ring := ringTexts(e)
++	if len(ring) != 30 {
++		t.Fatalf("ring holds %d lines", len(ring))
++	}
++	for i, s := range ring {
++		if want := fmt.Sprintf("%s %d", strings.Repeat("x", 30), 67+i); s != want {
++			t.Fatalf("line %d = %q, want %q", i, s, want)
++		}
++	}
++}

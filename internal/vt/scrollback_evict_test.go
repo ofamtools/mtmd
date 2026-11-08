@@ -228,3 +228,32 @@ func benchFlood(b *testing.B, hook func(EncodedRow)) {
 
 func BenchmarkFloodHookNil(b *testing.B)  { benchFlood(b, nil) }
 func BenchmarkFloodHookNoop(b *testing.B) { benchFlood(b, func(EncodedRow) {}) }
+
+// A shrink copies the kept lines into one array. Lines pushed after it must
+// not write into a neighbour's bytes (each kept line is capped), and the kept
+// lines must read the same as before.
+func TestSetMaxLinesShrinkKeepsLinesIntact(t *testing.T) {
+	e := NewEmulator(40, 4)
+	e.SetScrollbackMaxLines(200)
+	e.Write([]byte(numbered(150)))
+	before := ringTexts(e)
+	e.SetScrollbackMaxLines(30)
+	after := ringTexts(e)
+	if len(after) != 30 || !slices.Equal(after, before[len(before)-30:]) {
+		t.Fatalf("kept lines changed: got %d lines", len(after))
+	}
+	// Wrap the small ring several times: in-place pushes of longer lines than
+	// the ones they replace must allocate, not spill into the next line.
+	for i := range 100 {
+		e.Write([]byte(fmt.Sprintf("%s %d\r\n", strings.Repeat("x", 30), i)))
+	}
+	ring := ringTexts(e)
+	if len(ring) != 30 {
+		t.Fatalf("ring holds %d lines", len(ring))
+	}
+	for i, s := range ring {
+		if want := fmt.Sprintf("%s %d", strings.Repeat("x", 30), 67+i); s != want {
+			t.Fatalf("line %d = %q, want %q", i, s, want)
+		}
+	}
+}

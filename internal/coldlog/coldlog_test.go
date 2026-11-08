@@ -991,3 +991,107 @@ func TestSkipAndNext(t *testing.T) {
 		t.Fatalf("reopened: next %d", n)
 	}
 }
+
+// AppendWait waits for room where Append would drop: with a stalled writer and
+// a tiny queue, every row still gets in once the writer moves on.
+func TestAppendWaitKeepsEveryRow(t *testing.T) {
+	rows := corpus(t, 100)
+	entered, release := make(chan struct{}), make(chan struct{})
+	var first sync.Once
+	create := func(p string) (File, error) {
+		f, err := os.OpenFile(p, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0o600)
+		var out File = f
+		first.Do(func() { out = &stall{File: f, entered: entered, release: release} })
+		return out, err
+	}
+	l := openLog(t, t.TempDir(), Options{QueueRows: 10, BlockRows: 4, Create: create})
+	done := make(chan struct{})
+	go func() {
+		defer close(done)
+		for _, r := range rows {
+			l.AppendWait(r)
+		}
+	}()
+	<-entered
+	select {
+	case <-done:
+		t.Fatal("AppendWait did not wait on a full queue")
+	case <-time.After(200 * time.Millisecond):
+	}
+	close(release)
+	select {
+	case <-done:
+	case <-time.After(10 * time.Second):
+		t.Fatal("AppendWait never finished")
+	}
+	l.Flush()
+	if l.Dropped() != 0 {
+		t.Fatalf("dropped %d rows", l.Dropped())
+	}
+	rd := l.Reader()
+	for i, r := range rows {
+		checkRow(t, rd, uint64(i), r)
+	}
+	l.Close()
+}
+
+// A waiting producer is released when the log stops (here: closed).
+func TestAppendWaitEndsWhenLogStops(t *testing.T) {
+	rows := corpus(t, 50)
+	entered, release := make(chan struct{}), make(chan struct{})
+	var first sync.Once
+	create := func(p string) (File, error) {
+		f, err := os.OpenFile(p, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0o600)
+		var out File = f
+		first.Do(func() { out = &stall{File: f, entered: entered, release: release} })
+		return out, err
+	}
+	l := openLog(t, t.TempDir(), Options{QueueRows: 4, BlockRows: 2, Create: create})
+	done := make(chan struct{})
+	go func() {
+		defer close(done)
+		for _, r := range rows {
+			l.AppendWait(r)
+		}
+	}()
+	<-entered
+	time.Sleep(100 * time.Millisecond)
+	go func() { time.Sleep(100 * time.Millisecond); close(release) }()
+	l.Close()
+	select {
+	case <-done:
+	case <-time.After(10 * time.Second):
+		t.Fatal("a waiting producer was not released by Close")
+	}
+}
+
+// An idle log gives back its gzip state and block buffer, and a block written
+// after that still reads back.
+func TestIdleLogReleasesWriterState(t *testing.T) {
+	rows := corpus(t, 600)
+	l := openLog(t, t.TempDir(), Options{BlockRows: 4, FlushInterval: 20 * time.Millisecond, IdleRelease: 60 * time.Millisecond})
+	for _, r := range rows[:300] {
+		l.Append(r)
+	}
+	l.Flush()
+	deadline := time.Now().Add(5 * time.Second)
+	for {
+		l.Flush() // a control item: runs on the writer goroutine, so the read below is ordered
+		if l.released.Load() {
+			break
+		}
+		if time.Now().After(deadline) {
+			t.Fatal("writer state never released")
+		}
+		time.Sleep(20 * time.Millisecond)
+	}
+	for _, r := range rows[300:] {
+		l.Append(r)
+	}
+	l.Flush()
+	rd := l.Reader()
+	for i, r := range rows {
+		checkRow(t, rd, uint64(i), r)
+	}
+	l.Close()
+}

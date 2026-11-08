@@ -956,9 +956,30 @@ func (sb *Scrollback) SetMaxLines(maxLines int) {
 		newWraps = make([]rowFlag, newLen)
 	}
 	startIndex := oldLen - newLen // drop the oldest when shrinking
-	for i := range newLen {
-		newLines[i] = sb.lines[sb.slot(startIndex+i)]
-		newWraps[i] = sb.wraps[sb.slot(startIndex+i)]
+	if newLen < oldLen {
+		// A shrink exists to give memory back. The kept lines were allocated
+		// one by one among the lines of other rings and other work, so a span
+		// holding one of them stays resident for its sake. Copy them into one
+		// array (each line capped, so a later in-place push of a longer line
+		// allocates its own storage rather than writing into its neighbour)
+		// and every span they sat in can be freed whole.
+		total := 0
+		for i := range newLen {
+			total += len(sb.lines[sb.slot(startIndex+i)])
+		}
+		arena := make([]byte, 0, total)
+		for i := range newLen {
+			ln := sb.lines[sb.slot(startIndex+i)]
+			at := len(arena)
+			arena = append(arena, ln...)
+			newLines[i] = arena[at:len(arena):len(arena)]
+			newWraps[i] = sb.wraps[sb.slot(startIndex+i)]
+		}
+	} else {
+		for i := range newLen {
+			newLines[i] = sb.lines[sb.slot(startIndex+i)]
+			newWraps[i] = sb.wraps[sb.slot(startIndex+i)]
+		}
 	}
 
 	sb.lines = newLines

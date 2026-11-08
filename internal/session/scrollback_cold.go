@@ -125,6 +125,9 @@ type paneCold struct {
 	// saved history starts earlier): they are counted and not written again.
 	// Written under the pane's terminalMu, like the hook.
 	skip atomic.Int64
+	// wait makes the hook wait for room in the log's queue instead of dropping
+	// the row: set by a shrink (tierScrollback) around SetScrollbackMaxLines.
+	wait atomic.Bool
 	// tail is the id of the first row of the history file saved last, 0 and
 	// tailOK false when there is none that a restart would restore.
 	tail   atomic.Uint64
@@ -181,7 +184,11 @@ func (c *paneCold) append(r vt.EncodedRow) {
 		return
 	}
 	if l != nil {
-		l.Append(r)
+		if c.wait.Load() {
+			l.AppendWait(r)
+		} else {
+			l.Append(r)
+		}
 	}
 }
 

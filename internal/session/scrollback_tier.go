@@ -95,11 +95,6 @@ var tierSignals = [...]tierSignal{
 	}},
 }
 
-// tierStep is the most rows one shrink hands to the log at once. The log's
-// queue holds 16384 rows and drops what does not fit, so a pane with a
-// million-row ring is brought down in steps, each flushed before the next.
-const tierStep = 8192
-
 // holding reports whether any signal of the policy holds for the pane, and
 // whether one that lapses by itself does.
 func (p TierPolicy) holding(c *tierCtx) (hot, timed bool) {
@@ -182,17 +177,17 @@ func (p *PTY) setRingDepth(hot bool, coldRows int) (shrunk bool) {
 		p.ringRows.Store(int64(want))
 		return false
 	}
-	for cur > want {
-		p.terminalMu.Lock()
-		next := want
-		if n := p.terminal.ScrollbackLen(); n > want {
-			next = max(want, n-tierStep)
-		}
-		p.terminal.SetScrollbackMaxLines(next)
-		p.terminalMu.Unlock()
-		p.cold.flush()
-		cur = next
-		p.ringRows.Store(int64(cur))
-	}
+	// One shrink, one allocation of the final ring (vt compacts the kept rows
+	// too, so the pages of the dropped ones can be freed whole). The rows it
+	// lets go of reach the log with backpressure: when the log's queue is full
+	// the shrink waits for the writer, it does not drop them. The pane's
+	// output waits for it too, but a pane that is cold has none to speak of.
+	p.terminalMu.Lock()
+	p.cold.wait.Store(true)
+	p.terminal.SetScrollbackMaxLines(want)
+	p.cold.wait.Store(false)
+	p.terminalMu.Unlock()
+	p.cold.flush()
+	p.ringRows.Store(int64(want))
 	return true
 }
