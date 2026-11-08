@@ -53,7 +53,9 @@ import (
 
 const modulePath = "ofam.dev/mtmd"
 
-var roots = []string{"./serve"}
+// ./internal/coldlog is not linked by serve until the wiring lane (M3) lands;
+// a root keeps it from being pruned meanwhile.
+var roots = []string{"./serve", "./internal/coldlog"}
 
 // platforms are the operating systems whose build constraints widen the kept set.
 var platforms = []string{"linux", "darwin", "windows"}

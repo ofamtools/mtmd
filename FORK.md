@@ -89,6 +89,18 @@ code merged back in that still imports `tuios.dev/vt` is fixed by the same run;
 - `tuios.dev/vt` is still linked by programs that import it themselves (the mtm
   client through ochazuke); those are separate Go packages from `internal/vt`.
 
+### The cold scrollback log (`internal/coldlog`)
+
+New mtmd-only package, not an upstream patch and not generated: the on-disk,
+compressed, append-only log of scrollback rows that the vt evict hook (patch
+#7) feeds. It imports `internal/vt` (for `EncodedRow` and the row decoders) and
+`internal/atomicfile`, and nothing from tuios, so an upstream merge never
+touches it. Writer goroutine with a bounded queue and gap markers, 256-row
+gzip blocks with CRC, write-once segments with a footer, torn-tail recovery,
+random-access reader, per-log and total retention, `closed.json` orphan
+markers with a grace-period purge, flock-based sole-writer lock. It is not
+wired into the daemon yet (lane M3); plan: `o-plans/plans/mtmd-scrollback-disk.md`.
+
 ### The facade (`serve`)
 
 `serve.Main(args []string, opt serve.Options) int`. `args` are the words after
@@ -119,7 +131,8 @@ the running binary, `herdrcli/run.go`, `release/installed.go`.
 
 Keep rule, in this order:
 
-1. Roots: `./serve`. Kept packages are its dependencies in this module, for
+1. Roots: `./serve` and `./internal/coldlog` (the latter until the wiring lane
+   links it from the daemon, so the prune does not delete it). Kept packages are its dependencies in this module, for
    linux, darwin and windows, plus the test dependencies of every kept package,
    to a fixed point (`-list` prints them).
 2. A file is kept when the nearest directory at or above it that holds Go files
