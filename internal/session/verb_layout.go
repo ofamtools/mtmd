@@ -123,7 +123,9 @@ func focusResult(sess *Session) map[string]any {
 		"current_workspace": state.CurrentWorkspace,
 	}
 	if idx, err := findWindowStateIndex(state.Windows, state.FocusedWindowID); err == nil {
-		out["window"] = windowStateToData(state, idx)
+		win := windowStateToData(state, idx)
+		sess.reportPTYSize(win)
+		out["window"] = win
 	}
 	return out
 }
@@ -380,7 +382,9 @@ func (d *Daemon) verbSetWindow(cs *connState, params json.RawMessage) (any, *ver
 		return nil, mapResolveErr(err, sess)
 	}
 	out := map[string]any{"type": "window_set"}
-	maps.Copy(out, windowStateToData(state, idx))
+	win := windowStateToData(state, idx)
+	sess.reportPTYSize(win)
+	maps.Copy(out, win)
 	return out, nil
 }
 

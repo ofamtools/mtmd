@@ -348,3 +348,36 @@ func TestLiveUpgrade(t *testing.T) {
 	h.must("send-text", map[string]any{"session": "upap", "window": pwin, "text": "ping\n"})
 	h.waitPane("upap", pwin, "pong-1", 15*time.Second)
 }
+
+// A resize changes the pane's PTY, and get-window and list-windows must report
+// that size, not the layout's nominal one (mtmd patch, FORK.md).
+func TestResizeIsReported(t *testing.T) {
+	h := newHost(t)
+	h.start()
+	win := h.newShell("sz", "w1")
+	time.Sleep(300 * time.Millisecond)
+	h.must("resize", map[string]any{"session": "sz", "window": win, "width": 100, "height": 30})
+
+	size := func(m map[string]any) [2]int {
+		w, _ := m["width"].(float64)
+		hh, _ := m["height"].(float64)
+		return [2]int{int(w), int(hh)}
+	}
+	want := [2]int{100, 30}
+	if got := size(h.must("get-window", map[string]any{"session": "sz", "window": win})); got != want {
+		t.Fatalf("get-window size = %v, want %v", got, want)
+	}
+	found := false
+	for _, w := range h.must("list-windows", map[string]any{"session": "sz"})["windows"].([]any) {
+		m := w.(map[string]any)
+		if m["window_id"] == win {
+			found = true
+			if got := size(m); got != want {
+				t.Fatalf("list-windows size = %v, want %v", got, want)
+			}
+		}
+	}
+	if !found {
+		t.Fatal("window missing from list-windows")
+	}
+}

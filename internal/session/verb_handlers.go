@@ -199,6 +199,7 @@ func (d *Daemon) verbListWindows(cs *connState, params json.RawMessage) (any, *v
 	}
 	state := sess.GetState()
 	data := buildWindowListData(state)
+	sess.reportPTYSizes(data)
 	data["type"] = "window_list"
 	// The shell a new pane runs, by base name, so a reader can say what a
 	// pane at its prompt is running: foreground_cmd is omitted there.
@@ -290,6 +291,7 @@ func (d *Daemon) verbGetWindow(cs *connState, params json.RawMessage) (any, *ver
 		// daemon's own record of the window follows.
 	}
 	data := windowStateToData(state, idx)
+	sess.reportPTYSize(data)
 	if pty := sess.GetPTY(state.Windows[idx].PTYID); pty != nil {
 		maps.Copy(data, shellFactsData(pty.ShellFacts()))
 		addOnePaneMeta(pty, data)

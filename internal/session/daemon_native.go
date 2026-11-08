@@ -160,6 +160,7 @@ func (d *Daemon) executeDaemonCommandEnv(sess *Session, commandType string, args
 	// Read-only verbs answerable from state without a client.
 	case "ListWindows":
 		data := buildWindowListData(sess.GetState())
+		sess.reportPTYSizes(data)
 		dropRailPane(data)
 		return data, nil
 	case "GetSessionInfo":
@@ -180,7 +181,9 @@ func (d *Daemon) executeDaemonCommandEnv(sess *Session, commandType string, args
 		if err != nil {
 			return nil, err
 		}
-		return windowStateToData(state, idx), nil
+		data := windowStateToData(state, idx)
+		sess.reportPTYSize(data)
+		return data, nil
 
 	default:
 		return nil, errNeedsClient{verb: commandType}
@@ -473,5 +476,28 @@ func buildSessionInfoData(sess *Session, state *SessionState, hasClient bool, ho
 		"height":          state.Height,
 		"tui_attached":    hasClient,
 		"host_focus":      hostFocus,
+	}
+}
+
+// reportPTYSize replaces the width and height of one window map (from
+// windowStateToData) with the size its PTY really has, when the window has
+// one. The layout's width and height are what a client last laid the window
+// out at; a resize verb changes only the PTY, so the layout's numbers go stale.
+// mtmd patch, see FORK.md.
+func (s *Session) reportPTYSize(win map[string]any) {
+	id, _ := win["pty_id"].(string)
+	if id == "" {
+		return
+	}
+	if pty := s.GetPTY(id); pty != nil {
+		win["width"], win["height"] = pty.Size()
+	}
+}
+
+// reportPTYSizes does reportPTYSize for every window of a window-list result.
+func (s *Session) reportPTYSizes(data map[string]any) {
+	wins, _ := data["windows"].([]map[string]any)
+	for _, w := range wins {
+		s.reportPTYSize(w)
 	}
 }
