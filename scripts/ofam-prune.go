@@ -22,8 +22,12 @@
 //  2. A file is kept when the nearest directory at or above it that holds Go
 //     files is a kept package. That keeps testdata, embedded files, LICENSE
 //     and NOTICE files that sit with kept code, and drops the rest.
-//  3. The fork's own root files are kept by name (rootKeep) and so are
-//     scripts/ofam-*.go. Everything else is deleted, including every nested
+//  3. The licence and notice files of the upstream-owned modules the build
+//     still links (tuios.dev/vt, sketch, ...) are copied from the module
+//     cache into third_party/MODULE/ before their in-tree copies go, so
+//     every notice that applies to code the daemon links stays in the tree.
+//  4. The fork's own root files are kept by name (rootKeep) and so are
+//     scripts/ofam-*.go, and third_party/ is generated. Everything else is deleted, including every nested
 //     module (vt, sketch, loom, ...: go.mod pins them at published versions
 //     that are identical to the in-tree copies), go.work and the docs.
 //
@@ -39,6 +43,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"regexp"
 	"sort"
 	"strings"
 )
@@ -107,8 +112,37 @@ func main() {
 		fatal(err)
 	}
 
+	tp, err := thirdParty()
+	if err != nil {
+		fatal(err)
+	}
+	var stale []string
+	for dst, src := range tp {
+		want, err := os.ReadFile(src)
+		if err != nil {
+			fatal(err)
+		}
+		if have, err := os.ReadFile(dst); err != nil || !bytes.Equal(have, want) {
+			stale = append(stale, dst)
+			if !*check {
+				if err := os.MkdirAll(filepath.Dir(dst), 0o755); err != nil {
+					fatal(err)
+				}
+				if err := os.WriteFile(dst, want, 0o644); err != nil {
+					fatal(err)
+				}
+			}
+		}
+	}
+	sort.Strings(stale)
 	var doomed []string
 	for _, f := range files {
+		if strings.HasPrefix(f, "third_party/") {
+			if _, ok := tp[f]; !ok {
+				doomed = append(doomed, f) // a notice of a module no longer linked
+			}
+			continue
+		}
 		if !keep(f, keptDirs, goDirs) {
 			doomed = append(doomed, f)
 		}
@@ -117,8 +151,11 @@ func main() {
 		for _, f := range doomed {
 			fmt.Println(f)
 		}
-		if len(doomed) > 0 {
-			fmt.Fprintf(os.Stderr, "ofam-prune: %d files would be deleted\n", len(doomed))
+		for _, f := range stale {
+			fmt.Println("write", f)
+		}
+		if len(doomed)+len(stale) > 0 {
+			fmt.Fprintf(os.Stderr, "ofam-prune: %d files would be deleted, %d third_party files written\n", len(doomed), len(stale))
 			os.Exit(1)
 		}
 		return
@@ -129,7 +166,7 @@ func main() {
 		}
 	}
 	removeEmptyDirs(".")
-	fmt.Printf("ofam-prune: %d files deleted, %d packages kept\n", len(doomed), len(kept))
+	fmt.Printf("ofam-prune: %d files deleted, %d third_party files written, %d packages kept\n", len(doomed), len(stale), len(kept))
 	if *tidy {
 		c := exec.Command("go", "mod", "tidy")
 		c.Stdout, c.Stderr = os.Stdout, os.Stderr
@@ -142,6 +179,9 @@ func main() {
 func keep(f string, keptDirs, goDirs map[string]bool) bool {
 	if !strings.Contains(f, "/") {
 		return rootKeep[f]
+	}
+	if strings.HasPrefix(f, "third_party/") {
+		return true
 	}
 	if strings.HasPrefix(f, "scripts/") {
 		return strings.HasPrefix(filepath.Base(f), "ofam-") && !strings.Contains(strings.TrimPrefix(f, "scripts/"), "/")
@@ -224,4 +264,50 @@ func sorted(m map[string]bool) []string {
 func fatal(err error) {
 	fmt.Fprintln(os.Stderr, "ofam-prune:", err)
 	os.Exit(1)
+}
+
+// noticeFile matches the names of licence and notice files.
+var noticeFile = regexp.MustCompile(`(?i)^(LICENSE|LICENCE|NOTICE|COPYING|OFL)([-._].*)?$`)
+
+// thirdParty maps third_party/MODULE/PATH to the file in the module cache it
+// is copied from, for every tuios.dev module the build links (these are the
+// upstream repository's own nested modules, pinned in go.mod). Test data is
+// not linked and is skipped.
+func thirdParty() (map[string]string, error) {
+	dirs := map[string]string{}
+	for _, goos := range platforms {
+		out, err := goList(goos, "list", "-deps", "-f", "{{if .Module}}{{if not .Module.Main}}{{.Module.Path}}|{{.Module.Dir}}{{end}}{{end}}", "./serve")
+		if err != nil {
+			return nil, err
+		}
+		for _, l := range strings.Split(string(out), "\n") {
+			mod, dir, ok := strings.Cut(strings.TrimSpace(l), "|")
+			if ok && strings.HasPrefix(mod, "tuios.dev/") && dir != "" {
+				dirs[mod] = dir
+			}
+		}
+	}
+	res := map[string]string{}
+	for mod, dir := range dirs {
+		err := filepath.WalkDir(dir, func(p string, d fs.DirEntry, err error) error {
+			if err != nil {
+				return err
+			}
+			if d.IsDir() {
+				if d.Name() == "testdata" {
+					return filepath.SkipDir
+				}
+				return nil
+			}
+			if noticeFile.MatchString(d.Name()) {
+				rel, _ := filepath.Rel(dir, p)
+				res[filepath.ToSlash(filepath.Join("third_party", mod, rel))] = p
+			}
+			return nil
+		})
+		if err != nil {
+			return nil, err
+		}
+	}
+	return res, nil
 }
