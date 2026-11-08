@@ -235,7 +235,20 @@ func searchVerb(t *testing.T, d *Daemon, query string) map[string]any {
 	return out.(map[string]any)
 }
 
+// roomyBudget gives a search all the time it needs, so a slow machine (the
+// race detector on a loaded host) does not end it early; it returns the value
+// to restore inside a test that wants to shrink the budget.
+func roomyBudget(t *testing.T) (roomy time.Duration) {
+	t.Helper()
+	orig := searchPaneBudget
+	roomy = 30 * time.Second
+	searchPaneBudget = roomy
+	t.Cleanup(func() { searchPaneBudget = orig })
+	return roomy
+}
+
 func TestSearchFindsARowOnlyTheDiskHolds(t *testing.T) {
+	roomyBudget(t)
 	d := coldTestDaemon(t, coldTestPolicy(), 300)
 	_, p := coldTestPane(t, d, "find", "win-f")
 	writePane(p, "needle-on-disk-only\r\n")
@@ -273,9 +286,8 @@ func TestSearchBudgetRunsOutOnDisk(t *testing.T) {
 		writePane(p, c)
 	}
 	p.cold.flush()
-	old := searchPaneBudget
+	old := roomyBudget(t)
 	searchPaneBudget = time.Nanosecond
-	t.Cleanup(func() { searchPaneBudget = old })
 	res := searchVerb(t, d, "needle-on-disk-only")
 	if res["complete"] != false || res["truncated"] != true {
 		t.Fatalf("complete %v truncated %v", res["complete"], res["truncated"])
