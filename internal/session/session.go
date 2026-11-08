@@ -4839,6 +4839,9 @@ type paneMeta struct {
 	// HistoryRows is how many scrollback lines the pane holds above its
 	// screen: the lines a "recent" capture has before the screen.
 	HistoryRows int
+	// ColdRows is how many of them were read back from the pane's disk log
+	// (0 when the capture came from the ring alone).
+	ColdRows int
 	// Revision changes whenever the pane's content can have changed: output
 	// reached its emulator, or the emulator was resized. It only grows, and
 	// it counts from 0 again when the daemon restarts. Two captures with one

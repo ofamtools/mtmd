@@ -70,7 +70,7 @@ diff -ruN a/scrollback.go b/scrollback.go
 diff -ruN a/scrollback_evict.go b/scrollback_evict.go
 --- a/scrollback_evict.go	1969-12-31 19:00:00
 +++ b/scrollback_evict.go	2026-11-08 15:44:01
-@@ -0,0 +1,80 @@
+@@ -0,0 +1,85 @@
 +package vt
 +
 +import (
@@ -100,6 +100,11 @@ diff -ruN a/scrollback_evict.go b/scrollback_evict.go
 +
 +// Wrapped reports whether the line carried on to the next one by autowrap.
 +func (r EncodedRow) Wrapped() bool { return rowFlag(r.Flags)&rowWrapped != 0 }
++
++// Padded reports whether the line wrapped a column early because a wide
++// character did not fit in the last column (see Terminal.RowPadded). It is only
++// meaningful for a wrapped line.
++func (r EncodedRow) Padded() bool { return rowFlag(r.Flags)&rowPadded != 0 }
 +
 +// SetOnEvict sets fn to be called, in order and exactly once per line, with
 +// each line that leaves the old end of the ring: when a push overwrites the

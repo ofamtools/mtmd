@@ -32,8 +32,6 @@ import (
 const (
 	// searchPatternMax bounds a search-panes query, in bytes.
 	searchPatternMax = 512
-	// searchPaneBudget is how long one pane's search may take.
-	searchPaneBudget = 50 * time.Millisecond
 	// searchTextMax is how many runes of a matched line come back.
 	searchTextMax = 400
 
@@ -45,6 +43,11 @@ const (
 	historyLimitDefault = 200
 	historyLimitCap     = 2000
 )
+
+// searchPaneBudget is how long one pane's search may take. A pane whose
+// history is on disk is searched newest first until the budget runs out, and
+// the answer then says complete=false. A variable so a test can shrink it.
+var searchPaneBudget = 50 * time.Millisecond
 
 // searchCases are the values search-panes and command-history take for case.
 var searchCases = []string{"smart", "sensitive", "insensitive"}
@@ -154,11 +157,14 @@ func (p *PTY) scanLines(deadline time.Time, fn func(row int, line string) bool) 
 	if p.marks != nil {
 		trimmed0 = p.marks.Trimmed()
 	}
+	// The rows only the disk log holds come first: ring row i is row cold+i.
+	cv := p.cold.view()
+	cold := cv.rows()
 	p.terminalMu.RUnlock()
 
-	bottom = sbLen + height - 1
+	bottom = cold + sbLen + height - 1
 	for y := height - 1; y >= 0; y-- {
-		if !fn(sbLen+y, screen[y]) {
+		if !fn(cold+sbLen+y, screen[y]) {
 			return bottom, true
 		}
 	}
@@ -181,9 +187,9 @@ func (p *PTY) scanLines(deadline time.Time, fn func(row int, line string) bool) 
 		}
 		hi := min(next-dropped, term.ScrollbackLen())
 		if hi <= 0 {
-			// The rest of the history was dropped while the scan ran.
+			// The rest of the ring was dropped while the scan ran.
 			p.terminalMu.RUnlock()
-			return bottom, true
+			break
 		}
 		lo := max(hi-searchChunkRows, 0)
 		chunk = chunk[:0]
@@ -193,13 +199,44 @@ func (p *PTY) scanLines(deadline time.Time, fn func(row int, line string) bool) 
 		})
 		p.terminalMu.RUnlock()
 		for i, c := range slices.Backward(chunk) {
-			if !fn(lo+dropped+i, c) {
+			if !fn(cold+lo+dropped+i, c) {
 				return bottom, true
 			}
 		}
 		next = lo + dropped
 	}
-	return bottom, true
+	return bottom, cv.scan(deadline, fn)
+}
+
+// scan calls fn for the disk rows newest first, as scanLines does for the
+// ring: row i of the view is row i. A lost row reads as a blank line. It
+// returns false when the deadline cut it short.
+func (v coldView) scan(deadline time.Time, fn func(row int, line string) bool) (complete bool) {
+	buf := make([]string, 0, searchChunkRows)
+	for hi := v.end; hi > v.first; {
+		if time.Now().After(deadline) {
+			return false
+		}
+		lo := v.first
+		if hi-v.first > searchChunkRows {
+			lo = hi - searchChunkRows
+		}
+		buf = buf[:0]
+		for id := lo; id < hi; id++ {
+			t, err := v.rd.Text(id)
+			if err != nil {
+				t = "" // gap, trimmed or unreadable: nothing to match
+			}
+			buf = append(buf, strings.TrimRight(vt.StripSixelMarkers(t), " "))
+		}
+		for i, t := range slices.Backward(buf) {
+			if !fn(int(lo-v.first)+i, t) {
+				return true
+			}
+		}
+		hi = lo
+	}
+	return true
 }
 
 // matchWindow cuts a line to at most searchTextMax runes around the match at
@@ -264,6 +301,7 @@ func (d *Daemon) verbSearchPanes(cs *connState, params json.RawMessage) (any, *v
 	}
 	matches := make([]map[string]any, 0)
 	truncated := false
+	allComplete := true
 	searched := 0
 	for _, pane := range panes {
 		if len(matches) >= limit {
@@ -301,6 +339,7 @@ func (d *Daemon) verbSearchPanes(cs *connState, params json.RawMessage) (any, *v
 		})
 		if !complete {
 			truncated = true
+			allComplete = false
 		}
 		for _, m := range matches[len(matches)-found:] {
 			m["age_rows"] = bottom - m["row"].(int)
@@ -310,6 +349,10 @@ func (d *Daemon) verbSearchPanes(cs *connState, params json.RawMessage) (any, *v
 		"matches":        matches,
 		"panes_searched": searched,
 		"truncated":      truncated,
+		// complete is false when a pane's time budget ran out before its
+		// whole history, disk included, was read; what was found is the
+		// newest matches.
+		"complete": allComplete,
 	}, nil
 }
 

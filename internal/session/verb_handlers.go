@@ -1302,8 +1302,22 @@ func (d *Daemon) verbCapturePane(cs *connState, params json.RawMessage) (any, *v
 		}
 	}
 	byCommands := commandMarks != nil && *commandMarks
+	// A recent capture reaches back past the ring into the pane's cold log
+	// (scrollback_read.go); lead is how many lines it left out at the front.
+	lead := 0
+	haveCold := false
+	if scrollback && !byCommands {
+		var pal *[16]color.Color
+		if p.Resolved {
+			pal = &palette
+		}
+		sel := captureSel{start: p.Start, end: p.End, lines: p.Lines, trim: p.Trim}
+		if c, m, l, ok := pty.captureWithCold(ansi, p.Unwrap, sel, pal); ok {
+			content, meta, lead, haveCold = c, m, l, true
+		}
+	}
 	switch {
-	case byCommands:
+	case byCommands, haveCold:
 		// Built above.
 	case p.Resolved:
 		content, meta = pty.CaptureContentResolvedMeta(scrollback, palette, p.Unwrap)
@@ -1317,9 +1331,16 @@ func (d *Daemon) verbCapturePane(cs *connState, params json.RawMessage) (any, *v
 		// Counted before the cut, so the caller can tell a capture that
 		// lines shortened from one that held everything.
 		if p.Lines > 0 && p.Start <= 0 && p.End <= 0 {
-			omitted = max(captureLineCount(content)-p.Lines, 0)
+			omitted = max(captureLineCount(content)+lead-p.Lines, 0)
 		}
-		content = sliceCaptureLines(content, p.Start, p.End, p.Lines)
+		start, end := p.Start, p.End
+		if start > 0 {
+			start -= lead
+		}
+		if end > 0 {
+			end -= lead
+		}
+		content = sliceCaptureLines(content, start, end, p.Lines)
 	}
 
 	source := p.Source
@@ -1341,6 +1362,9 @@ func (d *Daemon) verbCapturePane(cs *connState, params json.RawMessage) (any, *v
 	}
 	// Echoed only when asked for, so a caller can tell a daemon that knows
 	// them from one that ignored them.
+	if meta.ColdRows > 0 {
+		out["history_rows_disk"] = meta.ColdRows
+	}
 	if p.Unwrap {
 		out["unwrapped"] = true
 	}

@@ -28,6 +28,11 @@ type EncodedRow struct {
 // Wrapped reports whether the line carried on to the next one by autowrap.
 func (r EncodedRow) Wrapped() bool { return rowFlag(r.Flags)&rowWrapped != 0 }
 
+// Padded reports whether the line wrapped a column early because a wide
+// character did not fit in the last column (see Terminal.RowPadded). It is only
+// meaningful for a wrapped line.
+func (r EncodedRow) Padded() bool { return rowFlag(r.Flags)&rowPadded != 0 }
+
 // SetOnEvict sets fn to be called, in order and exactly once per line, with
 // each line that leaves the old end of the ring: when a push overwrites the
 // oldest line of a full ring (called just before it is overwritten), and for
