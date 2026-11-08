@@ -13,7 +13,7 @@ import (
 	"runtime"
 	"time"
 
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // The preflight: before anything is paused, the new binary is run once, on

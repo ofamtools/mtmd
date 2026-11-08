@@ -8,8 +8,8 @@ import (
 	"time"
 
 	"ofam.dev/mtmd/internal/harness"
-	"tuios.dev/vt"
-	"tuios.dev/vt/snapshot"
+	"ofam.dev/mtmd/internal/vt"
+	"ofam.dev/mtmd/internal/vt/snapshot"
 )
 
 // Seams the tests reach for. Production code calls the functions these wrap.

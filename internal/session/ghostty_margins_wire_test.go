@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // TestGhosttyReattachKeepsTheGuestsMargins is the reattach of a pane on the

@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // TestAgentHoldCollapsesAFlap is the anti-flicker guarantee: a source that says

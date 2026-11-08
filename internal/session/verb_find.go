@@ -12,7 +12,7 @@ import (
 
 	uv "github.com/charmbracelet/ultraviolet"
 	"ofam.dev/mtmd/internal/sortx"
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // Finding things in panes, for the GUI's find bar and command palette:

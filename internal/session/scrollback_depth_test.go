@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"ofam.dev/mtmd/internal/config"
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // TestScrollbackLinesReachesTheDaemon follows appearance.scrollback_lines from

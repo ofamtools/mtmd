@@ -22,7 +22,7 @@ import (
 	"ofam.dev/mtmd/internal/harness"
 	"ofam.dev/mtmd/internal/integration"
 	"ofam.dev/mtmd/internal/transcriptview"
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // routedVerbTimeout bounds how long a verb routed to an attached TUI waits for

@@ -30,7 +30,7 @@ import (
 	"ofam.dev/mtmd/internal/selfcmd"
 	"ofam.dev/mtmd/internal/serverscope"
 	"ofam.dev/mtmd/internal/session"
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // Options is what a host tells Main.

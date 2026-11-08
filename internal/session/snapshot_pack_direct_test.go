@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // TestDirectPackMatchesPack holds GetTerminalStatePacked, which packs the cells

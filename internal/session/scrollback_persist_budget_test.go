@@ -4,7 +4,7 @@ import (
 	"runtime"
 	"testing"
 
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // TestHistoryCaptureBudget holds the part of a history save that holds the

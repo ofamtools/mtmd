@@ -23,7 +23,8 @@
 //     files is a kept package. That keeps testdata, embedded files, LICENSE
 //     and NOTICE files that sit with kept code, and drops the rest.
 //  3. The licence and notice files of the upstream-owned modules the build
-//     still links (tuios.dev/vt, sketch, ...) are copied from the module
+//     still links (sketch, ... ; not vt, which is the in-tree internal/vt
+//     made by ofam-vt.go and keeps its own LICENSE and NOTICE by rule 2) are copied from the module
 //     cache into third_party/MODULE/ before their in-tree copies go, so
 //     every notice that applies to code the daemon links stays in the tree.
 //  4. A file that Go code of a kept package names by a "../"-relative string
@@ -63,6 +64,10 @@ var rootKeep = map[string]bool{
 	"LICENSE": true, "NOTICE": true, "README.md": true, "FORK.md": true, "THIRD_PARTY.md": true,
 	"go.mod": true, "go.sum": true, ".gitignore": true, ".gitattributes": true,
 }
+
+// scriptData are the non-Go files of scripts/ that stay: the pinned version
+// and the patch that ofam-vt.go applies.
+var scriptData = map[string]bool{"vt-version": true, "vt-ofam.patch": true}
 
 func main() {
 	check := flag.Bool("check", false, "list what would be deleted and exit 1 if anything")
@@ -190,7 +195,8 @@ func keep(f string, keptDirs, goDirs map[string]bool) bool {
 		return true
 	}
 	if strings.HasPrefix(f, "scripts/") {
-		return strings.HasPrefix(filepath.Base(f), "ofam-") && !strings.Contains(strings.TrimPrefix(f, "scripts/"), "/")
+		base := filepath.Base(f)
+		return (strings.HasPrefix(base, "ofam-") || scriptData[base]) && !strings.Contains(strings.TrimPrefix(f, "scripts/"), "/")
 	}
 	for dir := filepath.ToSlash(filepath.Dir(f)); dir != "." && dir != "/"; dir = filepath.ToSlash(filepath.Dir(dir)) {
 		if goDirs[dir] || keptDirs[dir] {

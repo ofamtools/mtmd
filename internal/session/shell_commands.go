@@ -7,7 +7,7 @@ import (
 	"time"
 
 	uv "github.com/charmbracelet/ultraviolet"
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // A shell's commands, followed through its OSC 133 marks.

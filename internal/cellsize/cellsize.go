@@ -9,7 +9,7 @@
 // from here, so the sizes agree.
 package cellsize
 
-import "tuios.dev/vt"
+import "ofam.dev/mtmd/internal/vt"
 
 const (
 	// FallbackWidth is the assumed cell width in pixels.

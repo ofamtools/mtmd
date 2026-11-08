@@ -13,7 +13,7 @@ import (
 	"time"
 
 	"ofam.dev/mtmd/internal/memtrim"
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // The new image's half of a live handoff: reading the manifest its

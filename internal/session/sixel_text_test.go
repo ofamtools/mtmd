@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // A two-row sixel at 10x20 cells: 30x40 pixels.

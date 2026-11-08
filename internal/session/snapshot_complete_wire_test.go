@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // The state a snapshot has to carry for a pane to come back exactly, beyond

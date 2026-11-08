@@ -23,7 +23,10 @@ Modifications made here: the Go module path is `ofam.dev/mtmd`; a small
 `serve` package is the entry point; self re-execution goes through
 `internal/selfcmd`; and everything outside the daemon and the packages it needs
 is deleted (the terminal interface, the command line, the docs, the other
-modules). The list is in [FORK.md](FORK.md). Upstream endorses none of it, and
+modules). `internal/vt` is a copy of the terminal emulator `tuios.dev/vt`
+(also Gaurav Gosain's, with its LICENSE and NOTICE) at the version in
+`scripts/vt-version`, plus the patch `scripts/vt-ofam.patch`, made by
+`scripts/ofam-vt.go`. The list is in [FORK.md](FORK.md). Upstream endorses none of it, and
 a problem found here is not to be reported upstream before it is reproduced
 with an unmodified tuios.
 

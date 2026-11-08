@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // A popup's command starts at the size a client will place it at: the box

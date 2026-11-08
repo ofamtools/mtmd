@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // throughWire takes a snapshot the way the socket does: gob out, gob back,

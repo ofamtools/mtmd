@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // benchPane is a 200x50 pane holding a full history of text.

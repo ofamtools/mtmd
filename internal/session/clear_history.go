@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // This file is the clear-history verb: drop a pane's scrollback, and with

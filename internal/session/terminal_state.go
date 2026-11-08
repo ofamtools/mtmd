@@ -2,8 +2,8 @@ package session
 
 import (
 	uv "github.com/charmbracelet/ultraviolet"
-	"tuios.dev/vt"
-	"tuios.dev/vt/snapshot"
+	"ofam.dev/mtmd/internal/vt"
+	"ofam.dev/mtmd/internal/vt/snapshot"
 )
 
 // The snapshot of a pane's terminal lives in vt/snapshot. These

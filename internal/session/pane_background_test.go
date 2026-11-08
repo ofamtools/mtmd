@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	"ofam.dev/mtmd/internal/capture"
+	"ofam.dev/mtmd/internal/vt"
 	"tuios.dev/shot"
-	"tuios.dev/vt"
 )
 
 // The daemon's screenshot verb draws a pane on the ground the session's

@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // agentPaneWithWindow is bareSessionWithWindow with an agent in the window

@@ -10,8 +10,8 @@ import (
 
 	"ofam.dev/mtmd/internal/harness"
 	"ofam.dev/mtmd/internal/invisible"
+	"ofam.dev/mtmd/internal/vt"
 	"tuios.dev/progstatus"
-	"tuios.dev/vt"
 )
 
 // The Program Status Protocol (OSC 7501) in the daemon.

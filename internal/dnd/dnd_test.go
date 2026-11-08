@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	"ofam.dev/mtmd/internal/dnd"
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // The wire layer of the drag and drop protocol is checked the way the OSC

@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // A snapshot writes cells, and cells say nothing about whether a row wrapped.

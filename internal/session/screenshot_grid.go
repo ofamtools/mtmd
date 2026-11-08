@@ -1,8 +1,8 @@
 package session
 
 import (
+	"ofam.dev/mtmd/internal/vt"
 	"tuios.dev/shot"
-	"tuios.dev/vt"
 )
 
 // Cell-grid capture for the screenshot verb.

@@ -31,9 +31,9 @@ import (
 	"ofam.dev/mtmd/internal/memtrim"
 	"ofam.dev/mtmd/internal/ptyspawn"
 	"ofam.dev/mtmd/internal/serverscope"
+	"ofam.dev/mtmd/internal/vt"
+	"ofam.dev/mtmd/internal/vt/snapshot"
 	"tuios.dev/progstatus"
-	"tuios.dev/vt"
-	"tuios.dev/vt/snapshot"
 )
 
 // debugEnabled returns true if debug logging is enabled via TUIOS_DEBUG_INTERNAL env var

@@ -8,7 +8,7 @@ import (
 
 	uv "github.com/charmbracelet/ultraviolet"
 
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // Draft-safe delivery: a queued entry is not typed into the person's draft.

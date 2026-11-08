@@ -19,7 +19,7 @@ import (
 	"time"
 
 	"ofam.dev/mtmd/internal/config"
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // Kitty images named by a path, from a pane this machine runs for another

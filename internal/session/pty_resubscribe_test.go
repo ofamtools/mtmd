@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // A pane the client hides and shows again resubscribes to the same PTY. The

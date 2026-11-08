@@ -5,8 +5,8 @@ import (
 	"testing"
 	"time"
 
-	"tuios.dev/vt"
-	"tuios.dev/vt/snapshot"
+	"ofam.dev/mtmd/internal/vt"
+	"ofam.dev/mtmd/internal/vt/snapshot"
 )
 
 // What a client actually costs the wire.

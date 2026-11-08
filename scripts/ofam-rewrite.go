@@ -11,6 +11,8 @@
 //     lines follow.
 //   - Go import specs (`"github.com/Gaurav-Gosain/tuios/..."` on a line of its
 //     own, with or without an alias).
+//   - Go imports of the packages in movedImports (modules whose source now
+//     lives in this module, see ofam-vt.go): one line each, same package name.
 //   - Files named in pathStrings: tests that hand the module path to `go list`.
 //
 // It leaves URLs (the GitHub repository is still upstream's), install scripts,
@@ -42,12 +44,20 @@ var pathStrings = map[string]bool{
 	"childproc_test.go": true,
 }
 
+// movedImports are import paths that now name a package of this module: the
+// module on the left (and its subpackages) is carried in-tree at the right.
+var movedImports = []struct{ from, to string }{
+	{"tuios.dev/vt", "ofam.dev/mtmd/internal/vt"},
+}
+
 var (
 	// the old path followed by a boundary: not another path element such as
 	// tuios-web or tuios.dev.
 	pathRe = regexp.MustCompile(regexp.QuoteMeta(oldPath) + `($|[^A-Za-z0-9_.\-])`)
 	// "github.com/..." alone on a line, with an optional alias.
 	importRe = regexp.MustCompile(`^\s*([A-Za-z_.][A-Za-z0-9_]*\s+)?"` + regexp.QuoteMeta(oldPath) + `(/[^"]*)?"\s*(//.*)?$`)
+	// a quoted import of a moved module, alone on a line.
+	movedRe = regexp.MustCompile(`^(\s*(?:[A-Za-z_.][A-Za-z0-9_]*\s+)?)"([^"]+)"(\s*(?://.*)?)$`)
 	// a URL or a git remote carries the same text and is not a module path.
 	urlBefore = regexp.MustCompile(`(://|@|github\.com:)$`)
 )
@@ -78,6 +88,18 @@ func main() {
 		lines := strings.Split(string(data), "\n")
 		dirty := false
 		for i, ln := range lines {
+			if isGo {
+				if nl, ok := moveImport(ln); ok {
+					if *check {
+						fmt.Printf("%s:%d: %s\n", name, i+1, strings.TrimSpace(ln))
+						left++
+						continue
+					}
+					lines[i] = nl
+					dirty = true
+					continue
+				}
+			}
 			if !strings.Contains(ln, oldPath) {
 				continue
 			}
@@ -117,6 +139,20 @@ func main() {
 		_ = cmd.Run()
 	}
 	fmt.Printf("ofam-rewrite: %d files changed\n", changed)
+}
+
+// moveImport rewrites an import line of a moved module.
+func moveImport(ln string) (string, bool) {
+	m := movedRe.FindStringSubmatch(ln)
+	if m == nil {
+		return "", false
+	}
+	for _, r := range movedImports {
+		if m[2] == r.from || strings.HasPrefix(m[2], r.from+"/") {
+			return m[1] + `"` + r.to + strings.TrimPrefix(m[2], r.from) + `"` + m[3], true
+		}
+	}
+	return "", false
 }
 
 func rewrite(ln string) string {

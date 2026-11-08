@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // FuzzFrameSkipping drives broadcast with a generated pane stream and three

@@ -1,7 +1,7 @@
 package session
 
 import (
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 
 	"context"
 	"fmt"

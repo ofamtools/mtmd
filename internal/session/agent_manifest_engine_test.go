@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"ofam.dev/mtmd/internal/harness"
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // progressHarness is a manifest whose harness uses OSC 9;4 its own way:

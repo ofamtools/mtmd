@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // TestReattachRestoresModesScrolledOutOfBuffer reproduces, headlessly, mouse

@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // TestPaneRevisionMovesWithOutputAndResize feeds the emulator through the

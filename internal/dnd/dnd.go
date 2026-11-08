@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // The kitty drag and drop protocol, OSC 72.

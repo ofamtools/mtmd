@@ -3,7 +3,7 @@ package session
 import (
 	"os"
 
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // kittyFileMediumRefusal is the answer to a guest asking whether it may send a

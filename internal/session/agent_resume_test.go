@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // echoHarness installs a user manifest whose resume command is an echo, so a

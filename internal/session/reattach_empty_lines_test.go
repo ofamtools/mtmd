@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // These tests reproduce the reported shape of issue #123: after detach and

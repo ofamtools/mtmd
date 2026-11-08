@@ -4,7 +4,7 @@ import (
 	"slices"
 	"strings"
 
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // This file is capture-pane's commands parameter: the last N shell commands

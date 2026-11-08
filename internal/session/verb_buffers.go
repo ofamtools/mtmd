@@ -13,7 +13,7 @@ import (
 	"unicode"
 
 	"ofam.dev/mtmd/internal/pastebuf"
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // Paste buffers: list-buffers, show-buffer, set-buffer, delete-buffer and

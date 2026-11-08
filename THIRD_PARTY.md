@@ -12,12 +12,14 @@ licence and notice files that stay in the tree, and why. The script
 | `LICENSE` | MIT, Copyright (c) 2025 Gaurav Gosain | All of tuios, hence all of this repository. Unchanged from upstream. |
 | `internal/ptyspawn/LICENSE.conpty` | MIT, Copyright (c) 2023 Charmbracelet, Inc. | `internal/ptyspawn/newpty_windows.go`: the pipe setup and Start of `dllPty` are adapted from `github.com/charmbracelet/x/conpty` v0.2.0. |
 | `internal/ptyspawn/LICENSE.golang` | BSD-3-Clause, Copyright 2009 The Go Authors | The same file: helpers adapted (via conpty) from the Go standard library's `os/exec` and `syscall`. |
+| `internal/vt/LICENSE` | MIT, Copyright (c) 2025 Gaurav Gosain | `internal/vt`: a copy of `tuios.dev/vt` (the terminal emulator) at the version in `scripts/vt-version`, plus `scripts/vt-ofam.patch`, made by `scripts/ofam-vt.go`. |
+| `internal/vt/NOTICE` | MIT, Copyright (c) 2023 Charmbracelet, Inc. | `vt` started as a copy of the vt package of `github.com/charmbracelet/x`, and `parser.go` is a modified copy of the Parser of `github.com/charmbracelet/x/ansi`; also names the Unicode data in `internal/vt/testdata/unicode`. |
 | `internal/diffview/lexers/COPYING` | MIT, Copyright (C) 2017 Alec Thomas | The gzipped chroma lexer definitions (`*.xml.gz`) in that directory. |
 | `internal/harness/manifests/LICENSE-herdr` | Apache-2.0 | The agent-detection manifests in that directory that say "after herdr's manifest" in their first lines (github.com/herdrdev/herdr, `src/detect/manifests/`). Each such file names its source and manifest version in its header comment, and those headers are kept. |
 
 ## `third_party/`: modules the daemon links
 
-tuios keeps several Go modules in its repository (`vt`, `sketch`, `loom`, `plot`,
+tuios keeps several Go modules in its repository (`sketch`, `loom`, `plot`,
 `progstatus`, `shot`, `swatch`, `tml`). mtmd does not keep their source: its
 `go.mod` pins them at the same published versions as upstream, and the build
 fetches them. The licence and notice files of each one the daemon links are
@@ -27,7 +29,6 @@ copied from the pinned version into `third_party/tuios.dev/MODULE/` by
 | File | Licence | Note |
 |---|---|---|
 | `third_party/tuios.dev/*/LICENSE` | MIT, Copyright (c) 2025 Gaurav Gosain | One per module. |
-| `third_party/tuios.dev/vt/NOTICE` | MIT, Copyright (c) 2023 Charmbracelet, Inc. | `vt` started as a copy of the vt package of `github.com/charmbracelet/x`, and `parser.go` is a modified copy of the Parser of `github.com/charmbracelet/x/ansi`. |
 | `third_party/tuios.dev/sketch/raster/fonts/NOTICE` | SIL Open Font License 1.1 | The Arimo fonts that `sketch/raster` embeds. |
 
 ## Not in the tree

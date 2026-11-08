@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // A snapshot taken the moment a guest has filled a row to its last column.

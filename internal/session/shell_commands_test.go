@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // TestShellTrackFollowsMarks walks the state machine through the marks the

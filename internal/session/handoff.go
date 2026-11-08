@@ -13,7 +13,7 @@ import (
 
 	"ofam.dev/mtmd/internal/ptyspawn"
 	"ofam.dev/mtmd/internal/selfcmd"
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // Live handoff: the daemon execs a new image of itself, and every pane's

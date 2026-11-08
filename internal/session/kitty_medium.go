@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // releaseUnreadKittyMedium deletes the shared memory object a kitty t=s

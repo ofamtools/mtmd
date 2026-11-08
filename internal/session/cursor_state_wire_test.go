@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // State a snapshot has to carry that no cell shows. Each piece decides what

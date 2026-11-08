@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // The other half of the snapshot's cost: what the client pays to read it.

@@ -3,7 +3,7 @@ package session
 import (
 	"testing"
 
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // TestKittyQueryResponse pins the daemon's answer to each of the probes kitten

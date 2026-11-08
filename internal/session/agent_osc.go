@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"ofam.dev/mtmd/internal/harness"
-	"tuios.dev/vt"
+	"ofam.dev/mtmd/internal/vt"
 )
 
 // agentStateForProgress maps an OSC 9;4 progress report onto an agent state.

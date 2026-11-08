@@ -6,8 +6,8 @@ import (
 	"time"
 
 	"ofam.dev/mtmd/internal/sortx"
+	"ofam.dev/mtmd/internal/vt"
 	"tuios.dev/progstatus"
-	"tuios.dev/vt"
 )
 
 // What a pane holds that its emulator's snapshot does not, carried across a

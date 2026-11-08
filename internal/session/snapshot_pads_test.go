@@ -16,8 +16,8 @@ import (
 	"testing"
 	"time"
 
-	"tuios.dev/vt"
-	"tuios.dev/vt/snapshot"
+	"ofam.dev/mtmd/internal/vt"
+	"ofam.dev/mtmd/internal/vt/snapshot"
 )
 
 // padLine wraps at 9 columns before the wide rune, leaving column 9 as
