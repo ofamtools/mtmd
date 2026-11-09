@@ -1,5 +1,18 @@
 # Changelog
 
+## Unreleased
+
+Host names for the daemon's folders, socket and pane variables (FORK.md patch 13).
+
+- Added: `serve.Options.Names` (`serve.Names`, `serve.EnvName`, `serve.UpstreamNames`): a host names the
+  socket folder and file, the state folders and the config folder. Nil keeps upstream's (tuios) names.
+- Added: with a host table, panes, hooks and plugins get each host variable (for example `MTM_SOCKET`)
+  beside its `TUIOS_` one, and a host variable set in the environment is read first.
+- Added: `[--server NAME] migrate-paths [--dry-run] [--rollback]`, also run first by `daemon` and
+  `start-server`: moves a named server's state folder to the host's names (rename, `MOVED-TO`/`MOVED-FROM`
+  markers), copies `config.toml` when the host has none, and refuses while a daemon answers on the
+  socket it would move from. A re-run does nothing; the default server is not moved.
+
 ## v0.2.0
 
 Disk-backed scrollback for the pure Go emulator.
