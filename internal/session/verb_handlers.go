@@ -284,6 +284,13 @@ func (d *Daemon) verbGetWindow(cs *connState, params json.RawMessage) (any, *ver
 		}, routedVerbTimeout)
 		if err == nil && res.Success && res.Data != nil {
 			data := maps.Clone(res.Data)
+			// The client describes the window at the size it laid it out
+			// at; the PTY's size is the truth (mtmd patch, FORK.md).
+			if _, ok := data["pty_id"]; !ok {
+				data["pty_id"] = state.Windows[idx].PTYID
+			}
+			sess.reportPTYSize(data)
+			sess.addTranscriptPath(state.Windows[idx].ID, data)
 			data["type"] = "window"
 			return data, nil
 		}
@@ -296,6 +303,7 @@ func (d *Daemon) verbGetWindow(cs *connState, params json.RawMessage) (any, *ver
 		maps.Copy(data, shellFactsData(pty.ShellFacts()))
 		addOnePaneMeta(pty, data)
 	}
+	sess.addTranscriptPath(state.Windows[idx].ID, data)
 	data["type"] = "window"
 	return data, nil
 }
@@ -2238,7 +2246,7 @@ func (d *Daemon) verbGetAgentState(cs *connState, params json.RawMessage) (any, 
 	}
 	w := state.Windows[idx]
 	claim := sess.agentClaimFor(w.ID)
-	return map[string]any{
+	out := map[string]any{
 		"type":      "agent_state",
 		"window_id": w.ID,
 		"state":     w.ShownAgentState().Name(),
@@ -2290,7 +2298,11 @@ func (d *Daemon) verbGetAgentState(cs *connState, params json.RawMessage) (any, 
 		"subagent_list": subagentListOut(w.AgentSubagentList),
 		// program_status is the pane's OSC 7501 records, the root first.
 		"program_status": programStatusList(w.ProgramStatus),
-	}, nil
+	}
+	// transcript_path is the file the pane's agent conversation is read
+	// from, when a hook or the search joined one.
+	sess.addTranscriptPath(w.ID, out)
+	return out, nil
 }
 
 // verbExplainAgentDetect says what the foreground-process detector sees in a

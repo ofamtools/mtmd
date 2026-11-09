@@ -175,6 +175,15 @@ func (s *Session) transcriptViewOf(windowID string) (path, harnessID, format, se
 	return j.reader.Path(), j.harness, j.format, j.session, leaf, true
 }
 
+// addTranscriptPath sets transcript_path on a reply when the window has a
+// joined transcript file. It is omitted otherwise, so a reader can tell "no
+// file known" from a path.
+func (s *Session) addTranscriptPath(windowID string, data map[string]any) {
+	if path, _, _, _, _, ok := s.transcriptViewOf(windowID); ok && path != "" {
+		data["transcript_path"] = path
+	}
+}
+
 // noteTranscriptGrowth raises a transcript event when the joined file grew
 // since the last one. The event carries the cursor a read to the end would
 // return now, and nothing of the file.
