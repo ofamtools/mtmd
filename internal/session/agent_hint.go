@@ -3,6 +3,7 @@ package session
 import (
 	"strings"
 
+	"ofam.dev/mtmd/internal/integration"
 	"ofam.dev/mtmd/internal/procinfo"
 )
 
@@ -18,10 +19,17 @@ import (
 // this one variable of it. A value that names no manifest is ignored.
 const AgentHintEnv = "TUIOS_AGENT"
 
-// readAgentHintEnv reads TUIOS_AGENT from a process's environment. The kernel
+// readAgentHintEnv reads TUIOS_AGENT (or MTM_AGENT, read first) from a process's environment. The kernel
 // gives it only for a process of the same user, and a refusal is an absent
 // hint, never an error.
-func readAgentHintEnv(pid int) (string, bool) { return procinfo.EnvVar(pid, AgentHintEnv) }
+func readAgentHintEnv(pid int) (string, bool) {
+	for _, n := range integration.AgentHintEnvs {
+		if v, ok := procinfo.EnvVar(pid, n); ok && strings.TrimSpace(v) != "" {
+			return v, true
+		}
+	}
+	return "", false
+}
 
 // agentHint returns the harness a process's TUIOS_AGENT names, trimmed and
 // lowercased, or "" when it names none.

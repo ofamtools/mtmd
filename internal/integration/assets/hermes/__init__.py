@@ -21,7 +21,10 @@ _INTERACTIVE = {"cli", "tui", "desktop", "acp"}
 
 
 def _enabled() -> bool:
-    return os.environ.get("TUIOS_ENV") == "1" or bool(os.environ.get("TUIOS_AGENT"))
+    return any(
+        os.environ.get(p + "_ENV") == "1" or bool(os.environ.get(p + "_AGENT"))
+        for p in ("MTM", "TUIOS")
+    )
 
 
 def _report(event: str, **kwargs) -> None:

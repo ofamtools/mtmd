@@ -253,6 +253,18 @@
     "want": {"state": "done", "agent_session_id": "sess-1", "activity": {"event": "turn_end"}}
   },
   {
+    "name": "a pane MTM_AGENT names as Codex",
+    "env": {"MTM_AGENT": "codex"},
+    "payload": {"session_id": "sess-1", "hook_event_name": "Stop"},
+    "skip": "foreign harness"
+  },
+  {
+    "name": "MTM_AGENT is read before TUIOS_AGENT",
+    "env": {"MTM_AGENT": "claude", "TUIOS_AGENT": "codex"},
+    "payload": {"session_id": "sess-1", "hook_event_name": "Stop"},
+    "want": {"state": "done", "agent_session_id": "sess-1", "activity": {"event": "turn_end"}}
+  },
+  {
     "name": "unmapped event",
     "payload": {"session_id": "sess-1", "hook_event_name": "PreCompact"},
     "skip": "not mapped"

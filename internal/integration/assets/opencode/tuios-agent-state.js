@@ -251,7 +251,7 @@ function text(value) {
 }
 
 export const TuiosAgentState = async (ctx) => {
-  if (process.env.TUIOS_ENV !== "1" && !process.env.TUIOS_AGENT) {
+  if (!["MTM", "TUIOS"].some((p) => process.env[p + "_ENV"] === "1" || process.env[p + "_AGENT"])) {
     return {};
   }
   const client = ctx?.client;

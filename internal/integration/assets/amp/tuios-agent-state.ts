@@ -104,7 +104,7 @@ function questionOf(input: unknown): string {
 }
 
 export default async function (amp: any) {
-  if (process.env.TUIOS_ENV !== "1" && !process.env.TUIOS_AGENT) {
+  if (!["MTM", "TUIOS"].some((p) => process.env[p + "_ENV"] === "1" || process.env[p + "_AGENT"])) {
     return;
   }
   amp.on("session.start", (event: any) => {

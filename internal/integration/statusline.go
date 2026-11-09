@@ -156,7 +156,7 @@ func StatusLineForeign(harness string, getenv func(string) string) (string, bool
 		return "", false
 	}
 	id, _ := Canonical(harness)
-	hint := strings.TrimSpace(getenv(AgentHintEnv))
+	hint := AgentHint(getenv)
 	if hint == "" {
 		return "", false
 	}

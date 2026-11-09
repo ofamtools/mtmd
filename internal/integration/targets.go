@@ -640,7 +640,7 @@ func (t *Target) install(env Env, tuios string) (Result, error) {
 		}
 		foreign, _ := LookupTarget(other)
 		_, foreignErr := os.Stat(foreign.Path(env))
-		owner, _ := Canonical(env.env(AgentHintEnv))
+		owner, _ := Canonical(AgentHint(env.env))
 		_, ompConfigErr := os.Stat(filepath.Join(dir, "config.yml"))
 		if owner == other || strings.HasPrefix(filepath.Clean(dir)+string(os.PathSeparator), foreignDir) ||
 			foreignErr == nil || (t.ID == Pi && ompConfigErr == nil) {

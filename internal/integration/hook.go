@@ -377,6 +377,25 @@ func (in Input) env(name string) string {
 // owns the pane. It is the same variable the daemon's detector reads.
 const AgentHintEnv = "TUIOS_AGENT"
 
+// AgentHintEnvs lists every name the hint is read under, the host's first
+// (FORK.md patch 13: a host's variable is read before the upstream one). The
+// first one set and nonempty wins. Hooks, status lines and the daemon's
+// detector all read the hint through this list.
+var AgentHintEnvs = []string{"MTM_AGENT", AgentHintEnv}
+
+// AgentHint is the agent hint a getenv function gives, trimmed.
+func AgentHint(getenv func(string) string) string {
+	if getenv == nil {
+		return ""
+	}
+	for _, n := range AgentHintEnvs {
+		if v := strings.TrimSpace(getenv(n)); v != "" {
+			return v
+		}
+	}
+	return ""
+}
+
 // Translate decides what one hook event reports.
 //
 // It never guesses. A payload that does not parse, an event it has no mapping
@@ -392,7 +411,7 @@ func Translate(harnessName string, in Input) Decision {
 	if !ok {
 		return skip(harnessName, in.Event, "no hook mapping for harness "+harnessName)
 	}
-	if hint := strings.TrimSpace(in.env(AgentHintEnv)); hint != "" {
+	if hint := AgentHint(in.Getenv); hint != "" {
 		if owner, known := hintOwner(hint); known && owner != id {
 			return skip(id, in.Event, "foreign harness: "+AgentHintEnv+" names "+owner)
 		}

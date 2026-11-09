@@ -10,7 +10,7 @@ import { createEffect, createRoot } from "solid-js";
 export default {
   id: "tuios-agent-state",
   async setup(ctx) {
-    if (process.env.TUIOS_ENV !== "1" && !process.env.TUIOS_AGENT) return;
+    if (!["MTM", "TUIOS"].some((p) => process.env[p + "_ENV"] === "1" || process.env[p + "_AGENT"])) return;
     let controller = new AbortController();
     let disposed = false;
     const requests = new Map();

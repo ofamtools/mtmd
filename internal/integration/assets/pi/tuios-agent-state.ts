@@ -129,7 +129,7 @@ function report(event, ctx, extra) {
 }
 
 export default function (pi) {
-  if (process.env.TUIOS_ENV !== "1" && !process.env.TUIOS_AGENT) {
+  if (!["MTM", "TUIOS"].some((p) => process.env[p + "_ENV"] === "1" || process.env[p + "_AGENT"])) {
     return;
   }
   let tui = false;

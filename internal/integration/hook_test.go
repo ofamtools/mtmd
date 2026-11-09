@@ -140,3 +140,44 @@ func TestClipAndRedact(t *testing.T) {
 		t.Errorf("a long message was not cut to %d runes: %q", MaxMessage, got)
 	}
 }
+
+// The hint is read under every name in AgentHintEnvs, the host's first.
+func TestAgentHintReadsTheHostNameFirst(t *testing.T) {
+	get := func(m map[string]string) func(string) string { return func(k string) string { return m[k] } }
+	for _, tc := range []struct {
+		name string
+		env  map[string]string
+		want string
+	}{
+		{"none", nil, ""},
+		{"upstream only", map[string]string{"TUIOS_AGENT": " codex "}, "codex"},
+		{"host only", map[string]string{"MTM_AGENT": "claude"}, "claude"},
+		{"host wins", map[string]string{"MTM_AGENT": "claude", "TUIOS_AGENT": "codex"}, "claude"},
+		{"empty host falls back", map[string]string{"MTM_AGENT": " ", "TUIOS_AGENT": "codex"}, "codex"},
+	} {
+		if got := AgentHint(get(tc.env)); got != tc.want {
+			t.Errorf("%s: AgentHint = %q, want %q", tc.name, got, tc.want)
+		}
+	}
+	if AgentHint(nil) != "" {
+		t.Error("a nil getenv gave a hint")
+	}
+	if owner, foreign := StatusLineForeign("claude-code", get(map[string]string{"MTM_AGENT": "codex"})); !foreign || owner != "codex" {
+		t.Errorf("StatusLineForeign under MTM_AGENT = %q %v", owner, foreign)
+	}
+}
+
+// Every bundled plugin asset gates on the host's marker and hint names as well
+// as upstream's, through one list of name prefixes.
+func TestAssetsGateOnEveryEnvPrefix(t *testing.T) {
+	for _, f := range []string{"amp/tuios-agent-state.ts", "pi/tuios-agent-state.ts", "omp/tuios-omp-agent-state.ts", "opencode/tui.js", "opencode/tuios-agent-state.js", "hermes/__init__.py"} {
+		b, err := os.ReadFile(filepath.Join("assets", f))
+		if err != nil {
+			t.Fatal(err)
+		}
+		s := string(b)
+		if !strings.Contains(s, `"MTM"`) || !strings.Contains(s, `"TUIOS"`) || strings.Contains(s, "process.env.TUIOS_ENV") {
+			t.Errorf("%s does not gate on the MTM and TUIOS prefixes through one list", f)
+		}
+	}
+}
