@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Fixed: `get-window` answered by an attached client reports the pane's real PTY size, like the daemon's own answer.
+- Added: `transcript_path` in `get-window` and `get-agent-state` replies when a transcript file is joined.
+- Fixed: `focus-window --relative` accepts `previous` as well as `prev`.
+- Added: `MTM_AGENT` is read before `TUIOS_AGENT` (hooks, status lines, the pane detector), and the bundled plugin assets start for `MTM_ENV`/`MTM_AGENT` as well as the `TUIOS_` names.
+
 ## v0.3.0
 
 Host names for the daemon's folders, socket and pane variables (FORK.md patch 13).

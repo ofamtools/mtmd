@@ -43,6 +43,15 @@ Settings (`[daemon]` in config.toml; each is also in the option table):
 | `scrollback_hot_idle_seconds` | 300 | How long a silent pane still counts as in use by `output`. |
 | `scrollback_cold_ring_rows` | 10000 | Rows a pane that is not in use keeps in memory (floor 5000). |
 
+Memory after a flood: a pane that printed lately is in use, so it keeps its whole
+ring (`appearance.scrollback_lines`; a 200 MB flood with 1,000,000 lines holds
+about 260 MB). The daemon hands the garbage back after about 30 s (260 to 144 MB)
+and the ring itself when the pane goes cold, `scrollback_hot_idle_seconds` after
+its last output (144 to 36 MB, measured with macOS `footprint`). macOS `ps` RSS
+can keep reading the peak long after that, because the runtime's freed pages stay
+resident until the kernel needs them; `footprint` is the true figure. Lower
+`scrollback_hot_idle_seconds` to shed the ring sooner.
+
 To keep today's memory behaviour with the log as a backup, set
 `scrollback_hot_when = ["displayed","focused","output"]` and a large
 `scrollback_cold_ring_rows`; to have no logs at all, `scrollback_disk = false`.
