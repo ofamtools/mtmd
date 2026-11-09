@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v0.3.0
 
 Host names for the daemon's folders, socket and pane variables (FORK.md patch 13).
 
