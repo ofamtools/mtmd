@@ -28,7 +28,7 @@ import (
 
 // focusRelatives are the positional focus moves that need no viewport, so the
 // daemon can serve them on a detached session.
-var focusRelatives = []string{"next", "prev"}
+var focusRelatives = []string{"next", "prev", "previous"}
 
 // focusDirections are the spatial focus moves. They need a renderer, because
 // "the pane to the left" is a question about geometry the daemon does not have.
@@ -89,7 +89,7 @@ func (d *Daemon) verbFocusWindow(cs *connState, params json.RawMessage) (any, *v
 		switch p.Relative {
 		case "next":
 			delta = 1
-		case "prev":
+		case "prev", "previous":
 			delta = -1
 		default:
 			return nil, invalidParam("relative", "unknown relative move "+echoName(p.Relative), focusRelatives...)
