@@ -298,6 +298,11 @@ var optionSpecs = []Option{
 		Default:     "true",
 	},
 	{
+		Path: "appearance.new_window_inherit_size", Type: OptionBool, Section: "appearance",
+		Description: "Start an unplaced pane at the focused pane's content size or the last displayed size; off uses the session box until a view sizes it",
+		Default:     "true",
+	},
+	{
 		Path: "appearance.new_window_follow_ssh", Type: OptionBool, Section: "appearance",
 		Description: "A split or new window of a pane that runs ssh runs the same ssh",
 		Default:     "false",

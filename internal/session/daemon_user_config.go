@@ -70,6 +70,7 @@ func DaemonConfigFromUser(uc *config.UserConfig) *DaemonConfig {
 	// The daemon spawns every pane, so where a new one starts is its decision
 	// to make. Absent from the file means the default, which is to inherit.
 	cfg.NewWindowInheritCwd = uc.Appearance.NewWindowInheritCwd == nil || *uc.Appearance.NewWindowInheritCwd
+	cfg.NewWindowInheritSize = uc.Appearance.NewWindowInheritSize
 	// The daemon spawns every pane, so the shell the user asked for has to
 	// reach it, not only standalone panes.
 	cfg.PreferredShell = uc.Appearance.PreferredShell

@@ -861,6 +861,8 @@ type DaemonConfig struct {
 	// directory, from appearance.new_window_inherit_cwd. The daemon is the side
 	// that spawns the shell, so it is the side that has to know.
 	NewWindowInheritCwd bool
+	// NewWindowInheritSize is appearance.new_window_inherit_size. Nil is on.
+	NewWindowInheritSize *bool
 	// PreferredShell is appearance.preferred_shell: the shell a pane runs when
 	// the client that made its session named none. Empty falls back to $SHELL
 	// and then the platform default, the same order a standalone pane uses.
@@ -1056,6 +1058,7 @@ func NewDaemon(cfg *DaemonConfig) *Daemon {
 	d.manager.SetHistoryPolicy(cfg.History)
 	d.manager.SetColdPolicy(cfg.Cold)
 	d.manager.SetNewWindowInheritCwd(cfg.NewWindowInheritCwd)
+	d.manager.inheritSizeOff.Store(cfg.NewWindowInheritSize != nil && !*cfg.NewWindowInheritSize)
 	d.manager.SetPreferredShell(cfg.PreferredShell)
 	d.manager.SetHerdrProtocol(cfg.HerdrProtocol)
 	d.manager.SetReturnWhenEmpty(!cfg.StayOnEmptyWorkspace)

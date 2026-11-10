@@ -451,6 +451,7 @@ type AppearanceConfig struct {
 	KittyPlaceholders        string                  `toml:"kitty_placeholders"`           // Draw kitty Unicode placeholder images: auto, on, off (default: auto)
 	ImageSymbols             string                  `toml:"image_symbols"`                // Draw pane images as block glyphs on a terminal without graphics: auto, octant, sextant, quadrant, half, off (default: auto)
 	NewWindowInheritCwd      *bool                   `toml:"new_window_inherit_cwd"`       // A new window starts in the focused pane's working directory (default: true)
+	NewWindowInheritSize     *bool                   `toml:"new_window_inherit_size"`      // An unplaced pane inherits the focused pane's or last displayed content size (default: true)
 	NewWindowFollowSSH       *bool                   `toml:"new_window_follow_ssh"`        // A split or new window of a pane that runs ssh runs the same ssh (default: false)
 	AutoEnterTerminalOnFocus AutoEnterTerminalPolicy `toml:"auto_enter_terminal_on_focus"` // When a keyboard focus command should start typing in that pane: off, targeted, all (default: off)
 	ClickToType              string                  `toml:"click_to_type"`                // What a click on a pane's content does in window-management mode: single, double, off (default: double)

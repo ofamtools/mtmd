@@ -1565,9 +1565,12 @@ type Session struct {
 
 	// Terminal size, and the chrome reserve every client lays its panes out
 	// around. Both are guarded by sizeMu.
-	width   int
-	height  int
-	reserve LayoutReserve
+	width  int
+	height int
+	// Last content area a pane was sized to, not the session's outer box.
+	// Retained after that pane closes; guarded by sizeMu.
+	paneWidth, paneHeight int
+	reserve               LayoutReserve
 	// layoutGen counts settlements of the two above. See
 	// SessionResizePayload.Generation.
 	layoutGen uint64
@@ -1803,6 +1806,9 @@ type SessionConfig struct {
 	// InheritCwd starts a new window in the focused pane's working directory
 	// rather than the daemon's. The manager stamps it from the daemon's config.
 	InheritCwd bool
+	// InheritSize reports appearance.new_window_inherit_size at spawn time.
+	// Nil is on; a session option overrides it.
+	InheritSize func() bool
 	// PreferredShell returns appearance.preferred_shell, used when Shell is
 	// empty. The manager stamps it with its own getter, so a config reload
 	// reaches the next pane. Nil, or an empty answer, means $SHELL and then
@@ -4729,6 +4735,7 @@ func (p *PTY) resizeStreamLocked(width, height int) error {
 	p.width, p.height = width, height
 	p.terminalMu.Unlock()
 	if unchanged {
+		p.noteShownSize(width, height)
 		return nil
 	}
 	// A size change is rare and is the one thing a shell repaints its prompt
@@ -4756,7 +4763,11 @@ func (p *PTY) resizeStreamLocked(width, height int) error {
 	// the burst's last size: see pty_winsize.go.
 	p.winsizeMu.Lock()
 	defer p.winsizeMu.Unlock()
-	return p.setWinsizeLocked(width, height)
+	err := p.setWinsizeLocked(width, height)
+	if err == nil {
+		p.noteShownSize(width, height)
+	}
+	return err
 }
 
 // GetTerminalState returns the current terminal screen state for restore.

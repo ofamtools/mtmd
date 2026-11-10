@@ -40,6 +40,8 @@ type Manager struct {
 	// inheritCwd is appearance.new_window_inherit_cwd, stamped into every
 	// session this manager makes.
 	inheritCwd bool
+	// inheritSizeOff opts out of peer/view-sized pane startup. Read at spawn.
+	inheritSizeOff atomic.Bool
 	// preferredShell is appearance.preferred_shell. Every session this manager
 	// makes reads it at spawn time through PreferredShell, so a config reload
 	// reaches the next pane of a session that already exists. It is atomic so
@@ -311,6 +313,9 @@ func (m *Manager) CreateSession(name string, cfg *SessionConfig, width, height i
 	cfg.InheritCwd = m.inheritCwd
 	if cfg.PreferredShell == nil {
 		cfg.PreferredShell = m.PreferredShell
+	}
+	if cfg.InheritSize == nil {
+		cfg.InheritSize = func() bool { return !m.inheritSizeOff.Load() }
 	}
 	if cfg.PaneToken == nil {
 		cfg.PaneToken = m.PaneToken

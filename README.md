@@ -11,6 +11,31 @@ This is a modified fork. It is local to the o-family and is not published. See
 [FORK.md](FORK.md) for what was changed, how upstream is tracked, and how to
 merge a new upstream release.
 
+## Pane sizes
+
+A view announces the content area it draws through `ResizePTY` or a
+`stream-pane` size lease. The PTY and emulator take that area, including on
+first display and when the view grows, shrinks or zooms. A fit stream can
+grow a pane when no native TUI client controls the session. Concurrent
+viewers still share one PTY and the existing lease/window-size arbitration.
+
+Before a view places a new pane, it starts at the focused peer's content
+size, or the last applied pane size if that peer is gone. This includes
+unfocused panes opened by `new-window`. A headless session's nominal 80x24
+box no longer shrinks those panes to 78x22. Explicit `Cols`/`Rows` name the
+content area and are not capped by that nominal session box. Popup and rail
+sizes keep their own supplied geometry.
+
+`appearance.new_window_inherit_size` defaults to `true`. Setting it to
+`false` in config.toml's `[appearance]` section restores session-box startup
+sizing. A session's `set-option` override takes precedence; file reloads
+apply to the next pane, including in sessions that already exist. The
+setting does not disable subsequent size reports from a view.
+
+Compared with Vim: like `:help terminal-resizing`, the terminal grid follows
+the area showing it. Unlike Vim's fixed `termwinsize`, an unplaced pane's
+inherited size is only its startup size; the next view announcement wins.
+
 ## Scrollback on disk
 
 A pane keeps its newest rows of history in memory (`appearance.scrollback_lines`)

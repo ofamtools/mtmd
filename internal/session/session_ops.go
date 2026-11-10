@@ -360,9 +360,13 @@ func (s *Session) AddDaemonWindowWith(opts NewWindowOptions, onExit func(ptyID s
 		width, height = ptyWidth+2, ptyHeight+2
 	} else if opts.Cols > 0 && opts.Rows > 0 {
 		// The box is the PTY's plus a border, for the reason a popup's is.
-		// The PTY is never larger than the session.
-		ptyWidth, ptyHeight = min(opts.Cols, ptyWidth+2), min(opts.Rows, ptyHeight+2)
+		// An explicit content area is authoritative, even when a headless
+		// session still has its nominal 80x24 box.
+		ptyWidth, ptyHeight = opts.Cols, opts.Rows
 		width, height = ptyWidth+2, ptyHeight+2
+	} else if cols, rows := s.inheritedPaneSize(); cols > 0 && rows > 0 {
+		ptyWidth, ptyHeight = cols, rows
+		width, height = cols+2, rows+2
 	}
 	// The rail pane starts at the size of the section it is drawn in, so its
 	// program draws its first frame for the rail and not for the session.
