@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v0.4.1
 
 - Fixed: unplaced and unfocused panes inherit the focused pane's content size or the session's last applied pane size instead of a stale 80x24 session box. Explicit content dimensions are no longer capped by that box.
 - Added: `appearance.new_window_inherit_size`, on by default. Turn it off to restore session-box startup sizing; later view size announcements still apply.
