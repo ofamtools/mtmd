@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v0.5.0
 
 - Added: `stdio-proxy [--as PEER]` in the `serve` facade, the far side of a link (copied from upstream's `tuios stdio-proxy`): it connects the link framing on stdin and stdout to this machine's daemon, refuses a terminal, and starts no daemon. A host routes it as its own word (mtm: `mtm stdio-proxy`).
 - Changed: the link looks for `serve.Options.RemotePrograms` on the far side, in order (default `DefaultRemotePrograms`, `["mtm", "tuios"]`), instead of `tuios` alone: the PATH and the fixed install paths for each program in turn, then the login shell for each. A `[hosts.NAME] command` still chooses the program and skips the search. The "not found" message names the programs.
