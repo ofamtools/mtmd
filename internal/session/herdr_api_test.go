@@ -403,7 +403,9 @@ func TestHerdrGrantsHoldAPane(t *testing.T) {
 		{"pane.close", map[string]any{"pane_id": herdrPaneID(sa.ID, a2)}},
 		{"pane.rename", map[string]any{"pane_id": herdrPaneID(sa.ID, a2), "label": "x"}},
 		{"pane.focus", map[string]any{"pane_id": herdrPaneID(sa.ID, a2)}},
-		{"tab.create", map[string]any{"workspace_id": herdrWorkspaceID(sa.ID)}},
+		// A tab is a new window: the fan grant opens one in the pane's own
+		// session, never in another.
+		{"tab.create", map[string]any{"workspace_id": herdrWorkspaceID(sb.ID)}},
 		{"workspace.create", map[string]any{}},
 		{"workspace.close", map[string]any{"workspace_id": herdrWorkspaceID(sb.ID)}},
 		// agent.start names the pane, and a rename needs admin.

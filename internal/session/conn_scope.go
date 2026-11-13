@@ -37,11 +37,12 @@ import (
 // table has to name every verb, which a test checks, so a new verb is refused
 // here until someone decides what a restricted caller may do with it.
 //
-// tuios mcp restricts every connection it opens before its first call, so an
-// agent that drives tuios through MCP holds exactly what the server was
-// started with. This does not stop a process in a pane from opening its own
-// unrestricted connection with the tuios CLI; it bounds the MCP surface, which
-// is the one an agent reaches without writing a shell command. docs/protocol.md
+// mtm restricts every connection an agent's call opens to scope own while its
+// agents.pane-scope setting is own (the default), so an agent that drives
+// panes through mtm reaches its own session, its fan group and the sessions
+// its fans started. This does not stop a process in a pane from opening its
+// own unrestricted connection; it bounds the surface an agent reaches without
+// writing a shell command. docs/protocol.md
 // has the whole contract.
 
 // connScope is what a connection was restricted to.
@@ -89,8 +90,9 @@ const (
 	scopeMail
 	// scopeWrite types into a pane. Refused under read_only.
 	scopeWrite
-	// scopeLaunch starts new sessions. Refused under read_only, and under
-	// scope own for a caller in no pane, whose launches it could not reach.
+	// scopeLaunch starts a pane or a session. Refused under read_only, and
+	// under scope own held to the sessions the caller reaches, and refused
+	// for a caller in no pane, whose launches it could not reach.
 	scopeLaunch
 	// scopeBufferRead reads the paste buffers, which every session shares
 	// and which hold whatever the person copied. Refused under scope own; a
@@ -248,8 +250,10 @@ var verbScopes = map[string]scopeKind{
 	"speed-test":       scopeDeny,
 	"host-speed-test":  scopeDeny,
 	"drop-files":       scopeDeny,
-	"new-window":       scopeDeny,
-	"popup":            scopeDeny,
+	// new-window opens a pane in a session the caller reaches, like
+	// start-agent: an agent hands work to a fresh agent in a new pane.
+	"new-window": scopeLaunch,
+	"popup":      scopeDeny,
 	// A pane opens, changes and closes a TML surface with the write grant,
 	// in its own session, and only its own surfaces (tmlOwnerCheck). The
 	// input verb acts as the person.
@@ -706,7 +710,7 @@ func (d *Daemon) eventInScope(cs *connState, ev streamEvent) bool {
 func scopeForbidden(verb, why string) *verbError {
 	return hintedVerbError(ErrVerbForbidden, verb+" is refused on this connection: "+why, &VerbHint{
 		Verb:   "restrict-connection",
-		Detail: "This connection was restricted with restrict-connection, and a restriction lasts as long as the connection. tuios mcp restricts its connections as its flags say: --write allows typing into panes, and --scope all reaches every session.",
+		Detail: "This connection was restricted with restrict-connection, and a restriction lasts as long as the connection. Nothing was done. mtm restricts an agent's calls to its own session, its fan group and the sessions its fans started while the agents.pane-scope setting is own (the default); all reaches every session, and is the owner's to set.",
 	})
 }
 

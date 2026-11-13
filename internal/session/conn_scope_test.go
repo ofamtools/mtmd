@@ -80,7 +80,12 @@ func TestRestrictConnectionOwnScopeReachesOnlyTheCallersSession(t *testing.T) {
 	wantForbidden(t, "list-sessions", callP(c, t, "list-sessions", nil))
 	wantForbidden(t, "list-agents all_sessions", callP(c, t, "list-agents", map[string]any{"all_sessions": true}))
 	wantForbidden(t, "wait-for any_session", callP(c, t, "wait-for", map[string]any{"condition": "agent-state", "any_session": true, "until": "idle", "timeout": 10}))
-	wantForbidden(t, "new-window", callP(c, t, "new-window", map[string]any{"session": "a"}))
+	// new-window opens a pane in the caller's own session (an agent handing
+	// off to a fresh one), never in a session out of its reach.
+	if opened := result(t, callP(c, t, "new-window", map[string]any{"focus": false})); opened["window_id"] == "" {
+		t.Errorf("new-window in the caller's session = %v, want a window", opened)
+	}
+	wantForbidden(t, "new-window in b", callP(c, t, "new-window", map[string]any{"session": "b", "focus": false}))
 	wantForbidden(t, "kill-session", callP(c, t, "kill-session", map[string]any{"session": "b"}))
 	wantForbidden(t, "send-text into b", callP(c, t, "send-text", map[string]any{"session": "b", "window": b1, "text": "x"}))
 
@@ -143,6 +148,7 @@ func TestRestrictConnectionReadOnlyRefusesTyping(t *testing.T) {
 	wantForbidden(t, "ask-agent", callP(c, t, "ask-agent", map[string]any{"window": a2, "text": "x"}))
 	wantForbidden(t, "respond", callP(c, t, "respond", map[string]any{"window": a2, "action": "approve"}))
 	wantForbidden(t, "fan", callP(c, t, "fan", map[string]any{"count": 1, "agent": "claude", "prompt": "x", "repo": "/"}))
+	wantForbidden(t, "new-window", callP(c, t, "new-window", map[string]any{"focus": false}))
 	// Reporting its own state, and reading, still work.
 	result(t, callP(c, t, "set-agent-state", map[string]any{"state": "idle"}))
 	result(t, callP(c, t, "capture-pane", map[string]any{"window": a2}))

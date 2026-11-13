@@ -129,7 +129,7 @@ func TestStrictModeHoldsAPaneToItsGrants(t *testing.T) {
 	}
 	wantForbidden(t, "capture-pane of b", callP(c, t, "capture-pane", map[string]any{"session": "b", "window": b1}))
 	wantForbidden(t, "send-text into b", callP(c, t, "send-text", map[string]any{"session": "b", "window": b1, "text": "x"}))
-	wantForbidden(t, "new-window", callP(c, t, "new-window", map[string]any{"session": "a"}))
+	wantForbidden(t, "new-window in b", callP(c, t, "new-window", map[string]any{"session": "b", "focus": false}))
 	wantForbidden(t, "kill-session", callP(c, t, "kill-session", map[string]any{"session": "b"}))
 	wantForbidden(t, "set-option", callP(c, t, "set-option", map[string]any{"session": "a", "key": "x", "value": "y"}))
 

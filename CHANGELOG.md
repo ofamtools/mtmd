@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Changed: `new-window` is a launch on a restricted connection (`restrict-connection`) and for pane grants, like `start-agent`: refused when read-only, held to the sessions the caller reaches under scope own, and needing the fan grant (or admin) from a pane under strict permissions. An agent that mtm restricts (`agents.pane-scope` own) can open a pane in its own session to hand off to a fresh agent (`mtm pane open`). It was refused on every restricted connection and needed admin.
+- Changed: the restricted-connection refusal's hint names mtm's `agents.pane-scope` setting, not `tuios mcp` flags.
+
 ## v0.4.3 (2026-11-13)
 
 - Added: `hostnames.MTMEnv` (and `serve`-level use through `Options.Names.Env`), the complete `MTM_` table: every `TUIOS_` variable the daemon sets for panes, hook commands and plugin processes or reads (pane token and grants, host, tty, restored, plugin id and token, the hook context variables, the daemon's tunables). With `DropUpstream` no `TUIOS_` variable reaches a child; the `TUIOS_INTEGRATION_*` strings are file markers, not variables.
