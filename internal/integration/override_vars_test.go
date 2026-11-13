@@ -51,6 +51,11 @@ func TestE2EClearsEveryDirOverride(t *testing.T) {
 	}
 
 	harness, err := os.ReadFile(filepath.Join("..", "..", "e2e", "tui", "harness_test.go"))
+	if os.IsNotExist(err) {
+		// The fork (mtmd) carries no e2e suite: it was pruned with the client
+		// it drives (FORK.md), so there is no harness to hold to the list.
+		t.Skip("no e2e/tui harness in this tree")
+	}
 	if err != nil {
 		t.Fatal(err)
 	}

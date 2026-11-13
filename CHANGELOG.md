@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Added: `stdio-proxy [--as PEER]` in the `serve` facade, the far side of a link (copied from upstream's `tuios stdio-proxy`): it connects the link framing on stdin and stdout to this machine's daemon, refuses a terminal, and starts no daemon. A host routes it as its own word (mtm: `mtm stdio-proxy`).
+- Changed: the link looks for `serve.Options.RemotePrograms` on the far side, in order (default `DefaultRemotePrograms`, `["mtm", "tuios"]`), instead of `tuios` alone: the PATH and the fixed install paths for each program in turn, then the login shell for each. A `[hosts.NAME] command` still chooses the program and skips the search. The "not found" message names the programs.
+- Fixed: test packages `internal/coldlog`, `internal/hostnames`, `internal/selfcmd` and `serve` run isolated (`testutil.RunIsolated`); the isolation clears every pane variable of `hostnames.MTMEnv` under both names, so a run inside an mtm pane no longer reads that pane's identity (`TestEnvReadsHostNameFirst`). `internal/vt` (generated) is exempt like `internal/composer`.
+- Fixed: `docs/look-keys.json` is back (the prune dropped it because the test names it through `filepath.Join`; `scripts/ofam-prune.go` rule 4 now reads that spelling too, and never keeps a Go file that way). The e2e dir-override check skips when the tree has no e2e harness. The transcript-identity test expects the resolved name of `/usr/bin/sleep` (`gnusleep` on Ubuntu 26.04).
+
 - Changed: `new-window` is a launch on a restricted connection (`restrict-connection`) and for pane grants, like `start-agent`: refused when read-only, held to the sessions the caller reaches under scope own, and needing the fan grant (or admin) from a pane under strict permissions. An agent that mtm restricts (`agents.pane-scope` own) can open a pane in its own session to hand off to a fresh agent (`mtm pane open`). It was refused on every restricted connection and needed admin.
 - Changed: the restricted-connection refusal's hint names mtm's `agents.pane-scope` setting, not `tuios mcp` flags.
 

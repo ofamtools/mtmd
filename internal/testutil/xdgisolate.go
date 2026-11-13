@@ -14,6 +14,7 @@ import (
 	"testing"
 
 	"github.com/adrg/xdg"
+	"ofam.dev/mtmd/internal/hostnames"
 	"ofam.dev/mtmd/internal/sound"
 )
 
@@ -64,16 +65,18 @@ func isolateXDG() (dir string, check func() error) {
 			panic(fmt.Sprintf("testutil: set USERPROFILE: %v", err))
 		}
 	}
-	// A run started from a tuios pane inherits the pane's TUIOS_SOCKET, which
-	// names the person's daemon. Nothing selects a daemon by it, but the check
-	// against it dials the socket it names, and a test has no business there.
-	if err := os.Unsetenv("TUIOS_SOCKET"); err != nil {
-		panic(fmt.Sprintf("testutil: unset TUIOS_SOCKET: %v", err))
-	}
-	// A pane of a named server exports TUIOS_SERVER; a test that runs tuios
-	// would otherwise land on that server.
-	if err := os.Unsetenv("TUIOS_SERVER"); err != nil {
-		panic(fmt.Sprintf("testutil: unset TUIOS_SERVER: %v", err))
+	// A run started from a pane inherits the pane's variables: its socket
+	// names the person's daemon, its server would land a test that runs the
+	// daemon on that server, and its pane and session identity is read as the
+	// test's own (hostnames.ApplyEnv copies MTM_PANE_ID into TUIOS_PANE_ID).
+	// Every pane variable goes, under both names, so a test sees only what it
+	// sets.
+	for _, e := range hostnames.MTMEnv {
+		for _, name := range []string{e.Name, e.Upstream} {
+			if err := os.Unsetenv(name); err != nil {
+				panic(fmt.Sprintf("testutil: unset %s: %v", name, err))
+			}
+		}
 	}
 	xdg.Reload()
 

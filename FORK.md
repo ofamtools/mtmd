@@ -49,6 +49,7 @@ Merge at release tags only.
 | 14 | `fork: bugs from the soak (mtmd-bugs)` | `internal/session/verb_handlers.go` (`get-window` via a client also reports the PTY size; `transcript_path` in `get-window` and `get-agent-state`), `verb_agent_transcript.go` (`addTranscriptPath`), `verb_layout.go` (`previous`), `agent_hint.go` + `internal/integration/{hook,statusline,targets}.go` (`AgentHintEnvs`: `MTM_AGENT` first), `internal/integration/assets/*` (MTM_ or TUIOS_ prefix) | mtm's daemon (soak report D2, D3, D4). |
 | 15 | `fix: inherit pane content size before placement` | `internal/session/pane_size.go`, `pane_size_test.go`, `session{,_ops}.go`, `manager.go`, `daemon{,_hosts,_user_config}.go`; `internal/config/{options,userconfig}.go` | New panes use a peer's content size or the last applied size, not a stale headless session box; explicit content sizes remain authoritative. `appearance.new_window_inherit_size` opts out of inherited startup sizing. |
 | 16 | `session: new-window is a launch on a restricted connection` | `internal/session/conn_scope.go` (`verbScopes` row, `scopeForbidden` hint, comments), tests in `conn_scope_test.go`, `pane_grants_test.go`, `herdr_api_test.go` | Owner approval 2026-11-13: an agent pane opens a pane (to hand off to a fresh agent) through `mtm pane open`, which mtm runs on a connection restricted to scope own. Upstream refuses `new-window` there. The launch kind keeps read-only refusing it and scope own holding it to the caller's reach; under strict pane grants it needs fan, as `start-agent` does. |
+| 17 | `serve: stdio-proxy and the link's RemotePrograms` | `serve/stdioproxy.go` (new), `serve/serve.go` (`stdio-proxy` verb, `--as`, `Options.RemotePrograms`, `DefaultRemotePrograms`), `internal/federation/remote.go` (`RemoteBinary` -> `SetRemotePrograms`/`RemotePrograms`, per-program candidates, probe tries each program), `host.go` (`DefaultRemoteCommand()`), `link.go` (not-found text); test hygiene: `internal/testutil/xdgisolate.go` (clears every `MTMEnv` pair), `main_test.go` in `coldlog`, `hostnames`, `selfcmd`, `serve`, `scripts/ofam-prune.go` rule 4 (`filepath.Join` literals, never `.go`), `docs/look-keys.json` (restored) | A host's daemon serves the far side of a link itself (mtm: `mtm stdio-proxy`), and the hub finds mtm or tuios on the far side, mtm first, until every host runs mtm. Upstream runs `tuios stdio-proxy` only. |
 
 ### The rewrite (`scripts/ofam-rewrite.go`)
 
@@ -200,12 +201,16 @@ adding a root file never conflicts with it. It runs:
 | `[--server NAME] migrate-paths [--dry-run] [--rollback]` | the one-time move of the server's state to the host's names (patch 13), as a JSON report |
 | `daemon handoff-accepts` | the live-upgrade preflight |
 | `agent-proto --protocol acp\|codex [--harness H] [--cwd D] -- AGENT...` | the pane program of a protocol agent (cobra-free port of upstream's `agent_proto_command.go`) |
+| `[--server NAME] stdio-proxy [--as PEER]` | the far side of a link: the link framing on stdin/stdout to this machine's daemon; refuses a terminal, starts no daemon (patch 17) |
 | `__plugin-reaper PROGRAM...` | the reaper that herdr plugin commands run under |
 
 `Options.SelfCommand` is the prefix by which the host runs itself again,
 `{"", "mtmd"}` for `mtm mtmd ...`; nil is upstream's behaviour. `Options.Version`
 is the label the daemon reports in `hello`. `Options.Names` is the host's
-table of folder, socket and variable names (patch 13); nil is upstream's. Not exposed, by the owner's
+table of folder, socket and variable names (patch 13); nil is upstream's.
+`Options.RemotePrograms` are the programs a link looks for on another machine,
+in order, when the host row has no `command` (patch 17); nil is
+`serve.DefaultRemotePrograms`, `["mtm", "tuios"]`. Not exposed, by the owner's
 decision: the rest of tuios's command line, and mail.
 
 Self re-exec goes through `internal/selfcmd` (`Exe`, `Argv`, `Words`). The sites
@@ -228,6 +233,8 @@ Keep rule, in this order:
 3. Root files by name: `LICENSE`, `NOTICE`, `README.md`, `FORK.md`, `CHANGELOG.md`,
    `THIRD_PARTY.md`, `go.mod`, `go.sum`, `.gitignore`, `.gitattributes`;
    `scripts/ofam-*.go`, `scripts/vt-version`, `scripts/vt-ofam.patch`; `third_party/`.
+   A file a kept package's Go code names by a `"../"` literal or a
+   `filepath.Join("..", ...)` of literals is kept too (never a `.go` file).
 4. Everything else goes: the terminal interface, `cmd/`, docs, e2e, every nested
    module (`sketch`, ...; `vt` is regenerated in tree by `ofam-vt.go`: `go.mod` pins them at the published versions,
    identical to the in-tree copies, and the build fetches them), `go.work`.

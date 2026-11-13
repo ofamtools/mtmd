@@ -49,8 +49,15 @@ func TestTranscriptIdentityReadsTheAgentBehindAWrapper(t *testing.T) {
 	if err := os.MkdirAll(binDir, 0o755); err != nil {
 		t.Fatal(err)
 	}
+	// The agent's executable is what /proc/PID/exe names: the file the link
+	// resolves to, which is not called sleep everywhere (Ubuntu 26.04 links
+	// /usr/bin/sleep to gnusleep).
+	sleep, err := filepath.EvalSymlinks("/usr/bin/sleep")
+	if err != nil {
+		t.Skipf("no sleep: %v", err)
+	}
 	fake := filepath.Join(binDir, "crush")
-	if err := os.Symlink("/usr/bin/sleep", fake); err != nil {
+	if err := os.Symlink(sleep, fake); err != nil {
 		t.Fatal(err)
 	}
 	d, sp := startTestDaemon(t)
@@ -61,8 +68,8 @@ func TestTranscriptIdentityReadsTheAgentBehindAWrapper(t *testing.T) {
 	explainUntil(t, c, w.ID, func(res map[string]any) bool { return res["matched"] == true })
 
 	version := d.paneAgentIdentifier(sess)(w.PTYID).version
-	if version != "sleep" {
-		t.Fatalf("version = %q, want the agent's own executable name (sleep), not the wrapper's", version)
+	if want := filepath.Base(sleep); version != want {
+		t.Fatalf("version = %q, want the agent's own executable name (%s), not the wrapper's", version, want)
 	}
 	sendText(t, c, w.ID, "\x03")
 }

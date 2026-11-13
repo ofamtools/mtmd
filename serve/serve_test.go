@@ -16,6 +16,7 @@ import (
 	"testing"
 	"time"
 
+	"ofam.dev/mtmd/internal/testutil"
 	"ofam.dev/mtmd/serve"
 )
 
@@ -33,7 +34,7 @@ func TestMain(m *testing.M) {
 		}
 		os.Exit(serve.Main(os.Args[2:], opt))
 	}
-	os.Exit(m.Run())
+	os.Exit(testutil.RunIsolated(m))
 }
 
 type host struct {

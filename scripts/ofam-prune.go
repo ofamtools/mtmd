@@ -28,7 +28,9 @@
 //     cache into third_party/MODULE/ before their in-tree copies go, so
 //     every notice that applies to code the daemon links stays in the tree.
 //  4. A file that Go code of a kept package names by a "../"-relative string
-//     literal (a test reading ../../docs/CLI_REFERENCE.md) is kept too.
+//     literal (a test reading ../../docs/CLI_REFERENCE.md), or by a
+//     filepath.Join of literals starting with "..", is kept too; a Go file
+//     never is (rule 2 decides its package).
 //  5. The fork's own root files are kept by name (rootKeep) and so are
 //     scripts/ofam-*.go, and third_party/ is generated. Everything else is deleted, including every nested
 //     module (vt, sketch, loom, ...: go.mod pins them at published versions
@@ -326,8 +328,38 @@ func thirdParty() (map[string]string, error) {
 
 var relLiteral = regexp.MustCompile(`"((?:\.\./)+[A-Za-z0-9_][A-Za-z0-9_./-]*)"`)
 
+// joinLiteral is the same path spelled as a filepath.Join of string literals,
+// filepath.Join("..", "..", "docs", "look-keys.json"); joinPart reads its
+// arguments.
+var (
+	joinLiteral = regexp.MustCompile(`filepath\.Join\(\s*((?:"[A-Za-z0-9_.-]+"\s*,\s*)+"[A-Za-z0-9_.-]+")\s*\)`)
+	joinPart    = regexp.MustCompile(`"([A-Za-z0-9_.-]+)"`)
+)
+
+// relativeNames are the "../"-relative paths src names, either way of
+// spelling them.
+func relativeNames(src []byte) []string {
+	var out []string
+	for _, m := range relLiteral.FindAllSubmatch(src, -1) {
+		out = append(out, string(m[1]))
+	}
+	for _, m := range joinLiteral.FindAllSubmatch(src, -1) {
+		var parts []string
+		for _, p := range joinPart.FindAllSubmatch(m[1], -1) {
+			parts = append(parts, string(p[1]))
+		}
+		if len(parts) > 0 && parts[0] == ".." {
+			out = append(out, strings.Join(parts, "/"))
+		}
+	}
+	return out
+}
+
 // namedFiles are the existing files that the Go files of kept packages name by
-// a "../"-relative string literal, resolved from the package directory.
+// a "../"-relative string literal, resolved from the package directory. A Go
+// file is never kept this way: it belongs to its own package, which rule 2
+// keeps or drops (a test reading a pruned package's source has nothing to
+// read in the fork).
 func namedFiles(keptDirs map[string]bool) map[string]bool {
 	out := map[string]bool{}
 	for dir := range keptDirs {
@@ -343,8 +375,11 @@ func namedFiles(keptDirs map[string]bool) map[string]bool {
 			if err != nil {
 				continue
 			}
-			for _, m := range relLiteral.FindAllSubmatch(src, -1) {
-				p := filepath.ToSlash(filepath.Clean(filepath.Join(dir, string(m[1]))))
+			for _, rel := range relativeNames(src) {
+				p := filepath.ToSlash(filepath.Clean(filepath.Join(dir, rel)))
+				if strings.HasSuffix(p, ".go") {
+					continue
+				}
 				if st, err := os.Stat(p); err == nil && !st.IsDir() && !strings.HasPrefix(p, "../") {
 					out[p] = true
 				}
