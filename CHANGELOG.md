@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v0.4.3 (2026-11-13)
 
 - Added: `hostnames.MTMEnv` (and `serve`-level use through `Options.Names.Env`), the complete `MTM_` table: every `TUIOS_` variable the daemon sets for panes, hook commands and plugin processes or reads (pane token and grants, host, tty, restored, plugin id and token, the hook context variables, the daemon's tunables). With `DropUpstream` no `TUIOS_` variable reaches a child; the `TUIOS_INTEGRATION_*` strings are file markers, not variables.
 - Changed: a client (`VerbClient`, nested-attach check, socket pick) reads the pane variables host name first; `env` passed to an agent launch refuses a host name the daemon sets, as it refuses the `TUIOS_` one; a plugin pane's protected variables and the plugin env cleaner treat the host's names like upstream's; `TUIOS_PANE_GRANTS` of an outer pane is cleaned from a plugin's environment.
