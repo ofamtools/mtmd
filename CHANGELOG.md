@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Added: `Names.DropUpstream` (`serve.Options.Names`), default false. When true, panes, hook commands and plugin processes carry only the host's names (`MTM_*`) for the paired variables, not the `TUIOS_*` ones. The daemon reads a pane process's variables host name first, then upstream, so nothing it depends on changes.
+
 ## v0.4.1
 
 - Fixed: unplaced and unfocused panes inherit the focused pane's content size or the session's last applied pane size instead of a stale 80x24 session box. Explicit content dimensions are no longer capped by that box.

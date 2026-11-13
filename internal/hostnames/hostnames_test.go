@@ -81,3 +81,40 @@ func TestEnvReadsHostNameFirst(t *testing.T) {
 		t.Fatal("Unsetenv left MTM_SERVER")
 	}
 }
+
+// A pane's environment: both names by default, only the host's with DropUpstream.
+func TestMirrorDropUpstream(t *testing.T) {
+	env := []string{"A=1", "TUIOS_PANE_ID=p1", "TUIOS_ENV=1", "TUIOS_SOCKET=/s"}
+	for _, drop := range []bool{false, true} {
+		n := testNames
+		n.DropUpstream = drop
+		restore := Set(&n)
+		got := Mirror(env)
+		restore()
+		want := []string{"A=1", "TUIOS_PANE_ID=p1", "TUIOS_ENV=1", "TUIOS_SOCKET=/s", "MTM_SOCKET=/s", "MTM_PANE_ID=p1"}
+		if drop {
+			// TUIOS_ENV is in no pair, so it stays.
+			want = []string{"A=1", "TUIOS_ENV=1", "MTM_SOCKET=/s", "MTM_PANE_ID=p1"}
+		}
+		if !slices.Equal(got, want) {
+			t.Errorf("drop=%v:\n got %v\nwant %v", drop, got, want)
+		}
+	}
+}
+
+// A process holding only the host's names is read under the upstream name.
+func TestLookupReadsHostNameFirst(t *testing.T) {
+	defer Set(&testNames)()
+	get := func(m map[string]string) func(string) (string, bool) {
+		return func(k string) (string, bool) { v, ok := m[k]; return v, ok }
+	}
+	if v, ok := Lookup(get(map[string]string{"MTM_PANE_ID": "h"}), "TUIOS_PANE_ID"); !ok || v != "h" {
+		t.Fatalf("host-only: %q %v", v, ok)
+	}
+	if v, ok := Lookup(get(map[string]string{"TUIOS_PANE_ID": "u"}), "TUIOS_PANE_ID"); !ok || v != "u" {
+		t.Fatalf("upstream-only: %q %v", v, ok)
+	}
+	if UpstreamOf("MTM_SOCKET") != "TUIOS_SOCKET" || UpstreamOf("X") != "X" {
+		t.Fatal("UpstreamOf")
+	}
+}

@@ -47,6 +47,12 @@ type Names struct {
 	ConfigApp string
 	// Env are the variables exported beside upstream's.
 	Env []EnvName
+	// DropUpstream leaves the Upstream name of every Env pair out of the
+	// environment of the children Mirror handles (panes, hook commands,
+	// plugin processes): they carry only the host's names. False, the
+	// default, keeps both names. The daemon reads both names from a
+	// process it inspects (Lookup, UpstreamOf), so it works either way.
+	DropUpstream bool
 }
 
 // Upstream is tuios's own table.
@@ -150,7 +156,8 @@ func Unsetenv(upstream string) error {
 
 // Mirror returns env with the host's names set from upstream's: every
 // assignment of a Name is dropped, and each Name is added with the value of
-// the last assignment of its Upstream. A nil env (inherit the parent's) is
+// the last assignment of its Upstream. With DropUpstream the Upstream
+// assignments are removed too. A nil env (inherit the parent's) is
 // returned as it is. With no pairs in the table env is returned unchanged.
 func Mirror(env []string) []string {
 	pairs := Get().Env
@@ -162,10 +169,19 @@ func Mirror(env []string) []string {
 		host[e.Name] = true
 	}
 	last := make(map[string]string, len(pairs))
+	upstream := make(map[string]bool, len(pairs))
+	for _, e := range pairs {
+		upstream[e.Upstream] = true
+	}
+	drop := Get().DropUpstream
 	out := make([]string, 0, len(env)+len(pairs))
 	for _, kv := range env {
 		k, v, _ := strings.Cut(kv, "=")
 		if host[k] {
+			continue
+		}
+		if drop && upstream[k] {
+			last[k] = v
 			continue
 		}
 		out = append(out, kv)
@@ -177,4 +193,43 @@ func Mirror(env []string) []string {
 		}
 	}
 	return out
+}
+
+// HostName is the host's name paired with upstream, or "" when there is none.
+func HostName(upstream string) string {
+	for _, e := range Get().Env {
+		if e.Upstream == upstream {
+			return e.Name
+		}
+	}
+	return ""
+}
+
+// UpstreamOf is the upstream name paired with name (a host name or an
+// upstream one), or name itself when it is in no pair.
+func UpstreamOf(name string) string {
+	for _, e := range Get().Env {
+		if e.Name == name || e.Upstream == name {
+			return e.Upstream
+		}
+	}
+	return name
+}
+
+// Lookup reads upstream through get, the host's name first, so a source
+// that holds only the host's names (a pane started with DropUpstream) is
+// read as well as one that holds both.
+func Lookup(get func(name string) (string, bool), upstream string) (string, bool) {
+	if h := HostName(upstream); h != "" {
+		if v, ok := get(h); ok {
+			return v, true
+		}
+	}
+	return get(upstream)
+}
+
+// Getenv is Lookup over this process's environment.
+func Getenv(upstream string) string {
+	v, _ := Lookup(os.LookupEnv, upstream)
+	return v
 }

@@ -3,12 +3,19 @@ package procinfo
 import (
 	"bytes"
 	"encoding/binary"
+
+	"ofam.dev/mtmd/internal/hostnames"
 )
 
 // EnvironVar finds name in a NUL-separated environment block, the layout of
 // /proc/<pid>/environ and of the tail of darwin's kern.procargs2. It returns
-// the value and whether the variable was present.
+// the value and whether the variable was present. A name paired in the
+// host table is read under the host's name first (hostnames.Lookup).
 func EnvironVar(block []byte, name string) (string, bool) {
+	return hostnames.Lookup(func(n string) (string, bool) { return environVar(block, n) }, name)
+}
+
+func environVar(block []byte, name string) (string, bool) {
 	prefix := []byte(name + "=")
 	for entry := range bytes.SplitSeq(block, []byte{0}) {
 		if v, ok := bytes.CutPrefix(entry, prefix); ok {

@@ -2,9 +2,10 @@ package session
 
 import (
 	"fmt"
-	"os"
 	"path/filepath"
 	"sync"
+
+	"ofam.dev/mtmd/internal/hostnames"
 )
 
 // TUIOS_SOCKET is set in every pane to the socket of the daemon that runs it.
@@ -58,7 +59,7 @@ func CheckSocketEnv() error {
 // checkSocketEnv refuses when TUIOS_SOCKET names a socket other than path and
 // no daemon listens on it.
 func checkSocketEnv(path string) error {
-	env := os.Getenv(SocketEnv)
+	env := hostnames.Getenv(SocketEnv)
 	if env == "" || filepath.Clean(env) == filepath.Clean(path) {
 		return nil
 	}

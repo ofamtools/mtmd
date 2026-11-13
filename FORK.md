@@ -155,6 +155,14 @@ assignment of its upstream one. `hostnames.ApplyEnv`, at the top of
 is set, so upstream code reads the host's name first without a change.
 `serverscope.Apply` sets and clears both names.
 
+`Names.DropUpstream` (default false: both names, as before) removes the upstream
+name of every `Env` pair from those children, so a pane carries only `MTM_*`
+for the paired variables. Unpaired `TUIOS_*` (for example `TUIOS_ENV`,
+`TUIOS_EVENT`) stay. The daemon reads a pane process's variables through
+`hostnames.Lookup` (host name first, then upstream: `procinfo.EnvironVar`,
+`checkSocketEnv`), `herdrplugin.cleanEnv` and `guestenv` also strip the host's
+names, so pane identification, hook origin and nested attach work either way.
+
 The one-time move (`serve/migrate.go`): `daemon` (not `--adopt-fd`) and
 `start-server` first move a named server's state from the upstream folder to
 the host's when the host's is absent and upstream's exists (a rename: same

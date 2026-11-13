@@ -6,6 +6,8 @@ package guestenv
 import (
 	"strings"
 	"sync/atomic"
+
+	"ofam.dev/mtmd/internal/hostnames"
 )
 
 // buildVersion is the version TERM_PROGRAM_VERSION names. The main package
@@ -212,6 +214,14 @@ func WithoutHostMultiplexer(env []string) []string {
 }
 
 func isHostMultiplexerVar(kv string) bool {
+	if k, _, ok := strings.Cut(kv, "="); ok {
+		// The host's name of a pane variable names the same outer pane.
+		for _, e := range hostnames.Get().Env {
+			if k == e.Name {
+				return true
+			}
+		}
+	}
 	for _, name := range hostMultiplexerVars {
 		if len(kv) > len(name) && kv[len(name)] == '=' && kv[:len(name)] == name {
 			return true
