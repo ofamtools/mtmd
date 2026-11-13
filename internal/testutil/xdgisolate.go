@@ -70,13 +70,20 @@ func isolateXDG() (dir string, check func() error) {
 	// daemon on that server, and its pane and session identity is read as the
 	// test's own (hostnames.ApplyEnv copies MTM_PANE_ID into TUIOS_PANE_ID).
 	// Every pane variable goes, under both names, so a test sees only what it
-	// sets.
-	for _, e := range hostnames.MTMEnv {
-		for _, name := range []string{e.Name, e.Upstream} {
-			if err := os.Unsetenv(name); err != nil {
-				panic(fmt.Sprintf("testutil: unset %s: %v", name, err))
+	// sets. A test binary started again inside a pane of a daemon the run
+	// itself started (a helper process) inherits isolatedEnv and keeps the
+	// variables that daemon gave it: they are the test's, not the person's.
+	if os.Getenv(isolatedEnv) == "" {
+		for _, e := range hostnames.MTMEnv {
+			for _, name := range []string{e.Name, e.Upstream} {
+				if err := os.Unsetenv(name); err != nil {
+					panic(fmt.Sprintf("testutil: unset %s: %v", name, err))
+				}
 			}
 		}
+	}
+	if err := os.Setenv(isolatedEnv, "1"); err != nil {
+		panic(fmt.Sprintf("testutil: set %s: %v", isolatedEnv, err))
 	}
 	xdg.Reload()
 
@@ -150,6 +157,10 @@ func stillRedirected(tmp string) error {
 	return fmt.Errorf("the run left these pointing outside its own tree %s, so the tests after it reached the developer's files:\n%s",
 		tmp, strings.Join(escaped, "\n"))
 }
+
+// isolatedEnv marks a process started by an isolated test run, so a test
+// binary re-executed inside it keeps the pane variables it was given.
+const isolatedEnv = "MTMD_TEST_ISOLATED"
 
 // RunIsolated runs the package's tests against a throwaway XDG tree and
 // returns the exit code to hand to os.Exit.
