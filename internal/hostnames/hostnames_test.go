@@ -4,6 +4,7 @@ import (
 	"os"
 	"path/filepath"
 	"slices"
+	"strings"
 	"testing"
 )
 
@@ -116,5 +117,20 @@ func TestLookupReadsHostNameFirst(t *testing.T) {
 	}
 	if UpstreamOf("MTM_SOCKET") != "TUIOS_SOCKET" || UpstreamOf("X") != "X" {
 		t.Fatal("UpstreamOf")
+	}
+}
+
+// The complete MTM table pairs each upstream name once, under an MTM_ name.
+func TestMTMEnvShape(t *testing.T) {
+	seen := map[string]bool{}
+	for _, e := range MTMEnv {
+		if !strings.HasPrefix(e.Upstream, "TUIOS_") || e.Name != "MTM_"+strings.TrimPrefix(e.Upstream, "TUIOS_") || seen[e.Name] {
+			t.Errorf("bad or repeated pair %+v", e)
+		}
+		seen[e.Name] = true
+	}
+	defer Set(&Names{Env: MTMEnv})()
+	if !IsHost("MTM_PANE_ID") || IsHost("TUIOS_PANE_ID") {
+		t.Error("IsHost")
 	}
 }

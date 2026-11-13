@@ -157,8 +157,18 @@ is set, so upstream code reads the host's name first without a change.
 
 `Names.DropUpstream` (default false: both names, as before) removes the upstream
 name of every `Env` pair from those children, so a pane carries only `MTM_*`
-for the paired variables. Unpaired `TUIOS_*` (for example `TUIOS_ENV`,
-`TUIOS_EVENT`) stay. The daemon reads a pane process's variables through
+for the paired variables. `hostnames.MTMEnv` is the complete table for the
+`MTM_` prefix (every `TUIOS_` variable the daemon sets for a pane, hook command
+or plugin process, or reads from a process's or its own environment: the pane
+identity, token, grants, tty, host, restored marker, the hook context, the plugin
+id and token, and the daemon's tunables); a host passes it as `Names.Env` with
+`DropUpstream` and no `TUIOS_` variable reaches a child. A variable the daemon
+starts to set or read gets its pair there. Left out, and listed in the table's
+comment: `TUIOS_AGENT` (a user's hint, read as `MTM_AGENT` first), the e2e/test/legacy
+switches, `TUIOS_HANDOFF_FALLBACK` (a marker between two daemon images),
+`TUIOS_SOUND_PATH` (the Windows sound player's own script), and the tuios
+binary's own variables. `TUIOS_INTEGRATION_ID` / `_VERSION` / `TUIOS_SKILL_SUM`
+are text markers inside installed files, not variables. The daemon reads a pane process's variables through
 `hostnames.Lookup` (host name first, then upstream: `procinfo.EnvironVar`,
 `checkSocketEnv`), `herdrplugin.cleanEnv` and `guestenv` also strip the host's
 names, so pane identification, hook origin and nested attach work either way.

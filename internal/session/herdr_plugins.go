@@ -13,6 +13,7 @@ import (
 
 	"ofam.dev/mtmd/internal/config"
 	"ofam.dev/mtmd/internal/herdrplugin"
+	"ofam.dev/mtmd/internal/hostnames"
 )
 
 // herdr's plugin.* socket methods and popup.close, answered by the plugin
@@ -680,7 +681,7 @@ func (d *Daemon) herdrPluginPaneOpen(cs *connState, params json.RawMessage) (any
 		if k == "" || strings.ContainsAny(k, "=\x00") || strings.ContainsRune(in.Env[k], 0) {
 			return nil, herdrErr("invalid_params", "env keys must be non-empty and hold no = or NUL")
 		}
-		if !slices.Contains(pluginPaneProtected, k) {
+		if !slices.Contains(pluginPaneProtected, hostnames.UpstreamOf(k)) {
 			env = append(env, k+"="+in.Env[k])
 		}
 	}
@@ -689,7 +690,7 @@ func (d *Daemon) herdrPluginPaneOpen(cs *connState, params json.RawMessage) (any
 	// the plugin's. It gets no plugin token: a tuios in it that talks to
 	// another daemon would present a token that daemon cannot prove.
 	for _, kv := range d.plugins.baseEnv(e.Plugin, dirs) {
-		if k, _, _ := strings.Cut(kv, "="); k != "TUIOS_PLUGIN_ID" && k != "TUIOS_PLUGIN_TOKEN" {
+		if k, _, _ := strings.Cut(kv, "="); hostnames.UpstreamOf(k) != "TUIOS_PLUGIN_ID" && hostnames.UpstreamOf(k) != "TUIOS_PLUGIN_TOKEN" {
 			env = append(env, kv)
 		}
 	}

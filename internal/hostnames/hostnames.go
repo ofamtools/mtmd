@@ -66,6 +66,87 @@ var Upstream = Names{
 	ConfigApp:    "tuios",
 }
 
+// MTMEnv is the complete table of variable pairs for a host that uses the
+// MTM_ prefix: every TUIOS_ variable the daemon sets for a child (a pane, a
+// hook command, a plugin process) or reads from a process's environment or
+// its own. A host passes it, or its own copy, as Names.Env (with
+// DropUpstream) and no TUIOS_ variable reaches a child. Adding a variable the
+// daemon starts to set or read means adding its pair here (a test lists the
+// daemon's names against this table).
+//
+// Left out on purpose: TUIOS_AGENT (a hint a user's wrapper sets; read as
+// MTM_AGENT first, see integration.AgentHintEnvs), TUIOS_E2E* and
+// TUIOS_TEST_* (test switches), TUIOS_*_LEGACY, TUIOS_DEBUG_INTERNAL,
+// TUIOS_PTY_LOG, TUIOS_LOAD1, TUIOS_VIEW_ONLY, TUIOS_HANDOFF_FALLBACK (a
+// marker between two daemon images, never a pane), TUIOS_SOUND_PATH (the
+// Windows sound player's own script), the tuios binary's TUIOS_CELL_SIZE,
+// TUIOS_KITTY_*, TUIOS_SIXEL_GRAPHICS and TUIOS_HOST_RECONNECT_BUDGET,
+// TUIOS_NO_DAEMON* and
+// TUIOS_WEB_PASSWORD (read by the tuios binary, not the library), and the
+// TUIOS_INTEGRATION_ID/_VERSION/SKILL_SUM markers, which are text inside
+// installed files and not variables.
+var MTMEnv = []EnvName{
+	// The pane's identity: set in every pane, hook command and plugin process.
+	{Name: "MTM_ENV", Upstream: "TUIOS_ENV"},
+	{Name: "MTM_SESSION", Upstream: "TUIOS_SESSION"},
+	{Name: "MTM_SESSION_ID", Upstream: "TUIOS_SESSION_ID"},
+	{Name: "MTM_PANE_ID", Upstream: "TUIOS_PANE_ID"},
+	{Name: "MTM_WINDOW_ID", Upstream: "TUIOS_WINDOW_ID"},
+	{Name: "MTM_WINDOW_NAME", Upstream: "TUIOS_WINDOW_NAME"},
+	{Name: "MTM_SOCKET", Upstream: "TUIOS_SOCKET"},
+	{Name: "MTM_SERVER", Upstream: "TUIOS_SERVER"},
+	// Set in a pane, beyond the identity.
+	{Name: "MTM_HOST", Upstream: "TUIOS_HOST"},
+	{Name: "MTM_PANE_TOKEN", Upstream: "TUIOS_PANE_TOKEN"},
+	{Name: "MTM_PANE_GRANTS", Upstream: "TUIOS_PANE_GRANTS"},
+	{Name: "MTM_PANE_TTY", Upstream: "TUIOS_PANE_TTY"},
+	{Name: "MTM_PANE_HOSTED", Upstream: "TUIOS_PANE_HOSTED"},
+	{Name: "MTM_SESSION_REMOTE", Upstream: "TUIOS_SESSION_REMOTE"},
+	{Name: "MTM_RESTORED", Upstream: "TUIOS_RESTORED"},
+	{Name: "MTM_KITTY_ANIMATION", Upstream: "TUIOS_KITTY_ANIMATION"},
+	// Set in a plugin process.
+	{Name: "MTM_PLUGIN_ID", Upstream: "TUIOS_PLUGIN_ID"},
+	{Name: "MTM_PLUGIN_TOKEN", Upstream: "TUIOS_PLUGIN_TOKEN"},
+	// Set in a hook command.
+	{Name: "MTM_EVENT", Upstream: "TUIOS_EVENT"},
+	{Name: "MTM_WORKSPACE", Upstream: "TUIOS_WORKSPACE"},
+	{Name: "MTM_PREV_WORKSPACE", Upstream: "TUIOS_PREV_WORKSPACE"},
+	{Name: "MTM_LAYOUT", Upstream: "TUIOS_LAYOUT"},
+	{Name: "MTM_WIDTH", Upstream: "TUIOS_WIDTH"},
+	{Name: "MTM_HEIGHT", Upstream: "TUIOS_HEIGHT"},
+	{Name: "MTM_AGENT_STATE", Upstream: "TUIOS_AGENT_STATE"},
+	{Name: "MTM_AGENT_PREV_STATE", Upstream: "TUIOS_AGENT_PREV_STATE"},
+	{Name: "MTM_AGENT_HARNESS", Upstream: "TUIOS_AGENT_HARNESS"},
+	{Name: "MTM_AGENT_MESSAGE", Upstream: "TUIOS_AGENT_MESSAGE"},
+	{Name: "MTM_COMMAND", Upstream: "TUIOS_COMMAND"},
+	{Name: "MTM_EXIT_CODE", Upstream: "TUIOS_EXIT_CODE"},
+	{Name: "MTM_DURATION_MS", Upstream: "TUIOS_DURATION_MS"},
+	{Name: "MTM_THEME", Upstream: "TUIOS_THEME"},
+	{Name: "MTM_THEME_BG", Upstream: "TUIOS_THEME_BG"},
+	{Name: "MTM_THEME_LIGHT", Upstream: "TUIOS_THEME_LIGHT"},
+	{Name: "MTM_WORKTREE_PATH", Upstream: "TUIOS_WORKTREE_PATH"},
+	{Name: "MTM_WORKTREE_BRANCH", Upstream: "TUIOS_WORKTREE_BRANCH"},
+	{Name: "MTM_WORKTREE_REPO_ROOT", Upstream: "TUIOS_WORKTREE_REPO_ROOT"},
+	{Name: "MTM_WORKTREE_CREATED_BRANCH", Upstream: "TUIOS_WORKTREE_CREATED_BRANCH"},
+	{Name: "MTM_SETTLE_REASON", Upstream: "TUIOS_SETTLE_REASON"},
+	// Read by the daemon from its own environment (ApplyEnv makes the MTM_
+	// name win), and from a client's.
+	{Name: "MTM_ALLOW_NESTED", Upstream: "TUIOS_ALLOW_NESTED"},
+	{Name: "MTM_AGENT_AUTODETECT", Upstream: "TUIOS_AGENT_AUTODETECT"},
+	{Name: "MTM_AGENT_DETECT_SECONDS", Upstream: "TUIOS_AGENT_DETECT_SECONDS"},
+	{Name: "MTM_AGENT_BINARIES", Upstream: "TUIOS_AGENT_BINARIES"},
+	{Name: "MTM_AGENT_STALL_SECONDS", Upstream: "TUIOS_AGENT_STALL_SECONDS"},
+	{Name: "MTM_CLEANUP_SECONDS", Upstream: "TUIOS_CLEANUP_SECONDS"},
+	{Name: "MTM_TRANSFER_KEEP_SECONDS", Upstream: "TUIOS_TRANSFER_KEEP_SECONDS"},
+	{Name: "MTM_SUBAGENT_FADE_SECONDS", Upstream: "TUIOS_SUBAGENT_FADE_SECONDS"},
+	{Name: "MTM_PR_POLL_SECONDS", Upstream: "TUIOS_PR_POLL_SECONDS"},
+	{Name: "MTM_SSH", Upstream: "TUIOS_SSH"},
+	{Name: "MTM_WORKTREE_DIR", Upstream: "TUIOS_WORKTREE_DIR"},
+	{Name: "MTM_HARNESS_DIR", Upstream: "TUIOS_HARNESS_DIR"},
+	{Name: "MTM_LOG_LEVEL", Upstream: "TUIOS_LOG_LEVEL"},
+	{Name: "MTM_NO_SOUND", Upstream: "TUIOS_NO_SOUND"},
+}
+
 var current atomic.Pointer[Names]
 
 // Get is the table in force.
@@ -193,6 +274,16 @@ func Mirror(env []string) []string {
 		}
 	}
 	return out
+}
+
+// IsHost reports whether name is the host's name in a pair.
+func IsHost(name string) bool {
+	for _, e := range Get().Env {
+		if e.Name == name {
+			return true
+		}
+	}
+	return false
 }
 
 // HostName is the host's name paired with upstream, or "" when there is none.

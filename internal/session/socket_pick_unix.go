@@ -65,7 +65,7 @@ func pickLiveSocket(primary string) string {
 	// A pane exports the socket of the daemon that runs it. A command in a
 	// pane of the daemon in the other folder belongs to that daemon, even
 	// when the one in Dir runs too: its session, its hooks, its notify.
-	if env := os.Getenv(SocketEnv); env != "" && filepath.Clean(env) == filepath.Clean(other) {
+	if env := hostnames.Getenv(SocketEnv); env != "" && filepath.Clean(env) == filepath.Clean(other) {
 		if _, ok := liveOther.Load(other); ok || isDaemonRunningAt(other) {
 			liveOther.Store(other, true)
 			return other

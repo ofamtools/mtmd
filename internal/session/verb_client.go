@@ -6,10 +6,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"net"
-	"os"
 	"path/filepath"
 	"sync"
 	"time"
+
+	"ofam.dev/mtmd/internal/hostnames"
 )
 
 // VerbClient is a minimal client for the line-delimited JSON verb protocol. It
@@ -102,7 +103,7 @@ func DialVerbClientAt(socketPath, clientVersion string) (*VerbClient, error) {
 		return nil, err
 	}
 	c.daemon = hs
-	if err := c.presentPaneToken(peerPIDSupported, os.Getenv, socketPath); err != nil {
+	if err := c.presentPaneToken(peerPIDSupported, hostnames.Getenv, socketPath); err != nil {
 		_ = c.Close()
 		return nil, err
 	}

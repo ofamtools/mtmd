@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"ofam.dev/mtmd/internal/hostnames"
 	"ofam.dev/mtmd/internal/procinfo"
 )
 
@@ -117,7 +118,7 @@ func AsNestedAttach(err error) (*NestedAttachError, bool) {
 
 // NestedAllowedByEnv reports whether AllowNestedEnv asks to let a nested
 // attach through.
-func NestedAllowedByEnv() bool { return os.Getenv(AllowNestedEnv) == "1" }
+func NestedAllowedByEnv() bool { return hostnames.Getenv(AllowNestedEnv) == "1" }
 
 // CheckNestedAttach is the client's own check, run before it dials, so the
 // refusal comes before anything else is printed. It reads the pane's
@@ -125,9 +126,9 @@ func NestedAllowedByEnv() bool { return os.Getenv(AllowNestedEnv) == "1" }
 // would reach. The daemon repeats the check with the tests that still hold
 // when the environment was cleared.
 func CheckNestedAttach(target string) error {
-	inside := os.Getenv("TUIOS_SESSION")
-	sock := os.Getenv(SocketEnv)
-	paneTTY := os.Getenv(PaneTTYEnv)
+	inside := hostnames.Getenv("TUIOS_SESSION")
+	sock := hostnames.Getenv(SocketEnv)
+	paneTTY := hostnames.Getenv(PaneTTYEnv)
 	if inside == "" || sock == "" || paneTTY == "" {
 		return nil
 	}

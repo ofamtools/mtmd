@@ -8,6 +8,7 @@ import (
 	"strings"
 	"time"
 
+	"ofam.dev/mtmd/internal/hostnames"
 	"ofam.dev/mtmd/internal/lazyre"
 )
 
@@ -236,7 +237,7 @@ func callerEnv(cs *connState, env map[string]string) ([]string, string, *verbErr
 		switch {
 		case !envNameRE().MatchString(k):
 			return nil, "", invalidParam("env", "env: "+echoName(k)+" is not a variable name")
-		case strings.HasPrefix(k, "TUIOS_") || k == "TUIOS":
+		case strings.HasPrefix(k, "TUIOS_") || k == "TUIOS" || hostnames.IsHost(k):
 			return nil, "", invalidParam("env", "env: "+echoName(k)+" is set by tuios for every pane and cannot be passed")
 		case k == "TMUX" || k == "TMUX_PANE":
 			return nil, "", invalidParam("env", "env: "+k+" would make the agent believe it runs in tmux, and cannot be passed")
