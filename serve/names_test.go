@@ -4,10 +4,12 @@ import (
 	"net"
 	"os"
 	"path/filepath"
+	"slices"
 	"strings"
 	"testing"
 	"time"
 
+	"ofam.dev/mtmd/internal/hostnames"
 	"ofam.dev/mtmd/serve"
 )
 
@@ -138,5 +140,12 @@ func TestHostNamesMigratePathsCommand(t *testing.T) {
 	}
 	if _, err := os.Stat(filepath.Join(h.base, "state", "tuios-servers", h.server, "tuios", "keep.txt")); err != nil {
 		t.Fatalf("rollback did not restore the state: %v", err)
+	}
+}
+
+// serve.MTMEnv is the library's table, so a host keeps no copy of the pairs.
+func TestMTMEnvIsHostnamesTable(t *testing.T) {
+	if len(serve.MTMEnv) < 50 || !slices.Equal(serve.MTMEnv, hostnames.MTMEnv) {
+		t.Fatalf("serve.MTMEnv = %v", serve.MTMEnv)
 	}
 }

@@ -237,7 +237,8 @@ func Unsetenv(upstream string) error {
 
 // Mirror returns env with the host's names set from upstream's: every
 // assignment of a Name is dropped, and each Name is added with the value of
-// the last assignment of its Upstream. With DropUpstream the Upstream
+// the last assignment of its Upstream (or keeps the host's own when its
+// Upstream is absent, so mirroring twice changes nothing). With DropUpstream the Upstream
 // assignments are removed too. A nil env (inherit the parent's) is
 // returned as it is. With no pairs in the table env is returned unchanged.
 func Mirror(env []string) []string {
@@ -250,6 +251,7 @@ func Mirror(env []string) []string {
 		host[e.Name] = true
 	}
 	last := make(map[string]string, len(pairs))
+	hostVal := make(map[string]string, len(pairs))
 	upstream := make(map[string]bool, len(pairs))
 	for _, e := range pairs {
 		upstream[e.Upstream] = true
@@ -259,6 +261,7 @@ func Mirror(env []string) []string {
 	for _, kv := range env {
 		k, v, _ := strings.Cut(kv, "=")
 		if host[k] {
+			hostVal[k] = v
 			continue
 		}
 		if drop && upstream[k] {
@@ -270,6 +273,10 @@ func Mirror(env []string) []string {
 	}
 	for _, e := range pairs {
 		if v, ok := last[e.Upstream]; ok {
+			out = append(out, e.Name+"="+v)
+		} else if v, ok := hostVal[e.Name]; ok {
+			// Only the host's name is there (already mirrored with
+			// DropUpstream): it stays, so Mirror is idempotent.
 			out = append(out, e.Name+"="+v)
 		}
 	}

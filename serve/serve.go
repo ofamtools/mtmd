@@ -59,6 +59,10 @@ type Names = hostnames.Names
 // EnvName is one variable exported beside an upstream one.
 type EnvName = hostnames.EnvName
 
+// MTMEnv is the complete table of MTM_ variable pairs (hostnames.MTMEnv):
+// pass it as Names.Env, with DropUpstream, so a host keeps no copy of the pairs.
+var MTMEnv = hostnames.MTMEnv
+
 // UpstreamNames is tuios's own table.
 var UpstreamNames = hostnames.Upstream
 

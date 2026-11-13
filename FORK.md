@@ -157,7 +157,7 @@ is set, so upstream code reads the host's name first without a change.
 
 `Names.DropUpstream` (default false: both names, as before) removes the upstream
 name of every `Env` pair from those children, so a pane carries only `MTM_*`
-for the paired variables. `hostnames.MTMEnv` is the complete table for the
+for the paired variables. `hostnames.MTMEnv` (public as `serve.MTMEnv`) is the complete table for the
 `MTM_` prefix (every `TUIOS_` variable the daemon sets for a pane, hook command
 or plugin process, or reads from a process's or its own environment: the pane
 identity, token, grants, tty, host, restored marker, the hook context, the plugin

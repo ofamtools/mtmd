@@ -134,3 +134,19 @@ func TestMTMEnvShape(t *testing.T) {
 		t.Error("IsHost")
 	}
 }
+
+// Mirroring an already mirrored environment changes nothing, with or without
+// DropUpstream.
+func TestMirrorIdempotent(t *testing.T) {
+	for _, drop := range []bool{false, true} {
+		n := testNames
+		n.DropUpstream = drop
+		restore := Set(&n)
+		once := Mirror([]string{"A=1", "TUIOS_PANE_ID=p1", "TUIOS_SOCKET=/s"})
+		twice := Mirror(once)
+		restore()
+		if !slices.Equal(once, twice) {
+			t.Errorf("drop=%v: once %v, twice %v", drop, once, twice)
+		}
+	}
+}
