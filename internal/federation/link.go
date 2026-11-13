@@ -495,7 +495,7 @@ preamble:
 					// nothing. That is a state of the machine, not of the link,
 					// and it is reported as its own status so the listing says
 					// where the problem is.
-					l.set(StatusNoBinary, "The link cannot find tuios on the host.", trimDetail(tr.Diagnostic()))
+					l.set(StatusNoBinary, "The link cannot find "+remoteProgramsText()+" on the host.", trimDetail(tr.Diagnostic()))
 				case exited:
 					l.set(StatusUnreachable, "The host did not answer.", trimDetail(tr.Diagnostic()))
 				default:

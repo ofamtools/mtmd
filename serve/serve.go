@@ -24,6 +24,7 @@ import (
 
 	"golang.org/x/term"
 	"ofam.dev/mtmd/internal/config"
+	"ofam.dev/mtmd/internal/federation"
 	"ofam.dev/mtmd/internal/guestenv"
 	"ofam.dev/mtmd/internal/herdrplugin"
 	"ofam.dev/mtmd/internal/hooks"
@@ -51,7 +52,16 @@ type Options struct {
 	// folders (Migrate), and every pane gets the table's variables beside
 	// TUIOS_ ones.
 	Names *Names
+	// RemotePrograms are the programs a link looks for on another machine,
+	// in the order it tries them, when that host's row has no command. Nil
+	// is DefaultRemotePrograms. A host that has moved every machine to
+	// itself passes just its own name.
+	RemotePrograms []string
 }
+
+// DefaultRemotePrograms is the link's list when a host gives none: mtm,
+// then tuios.
+var DefaultRemotePrograms = federation.DefaultRemotePrograms
 
 // Names is the table of names a host gives the daemon; see Options.Names.
 type Names = hostnames.Names
@@ -70,7 +80,7 @@ var UpstreamNames = hostnames.Upstream
 const DefaultVersion = "v0.12.1-mtmd"
 
 const (
-	usage        = "usage: [--server NAME] daemon [--log-level L] [--no-restore] | daemon handoff-accepts | start-server | [--server NAME] migrate-paths [--dry-run] [--rollback] | agent-proto --protocol acp|codex [--harness H] [--cwd D] -- AGENT... | __plugin-reaper PROGRAM..."
+	usage        = "usage: [--server NAME] daemon [--log-level L] [--no-restore] | daemon handoff-accepts | start-server | [--server NAME] migrate-paths [--dry-run] [--rollback] | agent-proto --protocol acp|codex [--harness H] [--cwd D] -- AGENT... | [--server NAME] stdio-proxy [--as PEER] | __plugin-reaper PROGRAM..."
 	adoptFDFlag  = "adopt-fd"
 	startTimeout = 5 * time.Second
 )
@@ -89,6 +99,9 @@ func Main(args []string, opt Options) int {
 	}
 	vt.SetBuildVersion(version)
 	guestenv.SetBuildVersion(version)
+	if dropped := federation.SetRemotePrograms(opt.RemotePrograms); len(dropped) > 0 {
+		fmt.Fprintf(os.Stderr, "mtmd: remote programs %q are not plain file names and are left out.\n", dropped)
+	}
 
 	// The reaper does nothing else (internal/herdrplugin, reaper.go).
 	if len(args) > 0 && args[0] == herdrplugin.ReaperArg {
@@ -133,6 +146,8 @@ func Main(args []string, opt Options) int {
 		return r.migratePaths()
 	case "agent-proto":
 		return r.agentProto()
+	case "stdio-proxy":
+		return r.stdioProxy()
 	}
 	fmt.Fprintln(os.Stderr, usage)
 	return 2
@@ -152,6 +167,7 @@ type parsed struct {
 	protocol  string
 	harness   string
 	cwd       string
+	as        string   // stdio-proxy --as: the peer name this machine's link policy is resolved for
 	rest      []string // arguments after the verb that are not flags (agent argv, subcommand)
 }
 
@@ -193,6 +209,7 @@ func parse(args []string) (*parsed, error) {
 			{"--protocol", &p.protocol, nil},
 			{"--harness", &p.harness, nil},
 			{"--cwd", &p.cwd, nil},
+			{"--as", &p.as, nil},
 		} {
 			v, ok, err := value(&i, f.name)
 			if err != nil {

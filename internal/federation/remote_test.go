@@ -24,7 +24,7 @@ func TestProbeScriptIsOneSafeLine(t *testing.T) {
 				t.Errorf("ASSERTION: the probe script contains %q, which a remote login shell could read inside single quotes:\n%s", bad, script)
 			}
 		}
-		for _, c := range remoteBinaryCandidates {
+		for _, c := range remoteBinaryCandidates() {
 			if !strings.Contains(script, `"`+c+`"`) {
 				t.Errorf("ASSERTION: the probe script does not test %s", c)
 			}
@@ -137,6 +137,36 @@ func TestLinkPrefersTuiosOnThePath(t *testing.T) {
 	r := waitStatus(t, m, StatusUp)
 	if r.Command != onPath {
 		t.Fatalf("ASSERTION: the link runs %q, want the tuios on the PATH at %s ahead of the known paths", r.Command, onPath)
+	}
+}
+
+// TestLinkTriesRemoteProgramsInOrder pins RemotePrograms: a program early in
+// the list wins at a known path over a later one on the PATH, and the order is
+// the caller's to choose.
+func TestLinkTriesRemoteProgramsInOrder(t *testing.T) {
+	t.Cleanup(func() { SetRemotePrograms(nil) })
+	for _, tc := range []struct {
+		programs []string
+		want     string
+	}{
+		{nil, "mtm"}, // the default: mtm, then tuios
+		{[]string{"tuios", "mtm"}, "tuios"},
+	} {
+		SetRemotePrograms(tc.programs)
+		far := newFarMachine(t)
+		mtm := far.install(".local/bin/mtm")
+		tuios := far.install("onpath/tuios")
+		far.addToPath(filepath.Dir(tuios))
+		want := map[string]string{"mtm": mtm, "tuios": tuios}[tc.want]
+
+		m := managerFor(t, testOptions(SSHDialer(far.ssh)), Host{Name: "build", Addr: "someone@buildbox"})
+		if r := waitStatus(t, m, StatusUp); r.Command != want {
+			t.Errorf("ASSERTION: with RemotePrograms %q the link runs %q, want %s", tc.programs, r.Command, want)
+		}
+		m.Stop()
+	}
+	if got := SetRemotePrograms([]string{"ok", "bad name"}); len(got) != 1 || got[0] != "bad name" {
+		t.Errorf("ASSERTION: SetRemotePrograms dropped %q, want only the name with a space", got)
 	}
 }
 
@@ -368,7 +398,7 @@ func recordingDialer(inner Dialer) (Dialer, func() []string) {
 // them would have the probe find it, correctly.
 func skipIfTuiosIsInstalledSystemWide(t *testing.T) {
 	t.Helper()
-	for _, c := range remoteBinaryCandidates {
+	for _, c := range remoteBinaryCandidates() {
 		if strings.HasPrefix(c, "$") {
 			continue
 		}

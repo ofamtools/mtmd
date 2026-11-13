@@ -3133,7 +3133,7 @@ type VerbParamDoc = verbParam
 
 // VerbDocs returns every verb as list-verbs describes it, sorted by name. It
 // is read from the table the daemon dispatches from, so a program in this
-// binary that builds a schema from it (tuios mcp) describes the same verbs,
+// binary that builds a schema from it (mtm mcp serve) describes the same verbs,
 // with the same parameters, as the daemon of the same build serves.
 func VerbDocs() []VerbDoc {
 	names := knownVerbNames()

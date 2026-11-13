@@ -28,9 +28,11 @@ const DefaultConnectTimeout = 10 * time.Second
 // and the supervisor tears it down and redials.
 const DefaultCallTimeout = 8 * time.Second
 
-// DefaultRemoteCommand is the name the link looks for on the far side. What
-// it runs is the path it finds; see remote.go.
-const DefaultRemoteCommand = RemoteBinary
+// DefaultRemoteCommand is the first name the link looks for on the far side.
+// What it runs is the path it finds; see remote.go.
+func DefaultRemoteCommand() string {
+	return RemotePrograms()[0]
+}
 
 // Host is one configured peer.
 type Host struct {
@@ -40,7 +42,7 @@ type Host struct {
 	Addr string
 	// ConnectTimeout bounds one dial. Zero means DefaultConnectTimeout.
 	ConnectTimeout time.Duration
-	// Command is the remote tuios binary. Empty means the link finds one
+	// Command is the remote program (mtm or tuios). Empty means the link finds one
 	// itself: on the PATH, at the known install paths, or through the login
 	// shell (see remote.go). Set, it is run as written and nothing is looked
 	// for. It is the override for a machine where the search is wrong.
@@ -76,7 +78,7 @@ func (h Host) command() string {
 	if h.Command != "" {
 		return h.Command
 	}
-	return DefaultRemoteCommand
+	return DefaultRemoteCommand()
 }
 
 // hostNamePattern is what a host name may be. It is deliberately narrow: the

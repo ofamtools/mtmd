@@ -18,7 +18,7 @@ import (
 //
 // Every connection on the daemon socket used to be able to call every verb.
 // restrict-connection (conn_scope.go) lets a caller give authority up on its
-// own connection, which bounds tuios mcp but not a process that opens a
+// own connection, which bounds mtm mcp serve but not a process that opens a
 // connection of its own. Pane grants bound the pane: every JSON verb and
 // every binary message from a connection placed in a pane of this daemon is
 // checked against what that pane holds, before its handler runs.

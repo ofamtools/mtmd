@@ -2,77 +2,153 @@ package federation
 
 import (
 	"strings"
+	"sync"
+
+	"ofam.dev/mtmd/internal/lazyre"
 )
 
-// Finding tuios on the far side.
+// Finding the link's program on the far side.
+//
+// The far side of a link is a program that answers `stdio-proxy`: mtm, or
+// tuios on a host not yet moved to mtm. RemotePrograms names them, in the
+// order they are tried.
 //
 // ssh runs a command through a non-interactive shell, and that shell's PATH is
 // the system default: /usr/local/bin, /usr/bin and their friends. It is not the
 // PATH the person sees at their prompt, because the profile that adds
-// ~/.local/bin is only read by a login shell. The project's own install script
-// puts tuios in ~/.local/bin, so the default install location was one the
+// ~/.local/bin is only read by a login shell. The install scripts put the
+// program in ~/.local/bin, so the default install location was one the
 // default link could not find, and every such host needed --command to work.
 //
 // The link now finds the binary itself. The whole mechanism is one shell
 // script sent as the remote command, which tries three things in order and
 // then runs what it found with the arguments the link wanted to run:
 //
-//  1. Plain `tuios` on the PATH. Free, and right on most machines.
-//  2. A fixed list of places tuios is installed. Each is one stat, nothing is
+//  1. The program by name on the PATH. Free, and right on most machines.
+//  2. A fixed list of places it is installed. Each is one stat, nothing is
 //     searched, and the list is bounded so a person can read it when it fails.
-//  3. The person's login shell, asked what `tuios` means to it. This is the
+//     Steps 1 and 2 run for one program before the next is tried.
+//  3. The person's login shell, asked what each name means to it. This is the
 //     step that reads the profile. It is last because it is the expensive one:
 //     a profile can take seconds, can print, and differs between shells. The
 //     fixed list resolves every install the project knows about without paying
-//     that, so the login shell only runs on a machine where tuios is somewhere
-//     unusual, which is exactly where its answer is worth the cost.
+//     that, so the login shell only runs on a machine where the program is
+//     somewhere unusual, which is exactly where its answer is worth the cost.
 //
 // The script prints which path it chose on a line ahead of the link preamble,
 // so the hub can report it and can run it directly on the next dial. A
 // configured command skips all of this: it is sent as written, exactly as it
 // always was.
 
-// RemoteBinary is the file name of the program the link runs on the far side.
-const RemoteBinary = "tuios"
+// DefaultRemotePrograms are the file names of the programs the link may run
+// on the far side, in the order it tries them: mtm first, then tuios for a
+// host that has not been moved to mtm yet. Each answers `stdio-proxy` the same
+// way. A host's configured command chooses the program itself and skips the
+// list.
+var DefaultRemotePrograms = []string{"mtm", "tuios"}
 
-// remoteBinaryCandidates are the fixed places the link looks, in order, after
-// the PATH. Every entry is a place one of the project's own installers puts
-// the binary, or one the updater already recognises as an install origin (see
-// internal/release's provenance.go). Nothing here is a search: each is one
-// executable-bit test. $HOME and $USER are expanded by the remote shell.
-var remoteBinaryCandidates = []string{
-	// scripts/install.sh's default prefix, and the curl installer's second
-	// choice. The one the report at the top of this file was about.
-	"$HOME/.local/bin/" + RemoteBinary,
-	// The curl installer's third choice, for a home with no ~/.local/bin.
-	"$HOME/bin/" + RemoteBinary,
-	// `go install` with the default GOPATH.
-	"$HOME/go/bin/" + RemoteBinary,
-	// The curl installer's first choice, and Homebrew's prefix on Intel macOS.
-	"/usr/local/bin/" + RemoteBinary,
-	// Homebrew on Apple silicon.
-	"/opt/homebrew/bin/" + RemoteBinary,
-	// Homebrew on Linux.
-	"/home/linuxbrew/.linuxbrew/bin/" + RemoteBinary,
-	// A per-user Nix profile.
-	"$HOME/.nix-profile/bin/" + RemoteBinary,
-	// home-manager on NixOS.
-	"/etc/profiles/per-user/$USER/bin/" + RemoteBinary,
-	// The default profile of a multi-user Nix install.
-	"/nix/var/nix/profiles/default/bin/" + RemoteBinary,
-	// The NixOS system profile.
-	"/run/current-system/sw/bin/" + RemoteBinary,
-	// A distribution package, such as the AUR build.
-	"/usr/bin/" + RemoteBinary,
+// remotePrograms is the list the probe uses; see SetRemotePrograms.
+var (
+	remoteProgramsMu sync.RWMutex
+	remotePrograms   = DefaultRemotePrograms
+)
+
+// SetRemotePrograms sets the programs the link looks for on the far side, in
+// order. Nil or empty restores DefaultRemotePrograms. A name that is not a
+// plain file name (letters, digits, dot, dash, underscore) is left out, since
+// it is spelled into the probe script, and returned so the caller can say so.
+// A host calls it once, before the daemon starts (serve.Options.RemotePrograms).
+func SetRemotePrograms(names []string) (dropped []string) {
+	var keep []string
+	for _, n := range names {
+		if remoteProgramPattern().MatchString(n) {
+			keep = append(keep, n)
+		} else {
+			dropped = append(dropped, n)
+		}
+	}
+	if len(keep) == 0 {
+		keep = DefaultRemotePrograms
+	}
+	remoteProgramsMu.Lock()
+	remotePrograms = keep
+	remoteProgramsMu.Unlock()
+	return dropped
 }
 
-// RemoteBinaryCandidates lists the fixed places the link looks for tuios, in
-// order, spelled the way a person reads them. It is what a failed test prints
-// so the person can see at once that their install is somewhere unusual.
+// RemotePrograms is the list the probe uses, in order.
+func RemotePrograms() []string {
+	remoteProgramsMu.RLock()
+	defer remoteProgramsMu.RUnlock()
+	return append([]string(nil), remotePrograms...)
+}
+
+// remoteProgramPattern is what a program name may be.
+var remoteProgramPattern = lazyre.New(`^[A-Za-z0-9._-]+$`)
+
+// remoteProgramsText names the programs for a person: "mtm or tuios".
+func remoteProgramsText() string {
+	return strings.Join(RemotePrograms(), " or ")
+}
+
+// remoteBinaryDirs are the fixed places the link looks, in order, after the
+// PATH. Every entry is a place one of the project's own installers puts the
+// binary, or one the updater already recognises as an install origin (see
+// internal/release's provenance.go). Nothing here is a search: each is one
+// executable-bit test. $HOME and $USER are expanded by the remote shell.
+var remoteBinaryDirs = []string{
+	// scripts/install.sh's default prefix, and the curl installer's second
+	// choice. The one the report at the top of this file was about.
+	"$HOME/.local/bin/",
+	// The curl installer's third choice, for a home with no ~/.local/bin.
+	"$HOME/bin/",
+	// `go install` with the default GOPATH.
+	"$HOME/go/bin/",
+	// The curl installer's first choice, and Homebrew's prefix on Intel macOS.
+	"/usr/local/bin/",
+	// Homebrew on Apple silicon.
+	"/opt/homebrew/bin/",
+	// Homebrew on Linux.
+	"/home/linuxbrew/.linuxbrew/bin/",
+	// A per-user Nix profile.
+	"$HOME/.nix-profile/bin/",
+	// home-manager on NixOS.
+	"/etc/profiles/per-user/$USER/bin/",
+	// The default profile of a multi-user Nix install.
+	"/nix/var/nix/profiles/default/bin/",
+	// The NixOS system profile.
+	"/run/current-system/sw/bin/",
+	// A distribution package, such as the AUR build.
+	"/usr/bin/",
+}
+
+// programCandidates are the fixed paths for one program, in order.
+func programCandidates(program string) []string {
+	out := make([]string, 0, len(remoteBinaryDirs))
+	for _, d := range remoteBinaryDirs {
+		out = append(out, d+program)
+	}
+	return out
+}
+
+// remoteBinaryCandidates are the fixed paths for every program, program by
+// program in RemotePrograms order.
+func remoteBinaryCandidates() []string {
+	var out []string
+	for _, p := range RemotePrograms() {
+		out = append(out, programCandidates(p)...)
+	}
+	return out
+}
+
+// RemoteBinaryCandidates lists the fixed places the link looks, in order,
+// spelled the way a person reads them. It is what a failed test prints so the
+// person can see at once that their install is somewhere unusual.
 func RemoteBinaryCandidates() []string {
-	out := make([]string, 0, len(remoteBinaryCandidates))
-	for _, c := range remoteBinaryCandidates {
-		out = append(out, strings.Replace(c, "$HOME/", "~/", 1))
+	c := remoteBinaryCandidates()
+	out := make([]string, 0, len(c))
+	for _, p := range c {
+		out = append(out, strings.Replace(p, "$HOME/", "~/", 1))
 	}
 	return out
 }
@@ -88,7 +164,7 @@ const linkNoCommand = "TUIOS-LINK-NO-COMMAND"
 // machine, so it gets a ceiling like everything else that crosses.
 const linkCommandLimit = 512
 
-// remoteProbeScript is the sh script that finds tuios and runs it with the
+// remoteProbeScript is the sh script that finds the program and runs it with the
 // script's own positional arguments. announce is whether it prints the chosen
 // path ahead of the program's output: the link wants that line, an interactive
 // open does not.
@@ -118,13 +194,13 @@ func remoteProbeScript(announce bool) string {
 		write(`echo "` + linkNoCommand + `"`)
 	} else {
 		write(`if [ -n "$p" ]; then exec "$p" "$@"; fi`)
-		write(`echo "` + RemoteBinary + ` was not found on this host" >&2`)
+		write(`echo "` + remoteProgramsText() + ` was not found on this host" >&2`)
 	}
 	write(`exit 127`)
 	return b.String()
 }
 
-// FindBinaryScript is the part of the link's probe that finds tuios: sh
+// FindBinaryScript is the part of the link's probe that finds the program: sh
 // statements, joined by "; ", that leave the path in $p, or $p empty when
 // nothing was found. It obeys the same quoting rules as the probe, so a caller
 // can put it inside single quotes for any login shell. tuios hosts sync uses
@@ -133,37 +209,42 @@ func FindBinaryScript() string {
 	return strings.Join(findBinaryStatements(), "; ")
 }
 
-// findBinaryStatements are the three lookups, in order.
+// findBinaryStatements are the three lookups. Steps 1 and 2 are cheap and
+// are taken program by program, so a program early in RemotePrograms wins at
+// any cheap place over a later one on the PATH. Step 3 runs once, asking the
+// login shell for every program in order.
 func findBinaryStatements() []string {
 	var out []string
 	write := func(s string) { out = append(out, s) }
+	programs := RemotePrograms()
 
-	// 1. The PATH. The result is trusted only when it is an executable
-	// absolute path: `command -v` can also name a function or an alias.
-	write(`p=$(command -v ` + RemoteBinary + ` 2>/dev/null)`)
-	write(`case $p in /*) [ -x "$p" ] || p=;; *) p=;; esac`)
-
-	// 2. The fixed list.
-	var quoted []string
-	for _, c := range remoteBinaryCandidates {
-		quoted = append(quoted, `"`+c+`"`)
+	// first keeps the first executable absolute path of what it reads, so a
+	// greeting ahead of the answer is skipped, and `command -v` naming a
+	// function or an alias is not taken.
+	write(`first() { while IFS= read -r l; do case $l in /*) if [ -x "$l" ]; then printf "%s" "$l"; return; fi;; esac; done; }`)
+	write(`p=`)
+	for _, prog := range programs {
+		// 1. The PATH.
+		write(`if [ -z "$p" ]; then p=$(command -v ` + prog + ` 2>/dev/null | first); fi`)
+		// 2. The fixed list.
+		var quoted []string
+		for _, c := range programCandidates(prog) {
+			quoted = append(quoted, `"`+c+`"`)
+		}
+		write(`if [ -z "$p" ]; then for c in ` + strings.Join(quoted, " ") +
+			`; do if [ -x "$c" ]; then p=$c; break; fi; done; fi`)
 	}
-	write(`if [ -z "$p" ]; then for c in ` + strings.Join(quoted, " ") +
-		`; do if [ -x "$c" ]; then p=$c; break; fi; done; fi`)
 
 	// 3. The login shell, then plain sh as a login shell for a login shell
-	// that is not POSIX. first keeps the first executable absolute path of
-	// whatever the profile printed, so a greeting ahead of the answer is
-	// skipped. stdin is /dev/null so a profile that reads cannot eat the
-	// link's bytes.
-	write(`first() { while IFS= read -r l; do case $l in /*) if [ -x "$l" ]; then printf "%s" "$l"; return; fi;; esac; done; }`)
-	write(`if [ -z "$p" ]; then for s in "$SHELL" sh; do p=$("$s" -l -c "command -v ` + RemoteBinary +
-		`" </dev/null 2>/dev/null | first); if [ -n "$p" ]; then break; fi; done; fi`)
+	// that is not POSIX. stdin is /dev/null so a profile that reads cannot
+	// eat the link's bytes. One shell per program in order, each only while
+	// nothing was found.
+	write(`for n in ` + strings.Join(programs, " ") + `; do if [ -z "$p" ]; then for s in "$SHELL" sh; do p=$("$s" -l -c "command -v $n" </dev/null 2>/dev/null | first); if [ -n "$p" ]; then break; fi; done; fi; done`)
 	return out
 }
 
-// remoteCommand is the command string ssh runs on the far side to start tuios
-// with args. args must already be safe for the remote shell.
+// remoteCommand is the command string ssh runs on the far side to start the
+// link's program with args. args must already be safe for the remote shell.
 //
 // A configured command is sent as written, unquoted, so a "~/.local/bin/tuios"
 // is expanded by the remote shell. Without one, the probe script runs as
