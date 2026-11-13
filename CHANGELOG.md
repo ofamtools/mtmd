@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v0.4.2 (2026-11-13)
 
 - Added: `Names.DropUpstream` (`serve.Options.Names`), default false. When true, panes, hook commands and plugin processes carry only the host's names (`MTM_*`) for the paired variables, not the `TUIOS_*` ones. The daemon reads a pane process's variables host name first, then upstream, so nothing it depends on changes.
 
