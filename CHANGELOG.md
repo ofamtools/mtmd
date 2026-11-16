@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v0.6.0
 
 - Changed: a verb's `session` parameter takes a session id as well as a name (`Manager.ResolveSession`: live name, then id, then old-name alias). `followRenamedSession` rewrites an id to the current name before the handlers run, per-verb table `renameNotFollowed` says which spellings (old name, id) a verb leaves as sent: `kill-session` follows an id but not an old name, `new-session` follows neither.
 
