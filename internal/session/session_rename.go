@@ -83,7 +83,7 @@ var renameNotFollowed = map[string]bool{
 }
 
 // followRenamedSession rewrites a session param that names a session by a
-// name it was renamed from to the name it has now. It runs before the pane
+// name it was renamed from, or by its id, to the name it has now. It runs before the pane
 // grants and the connection scope, so a pane started before the rename, whose
 // TUIOS_SESSION still holds the old name, is held to its own session as it
 // was before, and every handler sees the current name.
@@ -103,8 +103,8 @@ func (d *Daemon) followRenamedSession(verb string, params json.RawMessage) json.
 	if err := json.Unmarshal(raw, &name); err != nil || name == "" {
 		return params
 	}
-	sess, renamed := d.manager.ResolveSession(name)
-	if !renamed || sess == nil {
+	sess, _ := d.manager.ResolveSession(name)
+	if sess == nil || sess.Name() == name {
 		return params
 	}
 	m["session"], _ = json.Marshal(sess.Name())

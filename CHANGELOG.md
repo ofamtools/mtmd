@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Changed: a verb's `session` parameter takes a session id as well as a name (`Manager.ResolveSession`: live name, then id, then old-name alias). `followRenamedSession` rewrites an id to the current name before the handlers run.
+
 ## v0.5.0
 
 - Added: `stdio-proxy [--as PEER]` in the `serve` facade, the far side of a link (copied from upstream's `tuios stdio-proxy`): it connects the link framing on stdin and stdout to this machine's daemon, refuses a terminal, and starts no daemon. A host routes it as its own word (mtm: `mtm stdio-proxy`).

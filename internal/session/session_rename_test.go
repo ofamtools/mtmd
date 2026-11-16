@@ -106,6 +106,26 @@ func TestRenamedNameYieldsToANewSession(t *testing.T) {
 	}
 }
 
+// TestResolveSessionByID: an id addresses its session, after a name and before
+// an old-name alias, and renamed stays false for it.
+func TestResolveSessionByID(t *testing.T) {
+	d, _ := startTestDaemon(t)
+	sess := makeSessionWithWindow(t, d, "test")
+	id := sess.ID
+	if got, renamed := d.manager.ResolveSession(id); got != sess || renamed {
+		t.Fatalf("id resolved to %v (renamed=%v), want the session, renamed=false", got, renamed)
+	}
+	if _, err := d.manager.RenameSession("test", "work"); err != nil {
+		t.Fatal(err)
+	}
+	if got, renamed := d.manager.ResolveSession(id); got != sess || renamed {
+		t.Errorf("id after a rename resolved to %v (renamed=%v)", got, renamed)
+	}
+	if got, _ := d.manager.ResolveSession("nope"); got != nil {
+		t.Errorf("unknown name resolved to %v", got)
+	}
+}
+
 // TestClientPushKeepsTheDaemonsName: a client that built its push before the
 // rename still carries the old name, and taking it would undo the rename.
 func TestClientPushKeepsTheDaemonsName(t *testing.T) {

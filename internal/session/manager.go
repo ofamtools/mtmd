@@ -397,14 +397,18 @@ func (m *Manager) GetSessionByID(id string) *Session {
 	return m.byID[id]
 }
 
-// ResolveSession returns the session a name addresses: the live session of
-// that name, or else the session renamed away from it. renamed is true only
-// in the second case, so a caller that must not follow a rename, such as an
-// attach by name, can tell the two apart.
+// ResolveSession returns the session a name or an id addresses: the live
+// session of that name, else the session with that id, else the session
+// renamed away from the name. renamed is true only in the last case, so a
+// caller that must not follow a rename, such as an attach by name, can tell it
+// apart from the others.
 func (m *Manager) ResolveSession(name string) (sess *Session, renamed bool) {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
 	if s := m.sessions[name]; s != nil {
+		return s, false
+	}
+	if s := m.byID[name]; s != nil {
 		return s, false
 	}
 	if id, ok := m.aliases[name]; ok {
