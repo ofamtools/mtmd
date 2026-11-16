@@ -73,22 +73,28 @@ func (d *Daemon) verbRenameSession(cs *connState, params json.RawMessage) (any, 
 	return map[string]any{"type": "session_renamed", "session": name, "old_name": old}, nil
 }
 
-// renameNotFollowed are the verbs whose session param is not rewritten from
-// an old name to the current one. new-session makes a session of the name it
-// is given, and kill-session must never destroy a session the caller named by
-// a name it no longer has: it is refused with the new name instead.
-var renameNotFollowed = map[string]bool{
-	"new-session":  true,
-	"kill-session": true,
+// renameSkip says which spellings of a session a verb's session param does
+// not follow to the current name: an old name (Alias), a session id (ID).
+type renameSkip struct{ Alias, ID bool }
+
+// renameNotFollowed are the verbs that leave some spellings of the session
+// param as sent. new-session makes a session of the name it is given, so it
+// follows neither. kill-session must never destroy a session the caller named
+// by a name it no longer has, so an old name is refused with the new name
+// instead; an id cannot be stale, so it is followed.
+var renameNotFollowed = map[string]renameSkip{
+	"new-session":  {Alias: true, ID: true},
+	"kill-session": {Alias: true},
 }
 
 // followRenamedSession rewrites a session param that names a session by a
-// name it was renamed from, or by its id, to the name it has now. It runs before the pane
-// grants and the connection scope, so a pane started before the rename, whose
-// TUIOS_SESSION still holds the old name, is held to its own session as it
-// was before, and every handler sees the current name.
+// name it was renamed from, or by its id, to the name it has now, unless the
+// verb's row in renameNotFollowed excludes that spelling. It runs before the
+// pane grants and the connection scope, so a pane started before the rename,
+// whose TUIOS_SESSION still holds the old name, is held to its own session as
+// it was before, and every handler sees the current name.
 func (d *Daemon) followRenamedSession(verb string, params json.RawMessage) json.RawMessage {
-	if renameNotFollowed[verb] || len(params) == 0 {
+	if len(params) == 0 {
 		return params
 	}
 	var m map[string]json.RawMessage
@@ -105,6 +111,10 @@ func (d *Daemon) followRenamedSession(verb string, params json.RawMessage) json.
 	}
 	sess, _ := d.manager.ResolveSession(name)
 	if sess == nil || sess.Name() == name {
+		return params
+	}
+	skip := renameNotFollowed[verb]
+	if (sess.ID == name && skip.ID) || (sess.ID != name && skip.Alias) {
 		return params
 	}
 	m["session"], _ = json.Marshal(sess.Name())
@@ -131,10 +141,10 @@ func (d *Daemon) followRenamedSession(verb string, params json.RawMessage) json.
 //
 // A live session name is never rewritten here, so an explicitly named session
 // is checked as sent. A placement read from the caller's environment does not
-// count, since a process can set that itself. The verbs in renameNotFollowed
-// are left as sent, as followRenamedSession leaves them.
+// count, since a process can set that itself. The verbs listed in
+// renameNotFollowed are left as sent, whatever their row excludes.
 func (d *Daemon) followOwnPane(cs *connState, verb string, params json.RawMessage) json.RawMessage {
-	if renameNotFollowed[verb] || cs == nil || cs.viaLink || cs.paneOnly || len(params) == 0 {
+	if _, listed := renameNotFollowed[verb]; listed || cs == nil || cs.viaLink || cs.paneOnly || len(params) == 0 {
 		return params
 	}
 	var named struct {

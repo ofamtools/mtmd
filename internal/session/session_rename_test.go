@@ -305,6 +305,18 @@ func TestKillByOldNameNamesTheNewOne(t *testing.T) {
 	}
 }
 
+// TestKillByIDKillsThatSession: an id cannot be stale, so kill-session follows
+// it, while the old name is still refused (TestKillByOldNameNamesTheNewOne).
+func TestKillByIDKillsThatSession(t *testing.T) {
+	d, sp := startTestDaemon(t)
+	sess := makeSessionWithWindow(t, d, "test")
+	c := dialVerb(t, sp)
+	res := result(t, c.call(t, `{"id":1,"verb":"kill-session","params":{"session":"`+sess.ID+`"}}`))
+	if res == nil || d.manager.GetSession("test") != nil {
+		t.Errorf("kill-session by id left the session alive: %v", res)
+	}
+}
+
 // TestRenameRefusesASavedSessionsName: a saved session that is not running
 // owns its state file, and a rename to its name would overwrite it.
 func TestRenameRefusesASavedSessionsName(t *testing.T) {
