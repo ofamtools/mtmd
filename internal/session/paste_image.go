@@ -511,10 +511,10 @@ func (d *Daemon) verbPasteImage(cs *connState, params json.RawMessage) (any, *ve
 	if verr != nil {
 		return nil, verr
 	}
-	if p.HumanNonce == "" || !d.verifyHumanNonce(p.HumanNonce, sess.ID, cs) {
+	if !d.personAttach("paste-image", p.HumanNonce, sess.ID, cs) {
 		return nil, hintedVerbError(ErrVerbNotHuman, "paste-image is the person's act, and human_nonce does not belong to a client attached to this session right now", &VerbHint{
 			Param:  "human_nonce",
-			Detail: "Nothing was written. Only the person's attached client pastes an image, and a process inside a pane cannot.",
+			Detail: "Nothing was written. Only the person's attached client pastes an image. A process inside a pane can when [agents.permissions] person_verbs names paste-image.",
 		})
 	}
 	data, verr := decodePasteContent("paste-image", p.Content)

@@ -2,6 +2,7 @@ package session
 
 import (
 	"encoding/json"
+	"slices"
 	"strconv"
 	"strings"
 
@@ -14,7 +15,8 @@ import (
 // rather than a session. See verbSetOption.
 const optionDaemonLogLevel = "daemon.log_level"
 
-// optionAgentsEnabled is the agent switch, which only the person may set.
+// optionAgentsEnabled is the agent switch. Whether a pane may set it is
+// [agents.permissions] person_verbs ("set-option agents.enabled").
 const optionAgentsEnabled = "agents.enabled"
 
 // This file makes the configuration surface reachable and, more to the point,
@@ -197,14 +199,13 @@ func (d *Daemon) verbSetOption(cs *connState, params json.RawMessage) (any, *ver
 			Detail:    "call list-options for each path with its type, default and accepted values.",
 		})
 	}
-	// The agent switch is the person's. A pane that turned it off would
-	// hide its own state and the Inbox from them, and one that turned it on
-	// would undo their choice, so a pane may not set it. The settings page
-	// and the file are where the person sets it.
-	if path == optionAgentsEnabled && d.paneAuthority(cs) != nil {
-		return nil, hintedVerbError(ErrVerbForbidden, "only the person can change agents.enabled. A process in a pane cannot", &VerbHint{
+	// An option whose set is one of the person's acts (config.PersonVerbTable
+	// names it "set-option PATH", as it does agents.enabled) is refused to a
+	// pane unless [agents.permissions] person_verbs names it.
+	if act := "set-option " + path; slices.Contains(config.PersonVerbNames(), act) && d.paneAuthority(cs) != nil && !d.panePersonVerb(act, cs) {
+		return nil, hintedVerbError(ErrVerbForbidden, "only the person can change "+path+". A process in a pane cannot", &VerbHint{
 			Param:  "key",
-			Detail: "Nothing was changed. The person sets it on the settings page or in config.toml.",
+			Detail: "Nothing was changed. The person sets it on the settings page or in config.toml, or lets panes do it by adding \"" + act + "\" to [agents.permissions] person_verbs.",
 		})
 	}
 

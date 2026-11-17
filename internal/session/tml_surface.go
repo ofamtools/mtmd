@@ -702,7 +702,7 @@ func (d *Daemon) verbTMLInput(cs *connState, params json.RawMessage) (any, *verb
 	if s == nil {
 		return nil, noSurface(p.Surface)
 	}
-	if _, ok := d.humanNonceFor(p.HumanNonce, sessionID, cs); !ok {
+	if _, ok := d.personFor("tml-input", p.HumanNonce, sessionID, cs); !ok {
 		return nil, hintedVerbError(ErrVerbNotHuman, "tml-input acts as the person, so it needs the attach nonce of a client", &VerbHint{
 			Param:  "human_nonce",
 			Detail: "A program changes a surface with tml-patch and closes it with tml-close.",
@@ -1358,7 +1358,7 @@ func (d *Daemon) verbTMLPlace(cs *connState, params json.RawMessage) (any, *verb
 	d.tml.mu.Lock()
 	sessionID, windowID := s.sessionID, s.windowID
 	d.tml.mu.Unlock()
-	if _, ok := d.humanNonceFor(p.HumanNonce, sessionID, cs); !ok {
+	if _, ok := d.personFor("tml-place", p.HumanNonce, sessionID, cs); !ok {
 		return nil, hintedVerbError(ErrVerbNotHuman, "tml-place acts as the person, so it needs the attach nonce of a client", &VerbHint{
 			Param:  "human_nonce",
 			Detail: "The person moves a surface between a popup and a pane. A program chooses the place once, with tml-open.",

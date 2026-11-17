@@ -546,14 +546,14 @@ func (d *Daemon) verbAnswerAsk(cs *connState, params json.RawMessage) (any, *ver
 	if p.Answer == "" {
 		return nil, invalidParam("answer", "answer is required: one of the question's options")
 	}
-	if !d.humanNonceHeld(p.HumanNonce, cs) {
+	if !d.personHeld("answer-ask", p.HumanNonce, cs) {
 		return nil, hintedVerbError(ErrVerbNotHuman, "answer-ask is for the person at an attached client", &VerbHint{
 			Param:  "human_nonce",
-			Detail: "Nothing was answered. Only a client attached right now can answer a question, by passing the nonce its attach reply carried. An agent never can.",
+			Detail: "Nothing was answered. Only a client attached right now can answer a question, by passing the nonce its attach reply carried. A process inside a pane can when [agents.permissions] person_verbs names answer-ask.",
 		})
 	}
 	askSession, _ := d.attention.askSession(p.RequestID)
-	by, ok := d.humanNonceFor(p.HumanNonce, d.sessionIDOf(askSession), cs)
+	by, ok := d.personFor("answer-ask", p.HumanNonce, d.sessionIDOf(askSession), cs)
 	if !ok {
 		return nil, nonceScopeError("answer-ask")
 	}

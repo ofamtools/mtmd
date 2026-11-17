@@ -83,6 +83,9 @@ type PermissionsConfig struct {
 	// grants of its own. Nil is DefaultStrictGrants; an empty list is no
 	// grants at all. Names outside PaneGrantNames are dropped.
 	Grants []string `toml:"grants,omitempty"`
+	// PersonVerbs names the person's acts a process in a pane may do. Nil
+	// is DefaultPanePersonVerbs; an empty list is none. See person_verbs.go.
+	PersonVerbs []string `toml:"person_verbs,omitempty"`
 }
 
 // ResolvedPermissions is the table as the daemon uses it.

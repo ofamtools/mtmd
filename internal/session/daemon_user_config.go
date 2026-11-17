@@ -94,6 +94,7 @@ func DaemonConfigFromUser(uc *config.UserConfig) *DaemonConfig {
 	// The daemon checks every call from a pane, so it is the side that has
 	// to know what a pane given no grants of its own may do.
 	cfg.Permissions = PanePermissionsFromConfig(uc.Agents.Permissions)
+	cfg.PersonVerbs = uc.Agents.Permissions.ResolvedPersonVerbs()
 	// The daemon computes the activity recap, so it reads what a test run
 	// looks like.
 	cfg.RecapTestPatterns = uc.Agents.Recap.Resolved().TestPatterns

@@ -33,7 +33,7 @@ func (d *Daemon) verbAttachPresence(cs *connState, params json.RawMessage) (any,
 	if cs == nil {
 		return nil, newVerbError(ErrVerbForbidden, "attach-presence needs a connection")
 	}
-	if !d.mayActAsHuman(cs) {
+	if !d.mayActAsPersonFor("attach-presence", cs) {
 		return nil, hintedVerbError(ErrVerbForbidden, "attach-presence is refused: the caller runs inside a pane of this daemon, or came over a link stream the hub did not vouch for", &VerbHint{
 			Detail: "No presence was made. Only the person, from outside every pane, can hold one. Over a link, open the stream with human set to true.",
 		})

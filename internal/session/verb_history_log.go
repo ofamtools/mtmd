@@ -47,7 +47,7 @@ func historyLogError(err error) *verbError {
 }
 
 func (d *Daemon) requirePerson(cs *connState, verb string) *verbError {
-	if d.shipCallerIsPerson(cs) {
+	if d.shipCallerIsPerson(cs) || d.panePersonVerb(verb, cs) {
 		return nil
 	}
 	return hintedVerbError(ErrVerbForbidden, verb+" is for the person: an agent, a restricted connection or a call over a link is refused", &VerbHint{

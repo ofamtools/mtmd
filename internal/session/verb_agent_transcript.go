@@ -58,10 +58,10 @@ func (d *Daemon) verbAgentTranscript(cs *connState, params json.RawMessage) (any
 		}
 		limit = *p.Limit
 	}
-	if !d.humanNonceHeld(p.HumanNonce, cs) {
+	if !d.personHeld("agent-transcript", p.HumanNonce, cs) {
 		return nil, hintedVerbError(ErrVerbNotHuman, "agent-transcript is for the person at an attached client", &VerbHint{
 			Param:  "human_nonce",
-			Detail: "Nothing was read. Only a client attached now, or a connection that holds a presence, can read a transcript, by passing its nonce. An agent never can.",
+			Detail: "Nothing was read. Only a client attached now, or a connection that holds a presence, can read a transcript, by passing its nonce. A process inside a pane can when [agents.permissions] person_verbs names agent-transcript.",
 		})
 	}
 	sess, verr := d.resolveVerbSession(cs, p.Session)
@@ -70,7 +70,7 @@ func (d *Daemon) verbAgentTranscript(cs *connState, params json.RawMessage) (any
 	}
 	// Nonce scope (human_sender.go): a presence made for one session reads
 	// only that session's transcripts.
-	if _, ok := d.humanNonceFor(p.HumanNonce, sess.ID, cs); !ok {
+	if _, ok := d.personFor("agent-transcript", p.HumanNonce, sess.ID, cs); !ok {
 		return nil, nonceScopeError("agent-transcript")
 	}
 	st := sess.GetState()

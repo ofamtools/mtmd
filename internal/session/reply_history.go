@@ -184,11 +184,11 @@ func replyHistoryRefusal(verb string) *verbError {
 // an attach nonce, or a presence made with no session. A presence made for
 // one session reads nothing, since the history holds what was sent to the
 // agents of every session.
-func (d *Daemon) replyHistoryHuman(cs *connState, nonce string) bool {
+func (d *Daemon) replyHistoryHuman(verb string, cs *connState, nonce string) bool {
 	if cs != nil && cs.paneOnly {
 		return false
 	}
-	_, ok := d.humanNonceFor(nonce, "", cs)
+	_, ok := d.personFor(verb, nonce, "", cs)
 	return ok
 }
 
@@ -213,7 +213,7 @@ func (d *Daemon) verbAddReplyHistory(cs *connState, params json.RawMessage) (any
 	if verr := decodeParams(params, &p); verr != nil {
 		return nil, verr
 	}
-	if !d.replyHistoryHuman(cs, p.HumanNonce) {
+	if !d.replyHistoryHuman("add-reply-history", cs, p.HumanNonce) {
 		return nil, replyHistoryRefusal("add-reply-history")
 	}
 	if verr := replyHistoryTarget(p.Target); verr != nil {
@@ -236,7 +236,7 @@ func (d *Daemon) verbReplyHistory(cs *connState, params json.RawMessage) (any, *
 	if verr := decodeParams(params, &p); verr != nil {
 		return nil, verr
 	}
-	if !d.replyHistoryHuman(cs, p.HumanNonce) {
+	if !d.replyHistoryHuman("reply-history", cs, p.HumanNonce) {
 		return nil, replyHistoryRefusal("reply-history")
 	}
 	if verr := replyHistoryTarget(p.Target); verr != nil {

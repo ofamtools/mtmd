@@ -344,6 +344,10 @@ func TestAPaneCannotAskAsHuman(t *testing.T) {
 func TestAPaneCannotDismissAttentionWithACopiedNonce(t *testing.T) {
 	skipWithoutPeerPID(t)
 	d, sp := startTestDaemon(t)
+	// With dismiss-attention out of person_verbs, a pane is refused even
+	// with the person's nonce. Whether it is in the list is
+	// TestPersonVerbsFollowTheSetting.
+	d.SetPersonVerbs([]string{})
 	sess, a, b := twoWindowSession(t, d, "dismissh")
 	c := dialVerb(t, sp)
 	setAgentState(t, c, "dismissh", a, "needs_input", "approval", "approve Bash: rm -rf build")

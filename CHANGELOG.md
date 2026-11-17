@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Added: `[agents.permissions] person_verbs`, the person's acts a process in a pane may do. Every verb that refused any caller inside a pane as "only the person" asks this one list (`config.PersonVerbTable`, one row per act with its default) instead of refusing: `agent-transcript`, `dismiss-attention`, `mark-attention` (settle too), `reply-approval`, `answer-ask`, `release-agent-message`, `register-push`, `list-push`, `remove-push`, `attach-presence`, `paste-image`, `reply-history`, `add-reply-history`, `set-option agents.enabled`, the herdr `plugin.approve|enable|disable|restart|link|unlink`, `adopt-history-log` (and `adopt-history`), `purge-history-logs` without `dry_run`, `apply-config`, the Inbox allow of `ship-push`/`ship-pr`, and `tml-input`/`tml-place`. A named act runs for the pane without a nonce. A file change only narrows it; a widening waits for `tuios config apply` or a restart, like `grants`. It never lifts the link policy, a plugin's connection or a restricted connection.
+- Changed: the default lets panes do every one of those acts except the consent steps (`reply-approval`, `answer-ask`, the plugin trust methods, `apply-config`, `ship-push`, `ship-pr`), which stay the person's. `person_verbs = []` restores the old refusals. A `ship-push`/`ship-pr` a pane may do without the Inbox ask reports `approved_by: "person_verbs"`; git still runs with the pane's settings.
+
 ## v0.6.0
 
 - Changed: a verb's `session` parameter takes a session id as well as a name (`Manager.ResolveSession`: live name, then id, then old-name alias). `followRenamedSession` rewrites an id to the current name before the handlers run, per-verb table `renameNotFollowed` says which spellings (old name, id) a verb leaves as sent: `kill-session` follows an id but not an old name, `new-session` follows neither.

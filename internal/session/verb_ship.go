@@ -724,7 +724,9 @@ func (d *Daemon) shipCallerIsPerson(cs *connState) bool {
 
 // shipOutboundGate runs the confirm token and, for a caller that is not the
 // person, the Inbox question. It returns approvedBy ("human" when the person
-// allowed it in the Inbox, "" when the caller is the person), or the refusal.
+// allowed it in the Inbox, "person_verbs" when [agents.permissions]
+// person_verbs lets the caller's pane send without asking, "" when the
+// caller is the person), or the refusal.
 func (d *Daemon) shipOutboundGate(cs *connState, verb, cli string, o shipOutbound, p shipPushParams) (string, *verbError) {
 	ctx, cancel := context.WithTimeout(d.ctx, shipTimeout)
 	defer cancel()
@@ -752,6 +754,12 @@ func (d *Daemon) shipOutboundGate(cs *connState, verb, cli string, o shipOutboun
 	}
 	if d.shipCallerIsPerson(cs) {
 		return "", nil
+	}
+	// A pane that person_verbs lets do verb sends without the Inbox ask.
+	// git still runs with childproc.Git's settings (shipContext): the
+	// setting lifts the question, not who git runs as.
+	if d.panePersonVerb(verb, cs) {
+		return "person_verbs", nil
 	}
 	return d.shipAskPerson(cs, verb, o, p, token)
 }

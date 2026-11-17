@@ -82,7 +82,7 @@ func fromPluginErr(e *herdrplugin.Error) *herdrError { return herdrErr(e.Code, e
 // asks: never from a pane, from a process the daemon started (a plugin's
 // own command included), or over a link.
 func (d *Daemon) herdrPluginTrust(cs *connState, method string) *herdrError {
-	if cs != nil && (cs.viaLink || !d.mayActAsHuman(cs)) {
+	if cs != nil && (cs.viaLink || !d.mayActAsPersonFor(method, cs)) {
 		return herdrErr("forbidden", method+" is for the person: the caller runs inside a pane or a plugin of this tuios. Nothing was changed. Run tuios plugins from a terminal outside tuios")
 	}
 	return nil

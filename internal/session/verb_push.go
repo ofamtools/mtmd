@@ -41,13 +41,13 @@ var pushPushableKinds = AttentionKindNames
 // requirePushPerson is the person check every push verb makes: a live nonce
 // that covers an act in no one session.
 func (d *Daemon) requirePushPerson(cs *connState, verb, nonce string) *verbError {
-	if !d.humanNonceHeld(nonce, cs) {
+	if !d.personHeld(verb, nonce, cs) {
 		return hintedVerbError(ErrVerbNotHuman, verb+" is for the person at an attached client", &VerbHint{
 			Param:  "human_nonce",
-			Detail: "Nothing was changed. Pass the nonce of an attach or of attach-presence, from the same process. A process inside a pane never can.",
+			Detail: "Nothing was changed. Pass the nonce of an attach or of attach-presence, from the same process. A process inside a pane can when [agents.permissions] person_verbs names " + verb + ".",
 		})
 	}
-	if _, ok := d.humanNonceFor(nonce, "", cs); !ok {
+	if _, ok := d.personFor(verb, nonce, "", cs); !ok {
 		return nonceScopeError(verb)
 	}
 	return nil

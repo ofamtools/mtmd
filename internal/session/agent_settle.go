@@ -147,7 +147,7 @@ func (d *Daemon) markAttentionSettle(cs *connState, p markAttentionParams) (any,
 	if verr != nil {
 		return nil, verr
 	}
-	if _, ok := d.humanNonceFor(p.HumanNonce, sess.ID, cs); !ok {
+	if _, ok := d.personFor("mark-attention", p.HumanNonce, sess.ID, cs); !ok {
 		return nil, nonceScopeError("mark-attention")
 	}
 	state := sess.GetState()

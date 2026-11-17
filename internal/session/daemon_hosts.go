@@ -165,6 +165,9 @@ func (d *Daemon) applyUserConfig(cfg *config.UserConfig, byPerson bool) {
 	// host. One taken off stops now. See plugin_host.go.
 	pluginsWait := d.plugins != nil && d.plugins.apply(cfg.Plugins, byPerson)
 	d.pluginsWaiting.Store(pluginsWait)
+	// person_verbs lets a pane act as the person, so a file change only
+	// narrows it, like [agents.permissions] grants.
+	d.personVerbsWaiting.Store(d.applyPersonVerbs(cfg.Agents.Permissions.ResolvedPersonVerbs(), byPerson))
 	if byPerson {
 		d.manager.SetPanePermissions(perms)
 		// A policy change applies to the next call on every link, including
@@ -196,7 +199,7 @@ func (d *Daemon) noteConfigWaiting() {
 // configWaiting reports whether config.toml holds a change that widens what
 // panes or links may do and waits for tuios config apply or a restart.
 func (d *Daemon) configWaiting() bool {
-	return d.manager.grants.restartNeeded.Load() || d.hostsWaiting.Load() || d.notify.waitingApply() || d.pluginsWaiting.Load() || d.approvalsWaiting.Load()
+	return d.manager.grants.restartNeeded.Load() || d.hostsWaiting.Load() || d.notify.waitingApply() || d.pluginsWaiting.Load() || d.approvalsWaiting.Load() || d.personVerbsWaiting.Load()
 }
 
 // reloadHosts applies a changed host table only where it dials less: a host

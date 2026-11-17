@@ -264,6 +264,12 @@ type Daemon struct {
 	// respondFromShell is the [daemon] respond_from_shell grant: a caller
 	// outside every pane may call respond without an attach nonce.
 	respondFromShell bool
+	// personVerbs is [agents.permissions] person_verbs: the person's acts
+	// a pane's process may do. Nil means the default. See person_verbs.go.
+	personVerbs atomic.Pointer[[]string]
+	// personVerbsWaiting marks a person_verbs in the file that widens and
+	// waits for tuios config apply or a restart.
+	personVerbsWaiting atomic.Bool
 
 	// approvals is the [agents.approvals] policy: which harnesses may hold a
 	// permission prompt for an answer from the Inbox, and for how long. It is
@@ -965,6 +971,10 @@ type DaemonConfig struct {
 	// under which such a pane holds admin, what every pane held before
 	// grants existed. See pane_grants.go.
 	Permissions config.ResolvedPermissions
+	// PersonVerbs is [agents.permissions] person_verbs as resolved: the
+	// person's acts a pane's process may do. Nil is the default. See
+	// person_verbs.go.
+	PersonVerbs []string
 	// WindowSize is [daemon] window_size: smallest, largest or latest. An
 	// empty or unknown value is latest, the default. See window_size.go.
 	WindowSize string
@@ -1041,6 +1051,7 @@ func NewDaemon(cfg *DaemonConfig) *Daemon {
 	d.SetRecapTestPatterns(cfg.RecapTestPatterns)
 	d.SetLinkPolicies(cfg.LinkPolicies)
 	d.manager.SetPanePermissions(cfg.Permissions)
+	d.SetPersonVerbs(cfg.PersonVerbs)
 	d.SetQueueMax(cfg.QueueMax)
 	// Stored, not set: the wake latches are made below.
 	d.silent.ns.Store(int64(resolveSilentAfter(cfg.AgentSilentAfter)))

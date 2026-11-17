@@ -107,6 +107,35 @@ agent without `--grants` gives it its own grants. A pane changes only its own
 grants unless it holds `admin`, and `admin` cannot give `respond`, so `respond`
 comes only from the person.
 
+## The person's acts: `person_verbs`
+
+Some verbs act as the person: they read or clear the Inbox, answer for the
+person, or change what the person trusts. Outside every pane they need the
+person's nonce (an attach or `attach-presence`). A process in a pane may do
+one of them, without a nonce, only when `[agents.permissions] person_verbs`
+names it:
+
+```toml
+[agents.permissions]
+person_verbs = ["agent-transcript", "dismiss-attention", "mark-attention"]
+```
+
+Unset, it is the default: every act but the consent steps. The consent steps
+stay the person's: `reply-approval`, `answer-ask`, `plugin.approve`,
+`plugin.enable`, `plugin.disable`, `plugin.restart`, `plugin.link`,
+`plugin.unlink`, `apply-config`, `ship-push` and `ship-pr` (without them in the
+list, a pane's push waits for the person's allow in the Inbox). The other acts
+are `agent-transcript`, `dismiss-attention`, `mark-attention`,
+`release-agent-message`, `register-push`, `list-push`, `remove-push`,
+`attach-presence`, `paste-image`, `reply-history`, `add-reply-history`,
+`set-option agents.enabled`, `adopt-history-log`, `purge-history-logs` (without
+`dry_run`), `tml-input` and `tml-place`. `person_verbs = []` names none.
+
+Like `grants`, a change to the file that gives panes less applies at once, and
+one that gives more waits for `tuios config apply` from outside tuios. It
+never lifts the rules for a call over a link (`[hosts.NAME] allow`), a plugin,
+or a connection that restricted itself.
+
 ## Giving a helper less
 
 ```sh

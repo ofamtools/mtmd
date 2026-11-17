@@ -752,10 +752,10 @@ func (d *Daemon) verbReplyApproval(cs *connState, params json.RawMessage) (any, 
 		}
 		return nil, invalidParam("decision", msg, approvalReplies...)
 	}
-	if !d.humanNonceHeld(p.HumanNonce, cs) {
+	if !d.personHeld("reply-approval", p.HumanNonce, cs) {
 		return nil, hintedVerbError(ErrVerbNotHuman, "reply-approval is for the person at an attached client", &VerbHint{
 			Param:  "human_nonce",
-			Detail: "Nothing was answered. Only a client attached right now can answer an approval, by passing the nonce its attach reply carried. An agent never can.",
+			Detail: "Nothing was answered. Only a client attached right now can answer an approval, by passing the nonce its attach reply carried. A process inside a pane can when [agents.permissions] person_verbs names reply-approval.",
 		})
 	}
 	requestID := p.RequestID
@@ -779,7 +779,7 @@ func (d *Daemon) verbReplyApproval(cs *connState, params json.RawMessage) (any, 
 		requestID = id
 	}
 	holdSession, _ := d.attention.holdSession(requestID)
-	by, ok := d.humanNonceFor(p.HumanNonce, d.sessionIDOf(holdSession), cs)
+	by, ok := d.personFor("reply-approval", p.HumanNonce, d.sessionIDOf(holdSession), cs)
 	if !ok {
 		return nil, nonceScopeError("reply-approval")
 	}

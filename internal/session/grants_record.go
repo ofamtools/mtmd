@@ -126,7 +126,7 @@ func (d *Daemon) verbApplyConfig(cs *connState, params json.RawMessage) (any, *v
 	if verr := decodeParams(params, &p); verr != nil {
 		return nil, verr
 	}
-	if !d.mayActAsHuman(cs) {
+	if !d.mayActAsPersonFor("apply-config", cs) {
 		return nil, hintedVerbError(ErrVerbForbidden, "apply-config is for the person: the caller runs inside a pane of this daemon or over a link", &VerbHint{
 			Detail: "Nothing was applied. Run tuios config apply from a terminal outside tuios, or restart the daemon.",
 		})

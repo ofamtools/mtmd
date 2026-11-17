@@ -146,6 +146,7 @@ func ValidateConfig(cfg *UserConfig) *ValidationResult {
 	validateDisplay(cfg, result)
 	validateLinkPolicies(cfg, result)
 	validatePanePermissions(cfg, result)
+	validatePersonVerbs(cfg, result)
 	validateAgentWork(cfg, result)
 	validatePasteBuffers(cfg, result)
 	validateWorktree(cfg, result)

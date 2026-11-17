@@ -563,10 +563,10 @@ func (d *Daemon) verbMarkAttention(cs *connState, params json.RawMessage) (any, 
 	if p.ID == "" && !settle && (p.Window == "" || (p.Kind == "" && p.Action != "unread")) {
 		return nil, invalidParam("id", "name the item with id, or with session, window and kind")
 	}
-	if !d.humanNonceHeld(p.HumanNonce, cs) {
+	if !d.personHeld("mark-attention", p.HumanNonce, cs) {
 		return nil, hintedVerbError(ErrVerbNotHuman, "mark-attention is for the person at an attached client", &VerbHint{
 			Param:  "human_nonce",
-			Detail: "Only a client attached right now can snooze, wake, mark unread, restore or settle, by passing the nonce its attach reply carried. An agent cannot change what the person reads.",
+			Detail: "Only a client attached right now can snooze, wake, mark unread, restore or settle, by passing the nonce its attach reply carried. A process inside a pane can when [agents.permissions] person_verbs names mark-attention.",
 		})
 	}
 	if p.Action != "snooze" && (p.Until != 0 || p.ForMS != 0 || p.UntilChange) {
@@ -598,7 +598,7 @@ func (d *Daemon) verbMarkAttention(cs *connState, params json.RawMessage) (any, 
 	if p.ID != "" {
 		target = d.attentionItemSession(p.ID)
 	}
-	if _, ok := d.humanNonceFor(p.HumanNonce, target, cs); !ok {
+	if _, ok := d.personFor("mark-attention", p.HumanNonce, target, cs); !ok {
 		return nil, nonceScopeError("mark-attention")
 	}
 	a := d.attention

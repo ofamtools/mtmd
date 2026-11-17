@@ -68,9 +68,10 @@ command is refused. Do not edit config.toml to widen what you hold: it waits
 for the person, and the change tells them what you did.
 
 `agents.enabled` is the person's switch for every agent feature. When it is
-false, every agent verb fails with `agents_disabled`. Only the person can
-change it: `set-config` from a pane gets `forbidden`. `tuios --skill
-agents-off` says what still works.
+false, every agent verb fails with `agents_disabled`. A pane may change it
+while `[agents.permissions] person_verbs` names `set-option agents.enabled`
+(the default); without it, `set-config` from a pane gets `forbidden`. `tuios
+--skill agents-off` says what still works.
 
 `appearance.dock_compact` draws the dock as one row with no rule. The panes get
 one more row. It works with the dock at the top and at the bottom.
