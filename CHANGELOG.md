@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v0.8.0
 
 - Added: the `daemon-upgrade` verb (from upstream tuios be0ce78e6): a live upgrade of the running daemon to another binary. The daemon runs the binary's `daemon handoff-accepts` through the host's `SelfCommand`, stops its plugins, links, link pumps and hooks, writes every pane down and execs the binary in place, so every pane's program keeps its pid and the daemon keeps its pid; a refusal (`upgrade_refused`) changes nothing. Refused over a link and on a restricted connection. `hello` carries `upgrade` (the handoff's measurements) on an image a handoff made.
 - Added: `[--server NAME] daemon upgrade [--binary PATH] [--or-restart] [--json]` in the `serve` facade (from upstream's `tuios daemon upgrade`, a362b00d5): the preflight, the `daemon-upgrade` call and the wait for the new image's hello, with an outcome (`upgraded`, `fallback`, `refused`, `restarted`, `started`, `failed`; `panes_kept`, `not_live`, `reason`). `--or-restart` restarts the daemon with the binary (stop, then `start-server` through the host's prefix, which ends pane programs) only when the live upgrade cannot start, and says why; without it nothing is changed. A host routes it as its own words (mtm: `mtm __mtmd --server NAME daemon upgrade`).
