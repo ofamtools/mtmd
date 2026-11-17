@@ -307,18 +307,43 @@ func TestProtocolPane(t *testing.T) {
 	}
 }
 
+// upgradeJSON runs the facade's daemon upgrade with --json and returns its
+// outcome and exit error.
+func (h *host) upgradeJSON(args ...string) (serve.UpgradeOutcome, error) {
+	h.t.Helper()
+	out, err := h.cmd(append([]string{"daemon", "upgrade", "--json"}, args...)...).Output()
+	var o serve.UpgradeOutcome
+	if jerr := json.Unmarshal(out, &o); jerr != nil {
+		h.t.Fatalf("daemon upgrade printed no outcome: %v: %s", jerr, out)
+	}
+	return o, err
+}
+
+// stopAtEnd stops a daemon the test did not start with h.start.
+func (h *host) stopAtEnd(pid int) {
+	h.t.Cleanup(func() {
+		_ = syscall.Kill(pid, syscall.SIGTERM)
+		for i := 0; i < 100 && syscall.Kill(pid, 0) == nil; i++ {
+			time.Sleep(50 * time.Millisecond)
+		}
+	})
+}
+
+// The facade's daemon upgrade hands every pane to a new image in place: the
+// daemon keeps its pid, the shell in a pane is the same process, and the new
+// image runs through the host's prefix.
 func TestLiveUpgrade(t *testing.T) {
 	h := newHost(t)
 	pid := h.start()
 	win := h.newShell("up", "w1")
 	time.Sleep(500 * time.Millisecond)
-	h.must("send-text", map[string]any{"session": "up", "window": win, "text": "echo before-$((6*7))\n"})
-	h.waitPane("up", win, "before-42", 10*time.Second)
+	h.must("send-text", map[string]any{"session": "up", "window": win, "text": "echo before-$$\n"})
+	screen := h.waitPane("up", win, "before-", 10*time.Second)
+	shellPID := between(screen, "before-")
 	// A protocol pane rides through the upgrade too.
 	pwin, _ := h.startProtocolPane("upap")
 	h.waitPane("upap", pwin, "acp: ", 15*time.Second)
 
-	before := h.must("hello", map[string]any{})
 	// The new image is a second copy of the host binary.
 	second := filepath.Join(h.base, "bin", "host2")
 	data, err := os.ReadFile(h.exe)
@@ -328,34 +353,69 @@ func TestLiveUpgrade(t *testing.T) {
 	if err := os.WriteFile(second, data, 0o755); err != nil {
 		t.Fatal(err)
 	}
-	if _, err := h.call("test-handoff", map[string]any{"binary": second}); err != nil {
-		t.Fatalf("test-handoff: %v", err)
+	o, err := h.upgradeJSON("--binary", second)
+	if err != nil || o.Action != serve.UpgradeActionUpgraded || !o.PanesKept {
+		t.Fatalf("daemon upgrade: %v %+v", err, o)
 	}
-	var after map[string]any
-	for end := time.Now().Add(30 * time.Second); time.Now().Before(end); time.Sleep(100 * time.Millisecond) {
-		res, err := h.call("hello", map[string]any{})
-		if err == nil && res["instance"] != before["instance"] {
-			after = res
-			break
-		}
-	}
-	if after == nil {
-		t.Fatal("the daemon never answered from a new image")
-	}
-	if int(after["pid"].(float64)) != pid {
-		t.Fatalf("pid changed across the exec: %v -> %v", pid, after["pid"])
+	if o.PID != pid || o.Panes < 2 || o.Handoff == nil {
+		t.Fatalf("outcome %+v, want pid %d, both panes and the handoff's stats", o, pid)
 	}
 	argv := argvOf(t, pid)
 	if !strings.HasPrefix(argv, second+" mtmd --server "+h.server+" daemon --adopt-fd=") {
 		t.Fatalf("the new image did not run through the prefix: argv %q", argv)
 	}
-	// The shell survived and still takes input; so does the protocol pane.
-	h.waitPane("up", win, "before-42", 5*time.Second)
-	h.must("send-text", map[string]any{"session": "up", "window": win, "text": "echo after-$((6*7+1))\n"})
-	h.waitPane("up", win, "after-43", 10*time.Second)
+	// The same shell process still takes input; so does the protocol pane.
+	h.must("send-text", map[string]any{"session": "up", "window": win, "text": "echo after-$$\n"})
+	if got := between(h.waitPane("up", win, "after-", 10*time.Second), "after-"); got != shellPID {
+		t.Fatalf("the pane's shell is pid %s after the upgrade, was %s", got, shellPID)
+	}
 	h.waitPane("upap", pwin, "acp: ", 5*time.Second)
 	h.must("send-text", map[string]any{"session": "upap", "window": pwin, "text": "ping\n"})
 	h.waitPane("upap", pwin, "pong-1", 15*time.Second)
+}
+
+// between is the digits after the last mark on the screen.
+func between(screen, mark string) string {
+	i := strings.LastIndex(screen, mark)
+	if i < 0 {
+		return ""
+	}
+	rest := screen[i+len(mark):]
+	n := 0
+	for n < len(rest) && rest[n] >= '0' && rest[n] <= '9' {
+		n++
+	}
+	return rest[:n]
+}
+
+// Without --or-restart a live upgrade that cannot start changes nothing and
+// says why; with it, a missing daemon is started.
+func TestUpgradeRefusedOrRestart(t *testing.T) {
+	h := newHost(t)
+	if o, err := h.upgradeJSON(); err == nil || o.Action != serve.UpgradeActionRefused || !o.NotLive || !strings.Contains(o.Reason, "no daemon") {
+		t.Fatalf("upgrade with no daemon: %v %+v", err, o)
+	}
+	o, err := h.upgradeJSON("--or-restart")
+	if err != nil || o.Action != serve.UpgradeActionStarted || o.PID <= 0 {
+		t.Fatalf("upgrade --or-restart with no daemon: %v %+v", err, o)
+	}
+	h.stopAtEnd(o.PID)
+	// A binary that is not a daemon fails the preflight: refused, same pid.
+	notDaemon := filepath.Join(h.base, "bin", "echo")
+	data, err := os.ReadFile("/bin/echo")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(notDaemon, data, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	r, err := h.upgradeJSON("--binary", notDaemon)
+	if err == nil || r.Action != serve.UpgradeActionRefused || !r.PanesKept || !strings.Contains(r.Reason, "cannot take the daemon over") {
+		t.Fatalf("upgrade to a non-daemon: %v %+v", err, r)
+	}
+	if got := int(h.must("hello", map[string]any{})["pid"].(float64)); got != o.PID {
+		t.Fatalf("a refused upgrade replaced the daemon: pid %d, was %d", got, o.PID)
+	}
 }
 
 // A resize changes the pane's PTY, and get-window and list-windows must report

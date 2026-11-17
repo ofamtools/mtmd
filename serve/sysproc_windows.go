@@ -3,6 +3,7 @@
 package serve
 
 import (
+	"os"
 	"syscall"
 
 	"golang.org/x/sys/windows"
@@ -20,3 +21,12 @@ func daemonSysProcAttr() *syscall.SysProcAttr {
 
 // pidAlive is false on Windows: the migration's live check dials the socket.
 func pidAlive(int) bool { return false }
+
+// stopPID ends the process. Windows has no SIGTERM.
+func stopPID(pid int) error {
+	p, err := os.FindProcess(pid)
+	if err != nil {
+		return err
+	}
+	return p.Kill()
+}

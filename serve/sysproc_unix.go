@@ -16,3 +16,6 @@ func pidAlive(pid int) bool {
 	err := syscall.Kill(pid, 0)
 	return err == nil || err == syscall.EPERM
 }
+
+// stopPID asks the process to stop (SIGTERM): the daemon saves its sessions.
+func stopPID(pid int) error { return syscall.Kill(pid, syscall.SIGTERM) }

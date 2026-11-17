@@ -80,7 +80,7 @@ var UpstreamNames = hostnames.Upstream
 const DefaultVersion = "v0.12.1-mtmd"
 
 const (
-	usage        = "usage: [--server NAME] daemon [--log-level L] [--no-restore] | daemon handoff-accepts | start-server | [--server NAME] migrate-paths [--dry-run] [--rollback] | agent-proto --protocol acp|codex [--harness H] [--cwd D] -- AGENT... | [--server NAME] stdio-proxy [--as PEER] | __plugin-reaper PROGRAM..."
+	usage        = "usage: [--server NAME] daemon [--log-level L] [--no-restore] | daemon handoff-accepts | [--server NAME] daemon upgrade [--binary PATH] [--or-restart] [--json] | start-server | [--server NAME] migrate-paths [--dry-run] [--rollback] | agent-proto --protocol acp|codex [--harness H] [--cwd D] -- AGENT... | [--server NAME] stdio-proxy [--as PEER] | __plugin-reaper PROGRAM..."
 	adoptFDFlag  = "adopt-fd"
 	startTimeout = 5 * time.Second
 )
@@ -135,6 +135,9 @@ func Main(args []string, opt Options) int {
 	case "daemon":
 		if len(p.rest) > 0 && p.rest[0] == "handoff-accepts" {
 			return r.handoffAccepts()
+		}
+		if len(p.rest) > 0 && p.rest[0] == "upgrade" {
+			return r.upgrade(p.rest[1:], os.Stdout)
 		}
 		if p.adoptFD == 0 {
 			if code := r.migrateOnStart(); code != 0 {
