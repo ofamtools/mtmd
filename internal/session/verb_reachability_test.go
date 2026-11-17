@@ -49,6 +49,10 @@ type exampleOutcome struct {
 // panes, so a verb that needs one of those answers with an error, and that
 // error is the honest expectation rather than a skip.
 var exampleOutcomes = map[string]exampleOutcome{
+	// The fixture daemon is embedded (no HandoffArgs), so the upgrade is
+	// refused before anything stops; the handoff is proved in
+	// serve/serve_test.go (TestLiveUpgrade, TestUpgradeRefusedOrRestart).
+	"daemon-upgrade#0": {errCode: ErrVerbUpgradeRefused, why: "the fixture daemon runs embedded and cannot replace its image"},
 	// The fixture's session is made fresh for each example and holds no
 	// task card. The verbs are proved in task_test.go.
 	// The fixture has no cold logs; the verbs are proved in scrollback_m6_test.go
